@@ -1,9 +1,10 @@
-const express = require ('express');
-const bodyParser = require ('body-parser');
-const morgan = require('morgan');
-const indexRouter = require('./routes/index');
-const db = require('./config/db');
-require('dotenv').config();
+const express = require("express");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const indexRouter = require("./routes/index");
+const db = require("./config/db");
+require("dotenv").config();
+const { Book, Genre, Author } = require("./models");
 
 const app = express();
 
@@ -11,24 +12,24 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 //Static files
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 //BodyParser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Morgan logger
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 //Router
-app.use('/', indexRouter)
+app.use("/", indexRouter);
 
 db.sync()
-.then(function(){
-    app.listen(PORT, function(){
-        console.log('Chiqualize listening on ' + PORT);
-    })
-})
-.catch(err => console.error(err))
+  .then(function() {
+    app.listen(PORT, function() {
+      console.log("Chiqualize listening on " + PORT);
+    });
+  })
+  .catch(err => console.error(err));
 
 module.exports = app;
