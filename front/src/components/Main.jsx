@@ -5,12 +5,14 @@ import SingleBookContainer from '../containers/SingleBookContainer';
 import NavBarContainer from '../containers/NavbarContainer';
 
 import NavBarContainer from '../containers/NavbarContainer';
+import LoginContainer from '../containers/LoginContainer';
 
 
 export default() => {
     return (
         <div id='main'>
             <Route path='/' component={NavBarContainer} />
+            <Route exact path='/login' component={LoginContainer} />
             <Route path='' component={SingleBookContainer}/>
         </div>
     )
