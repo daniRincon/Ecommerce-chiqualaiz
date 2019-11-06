@@ -11,7 +11,7 @@ export default() => {
     return (
         <div id='main'>
             <Route path='/' component={NavBarContainer} />
-            <Route path='/login' component={LoginContainer} />
+            <Route exact path='/login' component={LoginContainer} />
         </div>
     )
 }
