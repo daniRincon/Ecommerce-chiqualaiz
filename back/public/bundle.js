@@ -38564,6 +38564,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../store/index */ "./src/store/index.js");
 /* harmony import */ var _containers_NavbarContainer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../containers/NavbarContainer */ "./src/containers/NavbarContainer.jsx");
+/* harmony import */ var _containers_LoginContainer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../containers/LoginContainer */ "./src/containers/LoginContainer.jsx");
+
 
 
 
@@ -38574,6 +38576,9 @@ __webpack_require__.r(__webpack_exports__);
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/",
     component: _containers_NavbarContainer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/login",
+    component: _containers_LoginContainer__WEBPACK_IMPORTED_MODULE_4__["default"]
   }));
 });
 
@@ -38592,6 +38597,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _SearchBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchBar */ "./src/components/SearchBar.jsx");
 /* harmony import */ var _Greeting__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Greeting */ "./src/components/Greeting.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 
 
@@ -38602,9 +38609,11 @@ __webpack_require__.r(__webpack_exports__);
     className: "btn btn-danger"
   }, "Logout"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Greeting__WEBPACK_IMPORTED_MODULE_2__["default"], {
     name: props.LoggedName
-  })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Link"], {
+    to: "/login"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn btn-info"
-  }, "Login"));
+  }, "Login")));
 });
 
 /***/ }),
@@ -38635,6 +38644,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/containers/LoginContainer.jsx":
+/*!*******************************************!*\
+  !*** ./src/containers/LoginContainer.jsx ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/src/containers/LoginContainer.jsx: Only one default export allowed per module. (27:2)\n\n\u001b[0m \u001b[90m 25 | \u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 26 | \u001b[39m  \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m connect(mapStateToProps\u001b[33m,\u001b[39m mapDispatchToProps)(\u001b[33mLogin\u001b[39m)\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 | \u001b[39m  \u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m \u001b[33mLoginContainer\u001b[39m\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n    at Object.raise (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:6931:17)\n    at Object.checkDuplicateExports (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:11913:12)\n    at Object.checkExport (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:11848:14)\n    at Object.parseExport (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:11694:12)\n    at Object.parseStatementContent (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:10716:27)\n    at Object.parseStatement (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:10612:17)\n    at Object.parseBlockOrModuleBlockBody (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:11188:25)\n    at Object.parseBlockBody (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:11175:10)\n    at Object.parseTopLevel (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:10543:10)\n    at Object.parse (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:12052:10)\n    at parse (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/parser/lib/index.js:12103:38)\n    at parser (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/core/lib/transformation/normalize-file.js:168:34)\n    at normalizeFile (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/core/lib/transformation/normalize-file.js:102:11)\n    at runSync (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at /home/marcelo/Documents/Ecommerce/Ecommerce-chiqualaiz/front/node_modules/@babel/core/lib/transform.js:34:34\n    at processTicksAndRejections (internal/process/task_queues.js:75:11)");
+
+/***/ }),
+
 /***/ "./src/containers/NavbarContainer.jsx":
 /*!********************************************!*\
   !*** ./src/containers/NavbarContainer.jsx ***!
@@ -38650,8 +38670,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  return {
-    LoggedName: 'pepito'
+  console.log(state);
+  return {//loggedName: state.loggedName
   };
 };
 

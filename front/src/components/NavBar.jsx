@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from './SearchBar';
-import Greeting from './Greeting'
+import Greeting from './Greeting';
+import { Link } from 'react-router-dom';
 
 export default (props) =>{
     return (
@@ -11,7 +12,11 @@ export default (props) =>{
                 <button className='btn btn-danger'>Logout</button>
                 <Greeting name={props.LoggedName} />
              </div>
-            :<button className='btn btn-info'>Login</button> 
+             :
+             <Link to='/login'>
+                <button className='btn btn-info'>Login</button> 
+             </Link>
+             
             }
         </nav>
     )
