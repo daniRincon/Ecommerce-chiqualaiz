@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "db-init": "pg-init chiqualaiz",
+    "db-init": "createdb chiqualaiz",
     "postinstall": "npm run db-init"
   },
   "author": "",
