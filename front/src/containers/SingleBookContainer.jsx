@@ -21,9 +21,6 @@ export default class extends React.Component {
   render() {
     return (
       <div>
-          <nav>
-              <h1>usuario no registrado</h1>
-          </nav>
         <SingleBook
           nombre={this.state.book.titulo}
           autor={this.state.book.autor}
