@@ -35,7 +35,6 @@ app.use(passport.session());
 
 //Router
 app.use('/', indexRouter);
-app.use('/login', userRouter);
 
 db.sync()
 .then(function(){
