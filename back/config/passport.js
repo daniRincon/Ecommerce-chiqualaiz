@@ -2,17 +2,8 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 //var { User } = require('../../back/models'); chequear ruta models
 
-passport.serializeUser(function(user, done) {
- done(null, user);
-});
-passport.deserializeUser(function(obj, done) {
- done(null, obj);
-});
 passport.use(
  new LocalStrategy(
-   {
-     usernameField: 'username'
-   },
    function(username, password, done) {
      User.findOne({
        where: {
@@ -33,4 +24,12 @@ passport.use(
    }
  )
 );
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+ });
+ passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+ });
+
 module.exports = passport;

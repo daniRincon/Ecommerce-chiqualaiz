@@ -2,14 +2,19 @@ import React from 'react';
 
 export default (props) =>{
     return (
-        <div className="row mt-5">
-            <div className="col-md-6 m-auto">
+
+
+      <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div className="modal-dialog" role="document">
+        <div className="modal-content">
+          <div className="modal-body">
               <div className="card card-body">
                 <h1 className="text-center mb-3"><i className="fas fa-sign-in-alt"></i>  Login</h1>
-                <form action="/login" method="POST">
+                <form onSubmit={props.handleSubmit} action="/login" method="POST">
                   <div className="form-group">
-                    <label for="email">Usuario</label>
+                    <label>Usuario</label>
                     <input
+                      onChange={(event) => props.handleUserInput(event.target.value)}
                       type="text"
                       id="userName"
                       name="userName"
@@ -18,13 +23,14 @@ export default (props) =>{
                     />
                   </div>
                   <div className="form-group">
-                    <label for="password">Password</label>
+                    <label>Contraña</label>
                     <input
+                      onChange={(event) => props.handlePasswordInput(event.target.value)}
                       type="password"
                       id="password"
                       name="password"
                       className="form-control"
-                      placeholder="Enter Password"
+                      placeholder="Ingresar Contraña"
                     />
                   </div>
                   <button type="submit" className="btn btn-primary btn-block">Login</button>
@@ -33,7 +39,14 @@ export default (props) =>{
                   No Account? <a href="/users/register">Register</a>
                 </p>
               </div>
-            </div>
+          </div>
         </div>
-    )
+      </div>
+    </div>
+
+
+
+
+
+            )
 }

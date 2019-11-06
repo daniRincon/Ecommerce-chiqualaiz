@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import SingleBookContainer from '../containers/SingleBookContainer';
 import NavBarContainer from '../containers/NavbarContainer';
 
-import NavBarContainer from '../containers/NavbarContainer';
 import LoginContainer from '../containers/LoginContainer';
 
 
@@ -13,7 +12,7 @@ export default() => {
         <div id='main'>
             <Route path='/' component={NavBarContainer} />
             <Route exact path='/login' component={LoginContainer} />
-            <Route path='' component={SingleBookContainer}/>
+            <Route path='/book' component={SingleBookContainer}/>
         </div>
     )
 }
