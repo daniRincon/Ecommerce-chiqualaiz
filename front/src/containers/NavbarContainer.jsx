@@ -2,8 +2,9 @@ import {connect} from "react-redux"
 import NavBarComponent from '../components/NavBar';
 
 const mapStateToProps = (state) => {
+  console.log(state)
   return {
-      LoggedName: 'pepito'
+      //loggedName: state.loggedName
   };
 }
 
