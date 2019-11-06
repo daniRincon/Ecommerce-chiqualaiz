@@ -1,4 +1,24 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: inline-block;
+}
+
+.img-container {
+  /* background-color: red; */
+  display: inline-block;
+  margin-left: 5%;
+  text-align: center;
+}
+
+.description {
+  /* background-color: blue; */
+  text-align: center;
+  width: 30%;
+  float: right;
+  margin-top: 10%;
+  margin-right: 20%;
 }
