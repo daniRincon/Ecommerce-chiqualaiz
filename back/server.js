@@ -15,14 +15,14 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 //Static files
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 //BodyParser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Morgan logger
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 //Passport
 app.use(session({ 
@@ -34,14 +34,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Router
-app.use('/', indexRouter);
+app.use("/", indexRouter);
 
 db.sync()
-.then(function(){
-    app.listen(PORT, function(){
-        console.log('Chiqualize listening on ' + PORT);
-    })
-})
-.catch(err => console.error(err))
+  .then(function() {
+    app.listen(PORT, function() {
+      console.log("Chiqualize listening on " + PORT);
+    });
+  })
+  .catch(err => console.error(err));
 
 module.exports = app;
