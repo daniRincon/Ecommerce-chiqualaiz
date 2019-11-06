@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import store from '../store/index';
+import SingleBookContainer from '../containers/SingleBookContainer';
 
 
 export default() => {
     return (
         <div id='main'>
-            Hola
+            <SingleBookContainer/>
         </div>
     )
 }
