@@ -11,7 +11,7 @@ const fetchBook = function(req, res) {
       id: req.params.id
     }
   })
-  .then(book => false)
+  .then(book => res.send(book))
 }
 
 module.exports = { fetchBooks, fetchBook}

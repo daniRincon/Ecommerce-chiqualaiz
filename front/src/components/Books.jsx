@@ -15,7 +15,7 @@ export default ({ books, fetchBooks, fetchBook }) => {
           <div
             key={book.id}
             id="books"
-            onClick={() => fetchBook(id)}
+            onClick={() => fetchBook(book.id)}
             className="col-xs-4 card text-center "
           >
             <Link className="thumbnail" to={`/books/${book.id}`}>
