@@ -1,12 +1,19 @@
 import React from "react";
-import * as actions from "../actions/action-creators";
+import * as actions from "../store";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import Register from "../components/Register"
+import Register from "../components/Register";
 class RegisterContainer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name:"", lastname:"", username: "", email: "", password: "", address:""};
+    this.state = {
+      name: "",
+      lastname: "",
+      username: "",
+      email: "",
+      password: "",
+      address: ""
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,8 +21,7 @@ class RegisterContainer extends React.Component {
 
   handleChange(e) {
     let target = e.target;
-       this.setState({ [target.name]: target.value })
-
+    this.setState({ [target.name]: target.value });
   }
 
   handleSubmit(e) {
@@ -26,13 +32,16 @@ class RegisterContainer extends React.Component {
 
   render() {
     return (
-    <Register handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
+      <Register
+        handleChange={this.handleChange}
+        handleSubmit={this.handleSubmit}
+      />
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {}
+  return {};
 }
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch);
