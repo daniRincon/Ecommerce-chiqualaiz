@@ -12,11 +12,10 @@ export default (props) =>{
 
             </div>
             <SearchBar />
-            {props.LoggedName
+            {props.loggedName
             ?<div>
             <Link>
-                <button className='btn btn-danger'>Logout</button>
-                <Greeting name={props.LoggedName} />
+                <Greeting name={props.loggedName} />
             </Link>
                 
              </div>

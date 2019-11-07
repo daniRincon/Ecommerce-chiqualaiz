@@ -18,7 +18,11 @@ export default props => {
               <h1 className="text-center mb-3">
                 <i className="fas fa-sign-in-alt"></i> Login
               </h1>
-              <form onSubmit={props.handleSubmit} action="/login" method="POST">
+              <form onSubmit={ (e) => {
+                $('#exampleModal').modal('hide')
+                props.handleSubmit(e)
+              }
+              } action="/login" method="POST">
                 <div className="form-group">
                   <label>Usuario</label>
                   <input
