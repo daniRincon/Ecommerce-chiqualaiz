@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../css-modules/register.module.css";
 
 export default class Register extends React.Component {
   render() {
@@ -14,11 +14,23 @@ export default class Register extends React.Component {
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="text-center" id="registerText">
+                <i className="fas fa-sign-in-alt"></i> Register
+              </h1>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+
             <div className="modal-body">
               <div className="card card-body">
-                <h1 className="text-center mb-3">
-                  <i className="fas fa-sign-in-alt"></i> Register
-                </h1>
+
                 <form
                   onSubmit={(event) => {
                     this.props.handleSubmit(event)
@@ -26,6 +38,7 @@ export default class Register extends React.Component {
                     $('#exampleModal').modal('show')
                   }}
                 >
+
                   <div className="form-group">
                     <label>Name</label>
                     <input
@@ -92,13 +105,10 @@ export default class Register extends React.Component {
                       onChange={this.props.handleChange}
                     />
                   </div>
-                   <button  type="submit"  className="btn btn-primary btn-block">
+                  <button type="submit" className="btn submit btn-block">
                     Sign up
                   </button>
-
                 </form>
-                <button type="button" id="closeRegister" className="btn btn-secondary" data-dismiss="modal">Close</button>
-
               </div>
             </div>
           </div>
