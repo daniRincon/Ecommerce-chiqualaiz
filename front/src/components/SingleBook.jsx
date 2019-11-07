@@ -5,7 +5,7 @@ export default (props) => (
     
 <div className='App'>
     <div className='imgContainer'>
-    <h1>{props.nombre}</h1>
+    {/* <h1>{props.nombre}</h1>
     <h3>{props.autor}</h3>
     <img src={props.imgUrl} />
     </div>
@@ -14,7 +14,8 @@ export default (props) => (
         {props.descripcion}
     </p>
     <p>{props.precio}</p>
-    <p>{props.rating}</p>
+    <p>{props.rating}</p> */}
+    {console.log(props)}
     </div>
    
 </div>

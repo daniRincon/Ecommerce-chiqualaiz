@@ -15,7 +15,7 @@ export default() => {
             <Route exact path='/' component={BooksContainer}/>
             <Route exact path='/login' component={LoginContainer} />
             <Route exact path='/register' component={RegisterContainer}/>
-            <Route path='/book' component={SingleBookContainer}/>
+            <Route path='/books' component={SingleBookContainer}/>
         </div>
     )
 }
