@@ -1,5 +1,5 @@
 import React from 'react'
-// import '../css-modules/singlePage.module.css'
+import '../css-modules/singlePage.module.css'
 
 export default (props) => (
     

@@ -5,11 +5,10 @@ const bookRouter = require("./books");
 const User = require("../models/User");
 const passport = require("../config/passport");
 
-router.use("/login", userRouter);
+router.use("/users", userRouter);
 router.use("/books", bookRouter);
 
 router.post("/register", function(req, res) {
-  console.log('ACAAAAA')
   User.create(req.body)
   .then(user => {
     res.send(user);
@@ -19,6 +18,7 @@ router.post("/register", function(req, res) {
 
 function isLogedIn(req, res, next) {
   if (req.isAuthenticated()) {
+    console.log('AUTHENTICATION SUCCESFUL!')
     res.send(req.user.email);
   } else {
     res.send(false);
