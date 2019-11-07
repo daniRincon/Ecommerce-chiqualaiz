@@ -28,7 +28,7 @@ app.use(morgan("dev"));
 //Passport
 app.use(
   session({
-    secret: "omdb",
+    secret: "chiqualaiz",
     resave: false,
     saveUninitialized: true
   })

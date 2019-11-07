@@ -25,6 +25,7 @@ export default props => {
           </button>
         </Link>
       )}
+      <Link to="/register">register</Link>
     </nav>
   );
 };
