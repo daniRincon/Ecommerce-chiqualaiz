@@ -23,6 +23,7 @@ export default (props) =>{
              </Link>
              
             }
+            <Link to="/register">register</Link>
         </nav>
     )
 }

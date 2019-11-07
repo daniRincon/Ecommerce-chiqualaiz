@@ -9,7 +9,7 @@ class LoginContainer extends Component{
     constructor(props){
         super(props);
         this.state={
-            userName: '',
+            username: '',
             password: '',
         }
         this.handleUserInput = this.handleUserInput.bind(this);
@@ -18,23 +18,21 @@ class LoginContainer extends Component{
     }
 
     handleSubmit(event){
-      console.log('handeSubmit')
       event.preventDefault();
-      if(this.state.userName && this.state.password){
-          axios.post('/api/login', this.state)
-          .then(res=> this.props.fetchUser(res.data))
+      if(this.state.username && this.state.password){
+          axios.post('/login', this.state)
+          .then(res=> { 
+             return this.props.fetchUser(res.data)})
           return this.props.history.push('/')
       };
       
     }
     
-    handleUserInput(userName){
-      console.log('handleUser')
-      this.setState({userName})
+    handleUserInput(username){
+      this.setState({username})
     }
     
     handlePasswordInput(password){
-      console.log('handlePassword')
       this.setState({password})
     }
     
