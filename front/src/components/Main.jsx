@@ -12,7 +12,7 @@ export default() => {
         <div id='main'>
             <Route path='/' component={NavBarContainer} />
             <Route exact path='/login' component={LoginContainer} />
-            <Route path='/book' component={SingleBookContainer}/>
+            <Route path='/' component={SingleBookContainer}/>
         </div>
     )
 }
