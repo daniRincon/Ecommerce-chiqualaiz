@@ -12,9 +12,8 @@ export default() => {
     return (
         <div id='main'>
             <Route path='/' component={NavBarContainer} />
-            <Route exact path='/' component={BooksContainer}/>
-            <Route exact path='/login' component={LoginContainer} />
-            <Route exact path='/register' component={RegisterContainer}/>
+            <Route path='/' component={LoginContainer} />
+            <Route path='/' component={RegisterContainer}/>
             <Route path='/book' component={SingleBookContainer}/>
         </div>
     )

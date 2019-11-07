@@ -27,7 +27,7 @@ class RegisterContainer extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signUpUser(this.state);
-    // this.props.history.push("/users/login");
+    document.querySelector("#closeRegister").click()
   }
 
   render() {
