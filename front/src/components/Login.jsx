@@ -31,7 +31,7 @@ export default props => {
                     className="form-control"
                     placeholder="Ingresar Usuario"
                   />
-                </div>
+                </div> 
                 <div className="form-group">
                   <label>Contraseña</label>
                   <input
@@ -53,11 +53,14 @@ export default props => {
                 No Account?{" "}
                 <Link to="/register" > 
                 <button
+                data-toggle="modal" data-target="#register"
                   style={{ border: "none", backgroudColor: "white" }}
              
                 >Register
                  
                 </button></Link>
+                <button type="button" id="closeLogin"className="btn btn-secondary" data-dismiss="modal">Close</button>
+
               </p>
             </div>
           </div>
