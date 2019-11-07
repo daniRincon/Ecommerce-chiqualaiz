@@ -20,8 +20,6 @@ export default class Register extends React.Component {
                   <i className="fas fa-sign-in-alt"></i> Register
                 </h1>
                 <form
-                  action="/register"
-                  method="POST"
                   onSubmit={this.props.handleSubmit}
                 >
                   <div className="form-group">

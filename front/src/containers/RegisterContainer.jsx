@@ -1,5 +1,5 @@
 import React from "react";
-import * as actions from "../actions/action-creators";
+import * as actions from "../store/actions/users";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Register from "../components/Register";

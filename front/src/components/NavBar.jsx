@@ -2,10 +2,15 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import Greeting from './Greeting';
 import { Link } from 'react-router-dom';
+import '../css-modules/navBar.module.css'
+
 
 export default (props) =>{
     return (
-        <nav className='navbar navbar-expand-sm bg-light'>
+        <nav className='navbar navbar-expand-sm'>
+            <div className='col-lg-1'>
+
+            </div>
             <SearchBar />
             {props.LoggedName
             ?<div>
