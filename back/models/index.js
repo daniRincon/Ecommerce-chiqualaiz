@@ -1,9 +1,8 @@
-const Book = require("./Book");
-const Genre = require("./Genre");
 const Author = require("./Author");
+const Genre = require("./Genre");
+const Book = require("./Book");
 
-Book.belongsToMany(Genre, { through: "BookGenre" });
 Book.belongsTo(Author);
-Genre.belongsToMany(Book, { through: "BookGenre" });
+Book.belongsToMany(Genre, { through: "BookGenre" });
 
-module.exports = { Book, Genre, Author };
+module.exports = { Author, Genre, Book };

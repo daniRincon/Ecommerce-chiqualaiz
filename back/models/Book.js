@@ -1,6 +1,4 @@
 const S = require("sequelize");
-const Genre = require("./Genre");
-const Author = require("./Author");
 const db = require("../config/db");
 
 class Book extends S.Model {}
