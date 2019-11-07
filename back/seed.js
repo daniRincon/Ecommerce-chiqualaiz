@@ -57,6 +57,67 @@ Promise.all([
   })
   .catch(console.log);
 
+function addBooks({
+  titulo,
+  precio,
+  estrellas,
+  descripcion,
+  visible,
+  stock,
+  autor,
+  genre1,
+  genre2 = null,
+  genre3 = null
+}) {
+  Promise.all(
+    [
+      Book.create({
+        titulo,
+        precio,
+        estrellas,
+        descripcion,
+        visible,
+        stock
+      }),
+      Author.findOrCreate({ where: { nombre: autor } }),
+      Genre.findOrCreate({ where: { nombre: genre1 } })
+    ]
+      .concat([genre2 ? Genre.findOrCreate({ where: { nombre: genre2 } }) : []])
+      .concat([genre3 ? Genre.findOrCreate({ where: { nombre: genre3 } }) : []])
+  )
+    .then(([newBook, author, genre1, genre2, genre3]) => {
+      newBook.addGenre(genre1[0]);
+      genre2 ? newBook.addGenre(genre2[0]) : null;
+      genre3 ? newBook.addGenre(genre3[0]) : null;
+      newBook.setAuthor(author[0]);
+    })
+    .catch(console.log);
+}
+const libro1 = {
+  titulo: "Titanic",
+  precio: 125,
+  estrellas: 8,
+  descripcion: "bls bls bls",
+  visible: true,
+  stock: 21,
+  autor: "Lisandro Latorre",
+  genre1: "terror"
+};
+const libro2 = {
+  titulo: "Libro sin Nombre",
+  precio: 123,
+  estrellas: 5,
+  descripcion: "yada yada yada",
+  visible: true,
+  stock: 12,
+  autor: "Pepe",
+  genre1: "drama",
+  genre2: "comedia",
+  genre3: "aventuras"
+};
+addBooks(libro1);
+addBooks(libro2);
+
 /* Promise.all([
   Book.create({
     titulo: "La Voz Ausente",

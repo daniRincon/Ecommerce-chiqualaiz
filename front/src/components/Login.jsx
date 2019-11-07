@@ -51,13 +51,11 @@ export default props => {
               </form>
               <p className="lead mt-4">
                 No Account?{" "}
-                <Link to="/register" > 
-                <button
-                  style={{ border: "none", backgroudColor: "white" }}
-             
-                >Register
-                 
-                </button></Link>
+                <Link to="/register">
+                  <button style={{ border: "none", backgroudColor: "white" }}>
+                    Register
+                  </button>
+                </Link>
               </p>
             </div>
           </div>

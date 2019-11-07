@@ -1,9 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const userRouter = require("./users");
+const bookRouter = require("./books");
 const User = require("../models/User");
 const passport = require("../config/passport");
+
 router.use("/login", userRouter);
+router.use("/books", bookRouter);
 
 router.post("/register", function(req, res) {
   User.create(req.body).then(user => {

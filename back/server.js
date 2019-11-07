@@ -6,6 +6,7 @@ const userRouter = require("./routes/index");
 const session = require("express-session");
 const passport = require("../back/config/passport");
 const db = require("./config/db");
+const { Book, Author, Genre } = require("./models");
 
 require("dotenv").config();
 
