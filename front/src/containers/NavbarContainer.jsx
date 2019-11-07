@@ -3,7 +3,7 @@ import NavBarComponent from '../components/NavBar';
 
 const mapStateToProps = (state) => {
   return {
-      //loggedName: state.loggedName
+      loggedName: (state && state.user.name) || null
   };
 }
 
