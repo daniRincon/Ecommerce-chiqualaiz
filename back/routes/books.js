@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const { fetchBooks } = require("../resolvers");
+const fetchBooks = require("../resolvers/books");
 
-router.get("/books", fetchBooks());
+router.get("/", fetchBooks);
 
 module.exports = router;

@@ -1,7 +1,7 @@
 import {connect} from "react-redux"
 import Login from '../components/Login';
 import React, { Component } from 'react';
-import { fetchUser } from '../actions/action-creators';
+import { fetchUser } from '../store/actions/users';
 import axios from 'axios';
 
 

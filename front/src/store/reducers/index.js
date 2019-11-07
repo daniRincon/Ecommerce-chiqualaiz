@@ -1,22 +1,8 @@
-import { LOG_USER, GET_USER } from '../constants/index';
+import { combineReducers } from "redux";
+import userReducer from "./user-reducer";
+import booksReducer from "./books-reducer";
 
-const initialState ={
-    loggedName: ''
-}
-
-export default function(state = initialState, action){
-    switch(action.type){
-        case GET_USER:
-            return {
-                ...state,
-                loggedName: action.user
-            }
-        case LOG_USER:
-            return {
-                ...state,
-                loggedName: action.logUser
-            }
-        default:
-            return state
-    }
-}
+export default combineReducers({
+  user: userReducer,
+  books: booksReducer
+});
