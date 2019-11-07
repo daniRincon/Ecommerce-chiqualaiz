@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../css-modules/Books.module.css";
 
 export default ({ books, fetchBooks }) => {
   useEffect(() => {
@@ -13,7 +14,7 @@ export default ({ books, fetchBooks }) => {
         {books.map(book => (
           <div key={book.id} className="col-xs-4">
             <Link className="thumbnail" to={`/books/${book.id}`}>
-              <img src={book.url} />
+              <img src={book.url} className="img-thumbnail" />
               <div className="caption">
                 <h5>
                   <span>{book.titulo}</span>
