@@ -8,7 +8,6 @@ import NavBarContainer from "../containers/NavbarContainer";
 import LoginContainer from "../containers/LoginContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 
-<<<<<<< HEAD
 export default () => {
   return (
     <div id="main">
@@ -20,15 +19,3 @@ export default () => {
     </div>
   );
 };
-=======
-export default() => {
-    return (
-        <div id='main'>
-            <Route path='/' component={NavBarContainer} />
-            <Route path='/' component={LoginContainer} />
-            <Route path='/' component={RegisterContainer}/>
-            <Route path='/book' component={SingleBookContainer}/>
-        </div>
-    )
-}
->>>>>>> 0420dff1fa312328af60116097d18fe8a2e1cd01
