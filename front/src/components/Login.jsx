@@ -51,15 +51,15 @@ export default props => {
               </form>
               <p className="lead mt-4">
                 No Account?{" "}
-                <Link to="/register" > 
+              
                 <button
                 data-toggle="modal" data-target="#register"
                   style={{ border: "none", backgroudColor: "white" }}
              
                 >Register
                  
-                </button></Link>
-                <button type="button" id="closeLogin"className="btn btn-secondary" data-dismiss="modal">Close</button>
+                </button>
+                <button type="button" id="closeLogin" className="btn btn-secondary" data-dismiss="modal">Close</button>
 
               </p>
             </div>

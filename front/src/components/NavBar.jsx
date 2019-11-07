@@ -16,11 +16,11 @@ export default (props) =>{
                 
              </div>
              :
-             <Link to='/login'>
+            
                 <button 
                     data-toggle="modal" data-target="#exampleModal"
                     className='btn btn-info'>Login</button> 
-             </Link>
+          
              
             }
         </nav>

@@ -93,9 +93,10 @@ export default class Register extends React.Component {
                    <button  type="submit"  className="btn btn-primary btn-block">
                     Sign up
                   </button>
-                  <button type="button" id="closeRegister" className="btn btn-secondary" data-dismiss="modal">Close</button>
 
                 </form>
+                <button type="button" id="closeRegister" className="btn btn-secondary" data-dismiss="modal">Close</button>
+
               </div>
             </div>
           </div>
