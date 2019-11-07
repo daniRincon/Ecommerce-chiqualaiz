@@ -14,22 +14,19 @@ export default (props) =>{
             <SearchBar />
             {props.LoggedName
             ?<div>
-                <Link>
-                    <button className='btn btn-danger'>Logout</button>
-                    <Greeting name={props.LoggedName} />
-                </Link>   
-            </div>
-             :<div className='col-lg-4 login' >
-                    <Link to='/login'>
-                        <button 
-                            data-toggle="modal" data-target="#exampleModal"
-                            className='btn'>Login
-                        </button> 
-                    </Link>
-                    <Link to="/register">
-                        register
-                    </Link>
-            </div>
+            <Link>
+                <button className='btn btn-danger'>Logout</button>
+                <Greeting name={props.LoggedName} />
+            </Link>
+                
+             </div>
+             :
+            
+                <button 
+                    data-toggle="modal" data-target="#exampleModal"
+                    className='btn btn-info'>Login</button> 
+          
+             
             }
         </nav>
     )

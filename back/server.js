@@ -6,7 +6,8 @@ const userRouter = require("./routes/index");
 const session = require("express-session");
 const passport = require("../back/config/passport");
 const db = require("./config/db");
-const { Book, Author, Genre } = require("./models");
+
+const { Author, Genre, Book } = require("./models"); //NO BORRAR: Necesario para generar las relaciones y tablas al correr por primera vez
 
 require("dotenv").config();
 

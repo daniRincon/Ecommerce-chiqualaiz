@@ -7,4 +7,3 @@ const mapStateToProps = ({ book }) => ({
 });
 
 export default connect(mapStateToProps)(SingleBook);
-
