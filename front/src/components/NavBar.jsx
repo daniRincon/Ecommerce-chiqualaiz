@@ -1,7 +1,7 @@
-import React from 'react';
-import SearchBar from './SearchBar';
-import Greeting from './Greeting';
-import { Link } from 'react-router-dom';
+import React from "react";
+import SearchBar from "./SearchBar";
+import Greeting from "./Greeting";
+import { Link } from "react-router-dom";
 
 export default (props) =>{
     return (
