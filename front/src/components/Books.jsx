@@ -12,12 +12,12 @@ export default ({ books, fetchBooks }) => {
       <h3>BOOKS</h3>
       <div className="row">
         {books.map(book => (
-          <div key={book.id} className="col-xs-4">
+          <div key={book.id} id="books" className="col-xs-4 card text-center ">
             <Link className="thumbnail" to={`/books/${book.id}`}>
-              <img src={book.url} className="img-thumbnail" />
-              <div className="caption">
+              <img src={book.url} className="img-thumbnail card-img-top" />
+              <div className="caption card-body">
                 <h5>
-                  <span>{book.titulo}</span>
+                  <span className="card-text">{book.titulo}</span>
                 </h5>
               </div>
               <div>
