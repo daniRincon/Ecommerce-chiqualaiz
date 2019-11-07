@@ -30,7 +30,15 @@ export default class Register extends React.Component {
 
             <div className="modal-body">
               <div className="card card-body">
-                <form onSubmit={this.props.handleSubmit}>
+
+                <form
+                  onSubmit={(event) => {
+                    this.props.handleSubmit(event)
+                    $('#register').modal('hide')
+                    $('#exampleModal').modal('show')
+                  }}
+                >
+
                   <div className="form-group">
                     <label>Name</label>
                     <input

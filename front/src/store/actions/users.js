@@ -10,6 +10,12 @@ const logUser = logUser => ({
     logUser
    });
 
+export const signUpUser = (user) => dispatch =>{
+    axios.post('register', user)
+    .then(user => true)
+    .catch(err => err)
+}
+
 export const fetchUser = () => dispatch =>
     axios.get('/api/')
         .then(user => dispatch(getUser(user.data)))
