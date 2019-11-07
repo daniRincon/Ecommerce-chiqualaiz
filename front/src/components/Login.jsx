@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default props => {
   return (
@@ -25,14 +26,14 @@ export default props => {
                       props.handleUserInput(event.target.value)
                     }
                     type="text"
-                    id="userName"
-                    name="userName"
+                    id="username"
+                    name="username"
                     className="form-control"
                     placeholder="Ingresar Usuario"
                   />
                 </div>
                 <div className="form-group">
-                  <label>Contraña</label>
+                  <label>Contraseña</label>
                   <input
                     onChange={event =>
                       props.handlePasswordInput(event.target.value)
@@ -49,7 +50,14 @@ export default props => {
                 </button>
               </form>
               <p className="lead mt-4">
-                No Account? <a href="/users/register">Register</a>
+                No Account?{" "}
+                <Link to="/register" > 
+                <button
+                  style={{ border: "none", backgroudColor: "white" }}
+             
+                >Register
+                 
+                </button></Link>
               </p>
             </div>
           </div>

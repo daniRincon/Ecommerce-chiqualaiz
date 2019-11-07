@@ -1,13 +1,13 @@
-const express = require ('express');
-const bodyParser = require ('body-parser');
-const morgan = require('morgan');
-const indexRouter = require('./routes/index');
-const userRouter = require('./routes/index')
-const session = require('express-session');
-const passport = require('../back/config/passport')
-const db = require('./config/db');
+const express = require("express");
+const bodyParser = require("body-parser");
+const morgan = require("morgan");
+const indexRouter = require("./routes/index");
+const userRouter = require("./routes/index");
+const session = require("express-session");
+const passport = require("../back/config/passport");
+const db = require("./config/db");
 
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 
@@ -25,11 +25,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 
 //Passport
-app.use(session({ 
-    secret: "omdb",
+app.use(
+  session({
+    secret: "chiqualaiz",
     resave: false,
     saveUninitialized: true
-  }));
+  })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
