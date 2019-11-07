@@ -9,9 +9,12 @@ router.use("/login", userRouter);
 router.use("/books", bookRouter);
 
 router.post("/register", function(req, res) {
-  User.create(req.body).then(user => {
+  console.log('ACAAAAA')
+  User.create(req.body)
+  .then(user => {
     res.send(user);
-  });
+  })
+  .catch(err => console.error(err));
 });
 
 function isLogedIn(req, res, next) {
