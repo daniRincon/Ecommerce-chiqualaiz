@@ -6,7 +6,7 @@ import '../css-modules/navBar.module.css'
 
 export default (props) =>{
     return (
-        <nav className='navbar navbar-expand-sm bg-light'>
+        <nav className='navbar navbar-expand-sm'>
             <div className='col-lg-1'>
 
             </div>
@@ -22,7 +22,7 @@ export default (props) =>{
                     <Link to='/login'>
                         <button 
                             data-toggle="modal" data-target="#exampleModal"
-                            className='btn btn-info'>Login
+                            className='btn'>Login
                         </button> 
                     </Link>
                     <Link to="/register">
