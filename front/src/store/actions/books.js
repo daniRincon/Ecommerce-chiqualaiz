@@ -19,6 +19,6 @@ export const fetchBooks = () => dispatch =>
 
 export const fetchBook = id => dispatch =>
   axios
-    .get("/books/:bookId")
+    .get("/books/:id")
     .then(res => res.data)
     .then(book => dispatch(receiveBook(book)));

@@ -8,21 +8,18 @@ export default class Books extends React.Component {
     super(props);
     this.state = {
       currentPage: 1,
-      todosPerPage: 6
+      todosPerPage: 8
     };
     this.handleClick = this.handleClick.bind(this);
   }
-
   handleClick(event) {
     this.setState({
       currentPage: Number(event.target.id)
     });
   }
-
   componentDidMount() {
     this.props.fetchBooks();
   }
-
   render() {
     const { currentPage, todosPerPage } = this.state;
     let renderTodos;
@@ -33,7 +30,6 @@ export default class Books extends React.Component {
       indexOfFirstTodo,
       indexOfLastTodo
     );
-
     const pageNumbers = [];
     for (
       let i = 1;
@@ -44,42 +40,44 @@ export default class Books extends React.Component {
     }
     const renderPageNumbers = pageNumbers.map(number => {
       return (
-        <button key={number} id={number} onClick={this.handleClick}>
-          {number}
-        </button>
+        <li className="page-item" key={number}>
+          <a className="page-link" id={number} onClick={this.handleClick}>
+            {number}
+          </a>
+        </li>
       );
     });
 
     return (
-      <div className="row">
-        {
-          (renderTodos = currentTodos.map((book, index) => {
-            return (
-              <div
-                key={book.id}
-                id="books"
-                onClick={() => fetchBook(id)}
-                className="col-xs-4 card text-center "
-              >
-                <Link className="thumbnail" to={`/books/${book.id}`}>
-                  <img src={book.url} className="img-thumbnail card-img-top" />
-                  <div className="caption card-body">
-                    <h5>
-                      <span className="card-text">{book.titulo}</span>
-                    </h5>
-                  </div>
-                  <div>
-                    <h5>
-                      <span>Star Rating</span>
-                    </h5>
-                  </div>
-                </Link>
-              </div>
-            );
-          }))
-        }
-        <div>
-          <ul id="page-numbers">{renderPageNumbers}</ul>
+      <div className="container">
+        <div className="row">
+          {
+            (renderTodos = currentTodos.map((book, index) => {
+              return (
+                <div
+                  key={book.id}
+                  id="books"
+                  onClick={() => this.props.fetchBook(book.id)}
+                  className="col-md-3 mb-2 ajusteCard"
+                >
+                  <Link className=" text-dark enlace" to={`/books/${book.id}`}>
+                    <div className="card text-center img ">
+                      <img src={book.url} className="classImg" />
+
+                      <span className="descriptions">{book.titulo}</span>
+
+                      <div className="descriptions">Star Rating</div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            }))
+          }
+          <nav aria-label="Books navigation" className="container">
+            <ul id="page-numbers" className="pagination justify-content-center">
+              {renderPageNumbers}
+            </ul>
+          </nav>
         </div>
       </div>
     );
