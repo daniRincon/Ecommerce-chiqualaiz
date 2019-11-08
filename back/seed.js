@@ -69,9 +69,12 @@ const libros = [
     titulo: "Libro sin Nombre",
     precio: 12.56,
     estrellas: 5,
-    descripcion: "No disponible",
+    descripcion: `Lorem ipsum dolor sit amet consectetur adipiscing elit neque, vitae non fames ornare phasellus bibendum a primis, pharetra quam sapien hendrerit curae senectus venenatis. Diam lobortis nibh condimentum iaculis integer vel pretium semper sapien, curae primis platea suscipit accumsan ligula molestie quisque, interdum torquent eleifend feugiat ultrices mollis turpis parturient. Proin lectus primis arcu pharetra natoque bibendum quam est blandit ligula semper, class praesent suspendisse mus facilisi curae risus ultricies posuere.
+
+    Nibh malesuada phasellus eros elementum suscipit feugiat ullamcorper, per neque molestie fusce lectus mauris tellus quam, tortor magnis sapien mus leo morbi. Donec proin hendrerit morbi penatibus cum tellus auctor pellentesque, sem nisi cubilia odio nibh duis sollicitudin iaculis ultrices, egestas habitant sagittis dignissim lacinia mattis consequat. Faucibus cras ornare tempor nunc aliquam accumsan felis viverra inceptos, congue curabitur etiam eu ultrices id fermentum fusce, aliquet hendrerit sagittis pharetra lacinia ligula neque laoreet.`,
     visible: true,
     stock: 12,
+    autor: "Anonimo",
     genre1: "Science"
   }),
   (libro3 = {
@@ -223,6 +226,131 @@ const libros = [
     genre1: "Classics",
     genre2: "Childrens",
     genre3: "Fiction"
+  }),
+  (libro11 = {
+    titulo: "What Happens in Paradise",
+    precio: 18.89,
+    url: "https://images-na.ssl-images-amazon.com/images/I/51zrzZa%2B0LL.jpg",
+    estrellas: 7,
+    descripcion: `A New York Times and Wall Street Journal Bestseller -- Secret lives and new loves emerge in the bright Caribbean sunlight, in the follow-up to Winter in Paradise
+    A year ago, Irene Steele had the shock of her life: her loving husband, father to their grown sons and successful businessman, was killed in a helicopter crash. But that wasn't Irene's only shattering news: he'd also been leading a double life on the island of St. John, where another woman loved him, too.
+    
+    Now Irene and her sons are back on St. John, determined to learn the truth about the mysterious life -and death - of a man they thought they knew. Along the way, they're about to learn some surprising truths about their own lives, and their futures.
+    
+    Lush with the tropical details, romance, and drama that made Winter in Paradise a national bestseller, What Happens in Paradise is another immensely satisfying page-turner from one of American's most beloved and engaging storytellers.`,
+    visible: true,
+    stock: 24,
+    autor: "Elin Hilderbrand",
+    genre1: "Romance",
+    genre2: "Fiction"
+  }),
+  (libro12 = {
+    titulo: "The Institute: A Novel",
+    precio: 16.19,
+    url: "https://images-na.ssl-images-amazon.com/images/I/51TNIcVTzPL.jpg",
+    estrellas: 9,
+    descripcion: `From #1 New York Times bestselling author Stephen King, the most riveting and unforgettable story of kids confronting evil since It—publishing just as the second part of It, the movie, lands in theaters.
+
+    In the middle of the night, in a house on a quiet street in suburban Minneapolis, intruders silently murder Luke Ellis’s parents and load him into a black SUV. The operation takes less than two minutes. Luke will wake up at The Institute, in a room that looks just like his own, except there’s no window. And outside his door are other doors, behind which are other kids with special talents—telekinesis and telepathy—who got to this place the same way Luke did: Kalisha, Nick, George, Iris, and ten-year-old Avery Dixon. They are all in Front Half. Others, Luke learns, graduated to Back Half, “like the roach motel,” Kalisha says. “You check in, but you don’t check out.”
+    
+    In this most sinister of institutions, the director, Mrs. Sigsby, and her staff are ruthlessly dedicated to extracting from these children the force of their extranormal gifts. There are no scruples here. If you go along, you get tokens for the vending machines. If you don’t, punishment is brutal. As each new victim disappears to Back Half, Luke becomes more and more desperate to get out and get help. But no one has ever escaped from the Institute.
+    
+    As psychically terrifying as Firestarter, and with the spectacular kid power of It, The Institute is Stephen King’s gut-wrenchingly dramatic story of good vs. evil in a world where the good guys don’t always win.`,
+    visible: true,
+    stock: 48,
+    autor: "Stephen King",
+    genre1: "Horror",
+    genre2: "Fiction",
+    genre3: "Thriller"
+  }),
+  (libro13 = {
+    titulo: "Quantum: A Thriller (Captain Chase Book 1)",
+    precio: 21.99,
+    url:
+      "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1557910923l/40211891._SY475_.jpg",
+    estrellas: 2,
+    descripcion: `A USA Today, Wall Street Journal, Washington Post, and Amazon Charts bestseller.
+
+    International bestselling author Patricia Cornwell delivers pulse-pounding thrills in the first book in a series featuring a brilliant and unusual new heroine, cutting-edge cybertechnology, and stakes that are astronomically high.
+    
+    On the eve of a top secret space mission, Captain Calli Chase detects a tripped alarm in the tunnels deep below a NASA research center. A NASA pilot, quantum physicist, and cybercrime investigator, Calli knows that a looming blizzard and government shutdown could provide the perfect cover for sabotage, with deadly consequences.
+    
+    As it turns out, the danger is worse than she thought. A spatter of dried blood, a missing security badge, a suspicious suicide—a series of disturbing clues point to Calli’s twin sister, Carme, who’s been MIA for days.
+    
+    Desperate to halt the countdown to disaster and to clear her sister’s name, Captain Chase digs deep into her vast cyber security knowledge and her painful past, probing for answers to her twin’s erratic conduct. As time is running out, she realizes that failure means catastrophe—not just for the space program but for the safety of the whole nation.
+    
+    Brilliantly crafted, gripping, and smart, Patricia Cornwell’s cliffhanger ending will keep readers wondering what’s next for Captain Calli Chase.`,
+    visible: true,
+    stock: 26,
+    autor: "Patricia Cornwell",
+    genre1: "Mystery",
+    genre2: "Fiction",
+    genre3: "Thriller"
+  }),
+  (libro14 = {
+    titulo: "Spell or High Water (Magic 2.0 Book 2)",
+    precio: 10.99,
+    url: "https://images-na.ssl-images-amazon.com/images/I/51uVvTqdwHL.jpg",
+    estrellas: 9,
+    descripcion: `The adventures of an American hacker in Medieval England continue as Martin Banks takes his next step on the journey toward mastering his reality-altering powers and fulfilling his destiny.
+
+    A month has passed since Martin helped to defeat the evil programmer Jimmy, and things couldn’t be going better. Except for his love life, that is. Feeling distant and lost, Gwen has journeyed to Atlantis, a tolerant and benevolent kingdom governed by the Sorceresses, and a place known to be a safe haven to all female time-travelers.
+    Thankfully, Martin and Philip are invited to a summit in Atlantis for all of the leaders of the time-traveler colonies, and now Martin thinks this will be a chance to try again with Gwen. Of course, this is Martin Banks we’re talking about, so murder, mystery, and high intrigue all get in the way of a guy who just wants one more shot to get the girl.
+    The follow-up to the hilarious Off to Be the Wizard, Scott Meyer’s Spell or High Water proves that no matter what powers you have over time and space, you can’t control rotten luck.`,
+    visible: true,
+    stock: 38,
+    autor: "Scott Meyer",
+    genre1: "Fantasy",
+    genre2: "Fiction",
+    genre3: "Science Fiction"
+  }),
+  (libro15 = {
+    titulo: "Silver Road (The Shifting Tides Book 2)",
+    precio: 7.99,
+    url: "https://images-na.ssl-images-amazon.com/images/I/519Cch6VKrL.jpg",
+    estrellas: 9,
+    descripcion: `Chloe’s quest to escape the Oracle’s prophecy leads her to a magus with a secret: the eldren are not the only race to use magic in warfare. An ancient power is rediscovered, and a forgotten people will return.
+
+    Meanwhile, cursed by his birth, Dion tries to forge a new life at sea, away from both the eldren and his former life in Xanthos, but the one thing he can’t leave behind is his heritage.
+    
+    Two kings on opposite sides of the ocean prepare for war.
+    
+    The clash of civilizations has only just begun…`,
+    visible: true,
+    stock: 18,
+    autor: "James Maxwell",
+    genre1: "Fantasy",
+    genre2: "Fiction"
+  }),
+  (libro16 = {
+    titulo: "The Days of the French Revolution",
+    precio: 29.99,
+    url:
+      "https://images-na.ssl-images-amazon.com/images/I/51t2LGqifbL._SX335_BO1,204,203,200_.jpg",
+    estrellas: 8,
+    descripcion: `Works from Les Misirables by Victor Hugo to Citizens by Simon Schama have been inspired by the French Revolution. Now available for the first time in years, The Days of the French Revolution brings to life the events that changed the future of Western civilization. As compelling as any fiction thriller, this real-life drama moves from the storming of the Bastille to the doomed court of Louis XVI, the salon of Madame Roland, and even the boudoir of Marie Antoinette. Hibbert recounts the events that swirled around Napoleon, Mirabeau, Danton, Marat, and Robespierre with eyewitness accounts and his "usual grace and flair for divulging interesting detail" (Booklist). This trade paperback edition has twenty-eight pages of black-and-white illustrations, and will be published in time for Bastille Day.`,
+    visible: true,
+    stock: 8,
+    autor: "Christopher Hibbert",
+    genre1: "History",
+    genre2: "Nonfiction"
+  }),
+  (libro17 = {
+    titulo: "Her Final Breath (Tracy Crosswhite Book 2)",
+    precio: 36.98,
+    url: "https://images-na.ssl-images-amazon.com/images/I/51mcyr3a8fL.jpg",
+    estrellas: 9,
+    descripcion: `Tracy Crosswhite returns in the second book in the page-turning series by New York Times bestselling author Robert Dugoni.
+
+    Homicide detective Tracy Crosswhite has returned to the police force after the sensational retrial of her sister’s killer. Still scarred from that ordeal, Tracy is pulled into an investigation that threatens to end her career, if not her life.
+    
+    A serial killer known as the Cowboy is killing young women in cheap motels in North Seattle. Even after a stalker leaves a menacing message for Crosswhite, suggesting the killer or a copycat could be targeting her personally, she is charged with bringing the murderer to justice. With clues scarce and more victims dying, Tracy realizes the key to solving the murders may lie in a decade-old homicide investigation that others, including her captain, Johnny Nolasco, would prefer to keep buried. With the Cowboy on the hunt, can Tracy find the evidence to stop him, or will she become his next victim?`,
+    visible: true,
+    stock: 2,
+    autor: "Robert Dugoni",
+    genre1: "Mystery",
+    genre2: "Fiction",
+    genre3: "Thriller"
   })
 ];
 
@@ -236,3 +364,10 @@ addBooks(libro7);
 addBooks(libro8);
 addBooks(libro9);
 addBooks(libro10);
+addBooks(libro11);
+addBooks(libro12);
+addBooks(libro13);
+addBooks(libro14);
+addBooks(libro15);
+addBooks(libro16);
+addBooks(libro17);

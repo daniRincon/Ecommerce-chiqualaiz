@@ -2,6 +2,8 @@ import React from "react";
 import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
 import "../css-modules/Books.module.css";
+import Rating from "@material-ui/lab/Rating";
+import Box from "@material-ui/core/Box";
 
 export default class Books extends React.Component {
   constructor(props) {
@@ -52,7 +54,7 @@ export default class Books extends React.Component {
       <div className="container">
         <div className="row">
           {
-            (renderTodos = currentTodos.map((book) => {
+            (renderTodos = currentTodos.map(book => {
               return (
                 <div
                   key={book.id}
@@ -66,7 +68,19 @@ export default class Books extends React.Component {
 
                       <span className="descriptions">{book.titulo}</span>
 
-                      <div className="descriptions">Star Rating</div>
+                      <Box
+                        component="fieldset"
+                        mb={3}
+                        borderColor="transparent"
+                      >
+                        <Rating
+                          name="half-rating"
+                          value={book.estrellas / 2}
+                          max={5}
+                          precision={0.5}
+                          readOnly
+                        />
+                      </Box>
                     </div>
                   </Link>
                 </div>
@@ -83,5 +97,3 @@ export default class Books extends React.Component {
     );
   }
 }
-
-
