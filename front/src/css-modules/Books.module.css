@@ -1,0 +1,11 @@
+.card {
+  width: 200px; /* You can set the dimensions to whatever you want */
+  object-fit: cover;
+}
+.text {
+  font-size: 5px;
+  color: black;
+}
+#books {
+  display: flex;
+}

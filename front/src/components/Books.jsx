@@ -1,8 +1,9 @@
 import React from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../css-modules/Books.module.css";
 
-export default ({ books, fetchBooks }) => {
+export default ({ books, fetchBooks, fetchBook }) => {
   useEffect(() => {
     fetchBooks();
   }, []);
@@ -11,12 +12,17 @@ export default ({ books, fetchBooks }) => {
       <h3>BOOKS</h3>
       <div className="row">
         {books.map(book => (
-          <div key={book.id} className="col-xs-4">
+          <div
+            key={book.id}
+            id="books"
+            onClick={() => fetchBook(id)}
+            className="col-xs-4 card text-center "
+          >
             <Link className="thumbnail" to={`/books/${book.id}`}>
-              <img src={book.url} />
-              <div className="caption">
+              <img src={book.url} className="img-thumbnail card-img-top" />
+              <div className="caption card-body">
                 <h5>
-                  <span>{book.titulo}</span>
+                  <span className="card-text">{book.titulo}</span>
                 </h5>
               </div>
               <div>
