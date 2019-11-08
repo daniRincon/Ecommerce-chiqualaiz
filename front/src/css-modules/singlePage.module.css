@@ -29,7 +29,7 @@
   height: 600px;
   width: 300px;
 } */
-
-
-
-
+#stars {
+  max-width: 20%;
+  height: auto;
+}

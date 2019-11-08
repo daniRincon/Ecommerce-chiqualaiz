@@ -1,4 +1,6 @@
 import React, { useEffect } from "react";
+import stars from "../assets/stars.png";
+import "../css-modules/singlePage.module.css";
 
 export default ({ books, fetchBook, truncarDescripcion }) => {
   useEffect(() => {
@@ -30,6 +32,7 @@ export default ({ books, fetchBook, truncarDescripcion }) => {
         </p>
         <p>
           <strong>Rating:</strong>
+          <img src={stars} id="stars" />
           {books.estrellas}
         </p>
         <p className="mb-0">
