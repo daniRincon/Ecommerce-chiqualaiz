@@ -3,6 +3,7 @@ import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
 import "../css-modules/Books.module.css";
 import Rating from "@material-ui/lab/Rating";
+import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 export default class Books extends React.Component {
@@ -13,11 +14,28 @@ export default class Books extends React.Component {
       todosPerPage: 8
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleNext = this.handleNext.bind(this);
+    this.handlePrevious = this.handlePrevious.bind(this);
   }
   handleClick(event) {
     this.setState({
       currentPage: Number(event.target.id)
     });
+  }
+  handleNext(event) {
+    this.state.currentPage <
+    Math.ceil(this.props.books.length / this.state.todosPerPage)
+      ? this.setState({
+          currentPage: this.state.currentPage + 1
+        })
+      : null;
+  }
+  handlePrevious(event) {
+    this.state.currentPage > 1
+      ? this.setState({
+          currentPage: this.state.currentPage - 1
+        })
+      : null;
   }
   componentDidMount() {
     this.props.fetchBooks();
@@ -42,7 +60,12 @@ export default class Books extends React.Component {
     }
     const renderPageNumbers = pageNumbers.map(number => {
       return (
-        <li className="page-item" key={number}>
+        <li
+          className={`page-item ${
+            number === this.state.currentPage ? "active" : ""
+          }`}
+          key={number}
+        >
           <a className="page-link" id={number} onClick={this.handleClick}>
             {number}
           </a>
@@ -67,7 +90,7 @@ export default class Books extends React.Component {
                       <img src={book.url} className="classImg" />
 
                       <span className="descriptions">{book.titulo}</span>
-
+                      <span>$ {book.precio}</span>
                       <Box
                         component="fieldset"
                         mb={3}
@@ -80,6 +103,10 @@ export default class Books extends React.Component {
                           precision={0.5}
                           readOnly
                         />
+                        <Typography component="legend">
+                          <strong>Precio:</strong>
+                          <span>${book.precio}</span>
+                        </Typography>
                       </Box>
                     </div>
                   </Link>
@@ -89,7 +116,17 @@ export default class Books extends React.Component {
           }
           <nav aria-label="Books navigation" className="container">
             <ul id="page-numbers" className="pagination justify-content-center">
+              <li className="page-item">
+                <a className="page-link" onClick={this.handlePrevious}>
+                  Previous
+                </a>
+              </li>
               {renderPageNumbers}
+              <li className="page-item">
+                <a className="page-link" onClick={this.handleNext}>
+                  Next
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

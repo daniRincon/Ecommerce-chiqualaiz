@@ -33,8 +33,6 @@ export default class Register extends React.Component {
                 <form
                   onSubmit={(event) => {
                     this.props.handleSubmit(event)
-                    $('#register').modal('hide')
-                    $('#exampleModal').modal('show')
                   }}
                 >
 
@@ -104,6 +102,7 @@ export default class Register extends React.Component {
                       onChange={this.props.handleChange}
                     />
                   </div>
+                  <h5 className="text-danger">{this.props.warning}</h5>
                   <button type="submit" className="btn submit btn-block">
                     Sign up
                   </button>
