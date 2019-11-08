@@ -14,10 +14,7 @@ export default (props) =>{
             <SearchBar />
             {props.loggedName
             ?<div>
-            <Link>
-                <Greeting name={props.loggedName} />
-            </Link>
-                
+                <Greeting name={props.loggedName} />   
              </div>
              :
             <button 

@@ -22,7 +22,9 @@ export const fetchUser = () => dispatch =>
         .then(user => dispatch(getUser(user.data)))
 
 export const loginUser = (username, password) => dispatch =>{
-    axios.post("/users/login", {username, password})
+    return axios.post("/users/login", {username, password})
         .then(res => dispatch(logUser(res.data)))
-        .catch(err => console.error(err))
+        .catch(err => {
+            throw err
+        })
 };

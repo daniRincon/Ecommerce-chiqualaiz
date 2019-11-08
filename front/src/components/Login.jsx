@@ -17,7 +17,6 @@ export default props => {
                 <i className="fas fa-sign-in-alt"></i> Login
               </h1>
               <form onSubmit={ (e) => {
-                $('#exampleModal').modal('hide')
                 props.handleSubmit(e)
               }
               } action="/login" method="POST">
@@ -47,6 +46,7 @@ export default props => {
                     placeholder="Ingresar Contraña"
                   />
                 </div>
+                <h5 className="text-danger">{props.warning}</h5>
                 <button type="submit" className="btn btn-primary btn-block">
                   Login
                 </button>
