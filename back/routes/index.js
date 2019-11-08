@@ -13,7 +13,7 @@ router.post("/register", function(req, res) {
   .then(user => {
     res.send(user);
   })
-  .catch(err => console.error(err));
+  .catch(err => res.sendStatus(400));
 });
 
 function isLogedIn(req, res, next) {
