@@ -12,10 +12,21 @@ export default props => {
     >
       <div className="modal-dialog" role="document">
         <div className="modal-content">
+        <div className="modal-header">
+            <h1 className="text-center" id="registerText">
+              <i className="fas fa-sign-in-alt"></i> Login
+            </h1>
+            <button
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+            <span aria-hidden="true">×</span>
+            </button>
+          </div>
+
           <div className="modal-body">
-              <h1 className="text-center mb-3">
-                <i className="fas fa-sign-in-alt"></i> Login
-              </h1>
               <form onSubmit={ (e) => {
                 $('#exampleModal').modal('hide')
                 props.handleSubmit(e)
@@ -51,18 +62,17 @@ export default props => {
                   Login
                 </button>
               </form>
-              <p className="lead mt-4">
+              <p className="lead mt-4 text-center">
                 No Account?{" "}
               
                 <button
+                className="btn btn-primary btn-block text-center"
                 data-toggle="modal" data-target="#register"
                   style={{ border: "none", backgroudColor: "white" }}
              
                 >Register
                  
                 </button>
-                <button type="button" id="closeLogin" className="btn btn-secondary" data-dismiss="modal">Close</button>
-
               </p>
             </div>
         </div>
