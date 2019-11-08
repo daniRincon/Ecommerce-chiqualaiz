@@ -10,6 +10,7 @@ class LoginContainer extends Component{
         this.state={
             username: '',
             password: '',
+            warning: ''
         }
         this.handleUserInput = this.handleUserInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,7 +19,11 @@ class LoginContainer extends Component{
 
     handleSubmit(event){
       event.preventDefault();
-      this.props.loginUser(this.state.username, this.state.password);    
+      this.props.loginUser(this.state.username, this.state.password)
+      .then(() => $('#exampleModal').modal('hide'))
+      .catch(() => {
+        this.setState({warning : 'Wrong username or password'})
+      })    
     }
     
     handleUserInput(username){
@@ -36,6 +41,7 @@ class LoginContainer extends Component{
                   handleSubmit={this.handleSubmit} 
                   handleUserInput={this.handleUserInput} 
                   handlePasswordInput={this.handlePasswordInput} 
+                  warning={this.state.warning}
               />
           </div>
       )
@@ -43,10 +49,11 @@ class LoginContainer extends Component{
     
 }
 
-
 const mapDispatchToProps = dispatch =>({
   fetchUser: user => dispatch(fetchUser(user)),
-  loginUser: (username, password) => dispatch(loginUser(username, password))
+  loginUser: (username, password) => {
+      return dispatch(loginUser(username, password))
+  }
 })
 
 export default connect(null, mapDispatchToProps)(LoginContainer)

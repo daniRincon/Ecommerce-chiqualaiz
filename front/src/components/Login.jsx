@@ -47,7 +47,6 @@ export default props => {
           
 >>>>>>> 0e1255aeefe63d171e341f097161d3f7edd45bad
               <form onSubmit={ (e) => {
-                $('#exampleModal').modal('hide')
                 props.handleSubmit(e)
               }
               } action="/login" method="POST">
@@ -77,7 +76,8 @@ export default props => {
                     placeholder="Ingresar Contraseña"
                   />
                 </div>
-                <button type="submit" className="btn submit btn-block">
+                <h5 className="text-danger">{props.warning}</h5>
+                <button type="submit" className="btn btn-primary btn-block">
                   Login
                 </button>
               </form>
