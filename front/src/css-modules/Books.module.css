@@ -50,27 +50,28 @@
   color: red !important;
 }
 
-.pagination > li > a {
+#page-numbers > li > a {
   background-color: white;
   color: purple;
 }
 
-.pagination > li > a:focus,
-.pagination > li > a:hover,
-.pagination > li > span:focus,
-.pagination > li > span:hover {
+#page-numbers > li > a:focus,
+#page-numbers > li > a:hover,
+#page-numbers > li > span:focus,
+#page-numbers > li > span:hover {
   color: purple;
   background-color: #eee;
   border-color: #ddd;
+  cursor: pointer;
 }
 
-.pagination > .active > a {
+#page-numbers > .active > a {
   color: white;
   background-color: purple;
   border: solid 1px purple;
 }
 
-.pagination > .active > a:hover {
+#page-numbers > .active > a:hover {
   background-color: purple;
   border: solid 1px purple;
 }
