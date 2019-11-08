@@ -9,8 +9,8 @@ const mapStateToProps = ({ books }) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchBook: book => dispatch(fetchBook(book)),
-  truncarDescripcion: descripcion => {
-    return descripcion.substr(0, 500) + "...";
+  truncarDescripcion: (descripcion, length) => {
+    return descripcion.substr(0, length) + "...";
   }
 });
 

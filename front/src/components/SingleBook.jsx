@@ -44,7 +44,9 @@ export default ({ books, fetchBook, truncarDescripcion }) => {
             <h3>
               <strong>Sinopsis: </strong>
             </h3>
-            {books.descripcion ? truncarDescripcion(books.descripcion) : ""}
+            {books.descripcion
+              ? truncarDescripcion(books.descripcion, 500)
+              : ""}
           </p>
           <p
             style={{
