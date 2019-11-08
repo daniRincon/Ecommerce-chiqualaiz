@@ -34,7 +34,7 @@ class RegisterContainer extends React.Component {
        $('#register').modal('hide')  
     })
     .catch(() => {
-      this.setState({warning : 'Registration went wrong'})
+      this.setState({warning : 'Username or email already taken!'})
     })  ;
   }
 

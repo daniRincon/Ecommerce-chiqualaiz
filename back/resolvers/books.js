@@ -12,7 +12,7 @@ const fetchBook = function(req, res) {
       id: req.params.id
     }
   })
-    .then(book => res.send(book))
+    .then(book => res.json(book))
     .catch(err => res.status(404).send(err));
 };
 
