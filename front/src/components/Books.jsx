@@ -14,11 +14,28 @@ export default class Books extends React.Component {
       todosPerPage: 8
     };
     this.handleClick = this.handleClick.bind(this);
+    this.handleNext = this.handleNext.bind(this);
+    this.handlePrevious = this.handlePrevious.bind(this);
   }
   handleClick(event) {
     this.setState({
       currentPage: Number(event.target.id)
     });
+  }
+  handleNext(event) {
+    this.state.currentPage <
+    Math.ceil(this.props.books.length / this.state.todosPerPage)
+      ? this.setState({
+          currentPage: this.state.currentPage + 1
+        })
+      : null;
+  }
+  handlePrevious(event) {
+    this.state.currentPage > 1
+      ? this.setState({
+          currentPage: this.state.currentPage - 1
+        })
+      : null;
   }
   componentDidMount() {
     this.props.fetchBooks();
@@ -99,7 +116,17 @@ export default class Books extends React.Component {
           }
           <nav aria-label="Books navigation" className="container">
             <ul id="page-numbers" className="pagination justify-content-center">
+              <li className="page-item">
+                <a className="page-link" onClick={this.handlePrevious}>
+                  Previous
+                </a>
+              </li>
               {renderPageNumbers}
+              <li className="page-item">
+                <a className="page-link" onClick={this.handleNext}>
+                  Next
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
