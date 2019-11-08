@@ -20,7 +20,7 @@ export default class Register extends React.Component {
               </h1>
               <button
                 type="button"
-                class="close"
+                className="close"
                 data-dismiss="modal"
                 aria-label="Close"
               >
@@ -29,7 +29,6 @@ export default class Register extends React.Component {
             </div>
 
             <div className="modal-body">
-              <div className="card card-body">
 
                 <form
                   onSubmit={(event) => {
@@ -110,7 +109,6 @@ export default class Register extends React.Component {
                   </button>
                 </form>
               </div>
-            </div>
           </div>
         </div>
       </div>
