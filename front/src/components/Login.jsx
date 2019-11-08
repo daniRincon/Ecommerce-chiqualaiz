@@ -1,4 +1,5 @@
 import React from "react";
+import "../css-modules/register.module.css";
 
 export default props => {
   return (
@@ -13,6 +14,7 @@ export default props => {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
         <div className="modal-header">
+<<<<<<< HEAD
             <h1 className="text-center" id="registerText">
               <i className="fas fa-sign-in-alt"></i> Login
             </h1>
@@ -27,6 +29,23 @@ export default props => {
           </div>
 
           <div className="modal-body">
+=======
+              <h1 className="text-center" id="registerText">
+                <i className="fas fa-sign-in-alt"></i> Login
+              </h1>
+              <button
+                type="button"
+                id="closeLogin" 
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+          <div className="modal-body">
+          
+>>>>>>> 0e1255aeefe63d171e341f097161d3f7edd45bad
               <form onSubmit={ (e) => {
                 $('#exampleModal').modal('hide')
                 props.handleSubmit(e)
@@ -55,13 +74,14 @@ export default props => {
                     id="password"
                     name="password"
                     className="form-control"
-                    placeholder="Ingresar Contraña"
+                    placeholder="Ingresar Contraseña"
                   />
                 </div>
-                <button type="submit" className="btn btn-primary btn-block">
+                <button type="submit" className="btn submit btn-block">
                   Login
                 </button>
               </form>
+<<<<<<< HEAD
               <p className="lead mt-4 text-center">
                 No Account?{" "}
               
@@ -73,6 +93,15 @@ export default props => {
                 >Register
                  
                 </button>
+=======
+              <p className="lead mt-4">
+                No Account?
+                <button class="btn btn-link" data-toggle="modal" data-target="#register">Register</button>
+
+              
+                
+
+>>>>>>> 0e1255aeefe63d171e341f097161d3f7edd45bad
               </p>
             </div>
         </div>
