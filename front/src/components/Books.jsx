@@ -25,6 +25,7 @@ export default class Books extends React.Component {
 
   render() {
     const { currentPage, todosPerPage } = this.state;
+    let renderTodos;
     // Logic for displaying todos
     const indexOfLastTodo = currentPage * todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
@@ -33,31 +34,6 @@ export default class Books extends React.Component {
       indexOfLastTodo
     );
 
-    const renderTodos = currentTodos.map((book, index) => {
-      return (
-        <div
-          key={book.id}
-          id="books"
-          onClick={() => fetchBook(id)}
-          className="col-xs-4 card text-center "
-        >
-          <Link className="thumbnail" to={`/books/${book.id}`}>
-            <img src={book.url} className="img-thumbnail card-img-top" />
-            <div className="caption card-body">
-              <h5>
-                <span className="card-text">{book.titulo}</span>
-              </h5>
-            </div>
-            <div>
-              <h5>
-                <span>Star Rating</span>
-              </h5>
-            </div>
-          </Link>
-        </div>
-      );
-    });
-    // Logic for displaying page numbers
     const pageNumbers = [];
     for (
       let i = 1;
@@ -73,10 +49,38 @@ export default class Books extends React.Component {
         </button>
       );
     });
+
     return (
-      <div>
-        <ul>{renderTodos}</ul>
-        <ul id="page-numbers">{renderPageNumbers}</ul>
+      <div className="row">
+        {
+          (renderTodos = currentTodos.map((book, index) => {
+            return (
+              <div
+                key={book.id}
+                id="books"
+                onClick={() => fetchBook(id)}
+                className="col-xs-4 card text-center "
+              >
+                <Link className="thumbnail" to={`/books/${book.id}`}>
+                  <img src={book.url} className="img-thumbnail card-img-top" />
+                  <div className="caption card-body">
+                    <h5>
+                      <span className="card-text">{book.titulo}</span>
+                    </h5>
+                  </div>
+                  <div>
+                    <h5>
+                      <span>Star Rating</span>
+                    </h5>
+                  </div>
+                </Link>
+              </div>
+            );
+          }))
+        }
+        <div>
+          <ul id="page-numbers">{renderPageNumbers}</ul>
+        </div>
       </div>
     );
   }
