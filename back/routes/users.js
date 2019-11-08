@@ -10,13 +10,13 @@ function isLogedIn(req, res, next) {
   }
 }
 
-router.post("/login",  passport.authenticate('local'), (req, res) => {
-  if(req.isAuthenticated()){
-    res.json(req.user.dataValues.name)
-  }else{
-    res.json({})
+router.post("/login", passport.authenticate("local"), (req, res) => {
+  if (req.isAuthenticated()) {
+    res.json(req.user.dataValues.name);
+  } else {
+    res.status(401).res.json({});
   }
-})
+});
 
 router.get("/", isLogedIn);
 
