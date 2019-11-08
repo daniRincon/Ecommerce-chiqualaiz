@@ -59,11 +59,11 @@ export default class Books extends React.Component {
                 <div
                   key={book.id}
                   id="books"
-                  onClick={() => this.props.fetchBook(book.id)}
                   className="col-md-3 mb-2 ajusteCard"
                 >
                   <Link className=" text-dark enlace" to={`/books/${book.id}`}>
-                    <div className="card text-center img ">
+                    <div className="card text-center img "
+                    onClick={() => this.props.fetchBook(book.id)}>
                       <img src={book.url} className="classImg" />
 
                       <span className="descriptions">{book.titulo}</span>
@@ -97,3 +97,4 @@ export default class Books extends React.Component {
     );
   }
 }
+

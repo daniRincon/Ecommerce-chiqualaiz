@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { fetchBook } from "../store/actions/books";
 
 const mapStateToProps = ({ books }) => ({
-  books: books.selected
+  book: books.selected
 });
 
 const mapDispatchToProps = dispatch => ({
