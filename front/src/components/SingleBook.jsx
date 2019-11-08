@@ -56,7 +56,13 @@ export default ({ books, fetchBook, truncarDescripcion }) => {
                 <Typography component="legend">
                   <strong>Rating:</strong>
                 </Typography>
-                <Rating name="customized-10" value={books.estrellas} max={10} />
+                <Rating
+                  name="half-rating"
+                  value={books.estrellas / 2}
+                  max={5}
+                  precision={0.5}
+                  readOnly
+                />
               </Box>
             </div>
           </p>
