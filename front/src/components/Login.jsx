@@ -66,7 +66,7 @@ export default props => {
               </form>
               <p className="lead mt-4">
                 No Account?
-                <button class="btn btn-link" data-toggle="modal" data-target="#register">Register</button>
+                <button className="btn btn-link" data-toggle="modal" data-target="#register">Register</button>
 
               
                 
