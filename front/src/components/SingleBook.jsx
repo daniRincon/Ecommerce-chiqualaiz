@@ -1,8 +1,6 @@
-
 import React, { useEffect } from "react";
 
-
-export default ({ books, fetchBook }) => {
+export default ({ books, fetchBook, truncarDescripcion }) => {
   useEffect(() => {
     fetchBook();
   }, []);
@@ -23,13 +21,22 @@ export default ({ books, fetchBook }) => {
     // </div>
     // </div>
     <div className="media">
-    <img src={books.url} className="align-self-center mr-3" />
-    <div className="media-body">
-      <h1 className="mt-0">{books.titulo}</h1>
-      <p><strong>Sinopsis:</strong>{books.descripcion}</p>
-      <p><strong>Rating:</strong>{books.estrellas}</p>
-      <p className="mb-0"><strong>Precio:</strong>{books.precio}</p>
+      <img src={books.url} className="align-self-center mr-3" />
+      <div className="media-body">
+        <h1 className="mt-0">{books.titulo}</h1>
+        <p>
+          <strong>Sinopsis:</strong>
+          {books.descripcion ? truncarDescripcion(books.descripcion) : ""}
+        </p>
+        <p>
+          <strong>Rating:</strong>
+          {books.estrellas}
+        </p>
+        <p className="mb-0">
+          <strong>Precio:</strong>
+          {books.precio}
+        </p>
+      </div>
     </div>
-  </div>
   );
-}
+};
