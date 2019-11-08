@@ -49,12 +49,12 @@ export default class Books extends React.Component {
       <div className="container">
         <div className="row">
           {
-            (renderTodos = currentTodos.map((book, index) => {
+            (renderTodos = currentTodos.map((book) => {
               return (
                 <div
                   key={book.id}
                   id="books"
-                  onClick={() => fetchBook(id)}
+                  onClick={() => this.props.fetchBook(book.id)}
                   className="col-md-3 mb-2 ajusteCard"
                 >
                   <Link className=" text-dark enlace" to={`/books/${book.id}`}>
