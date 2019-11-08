@@ -12,11 +12,7 @@ const logUser = logUser => ({
    });
 
 export const signUpUser = (user) => dispatch =>{
-<<<<<<< HEAD
     return axios.post('/api/register', user)
-=======
-    return axios.post('/users', user)
->>>>>>> 5544eaed3fed58bc656f98620e9e06a9f867ab03
     .then(user => true)
     .catch(err => {
         throw err
@@ -28,11 +24,7 @@ export const fetchUser = () => dispatch =>
         .then(user => dispatch(getUser(user.data)))
 
 export const loginUser = (username, password) => dispatch =>{
-<<<<<<< HEAD
     return axios.post("/api/users/login", {username, password})
-=======
-    return axios.post("/sessions", {username, password})
->>>>>>> 5544eaed3fed58bc656f98620e9e06a9f867ab03
         .then(res => dispatch(logUser(res.data)))
         .catch(err => {
             throw err
