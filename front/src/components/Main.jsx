@@ -5,17 +5,17 @@ import BooksContainer from "../containers/BooksContainer";
 import SingleBookContainer from "../containers/SingleBookContainer";
 import NavBarContainer from "../containers/NavbarContainer";
 
-import LoginContainer from '../containers/LoginContainer';
-import RegisterContainer from '../containers/RegisterContainer'
+import LoginContainer from "../containers/LoginContainer";
+import RegisterContainer from "../containers/RegisterContainer";
 
-export default() => {
-    return (
-        <div id='main'>
-            <Route path='/' component={NavBarContainer} />
-            <Route exact path='/' component={BooksContainer}/>
-            <Route exact path='/login' component={LoginContainer} />
-            <Route exact path='/register' component={RegisterContainer}/>
-            <Route path='/book' component={SingleBookContainer}/>
-        </div>
-    )
-}
+export default () => {
+  return (
+    <div id="main">
+      <Route path="/" component={NavBarContainer} />
+      <Route exact path="/" component={BooksContainer} />
+      <Route exact path="/login" component={LoginContainer} />
+      <Route exact path="/register" component={RegisterContainer} />
+      <Route path="/books" component={SingleBookContainer} />
+    </div>
+  );
+};

@@ -1,19 +1,12 @@
 import React from "react";
 import Pagination from "react-paginating";
-
-const fruits = [
-  ["apple", "orange"],
-  ["banana", "avocado"],
-  ["coconut", "blueberry"],
-  ["payaya", "peach"],
-  ["pear", "plum"]
-];
+import { Link } from "react-router-dom";
+import "../css-modules/Books.module.css";
 
 export default class Books extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      //todos: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k"],
       currentPage: 1,
       todosPerPage: 6
     };
@@ -25,20 +18,6 @@ export default class Books extends React.Component {
       currentPage: Number(event.target.id)
     });
   }
-
-  /*constructor(props) {
-    super(props);
-    this.state = {
-      currentPage: 1
-    };
-    this.handlePageChange = this.handlePageChange.bind(this);
-  }
-
-  handlePageChange(page, e) {
-    this.setState({
-      currentPage: page
-    });
-  }*/
 
   componentDidMount() {
     this.props.fetchBooks();
@@ -53,8 +32,30 @@ export default class Books extends React.Component {
       indexOfFirstTodo,
       indexOfLastTodo
     );
+
     const renderTodos = currentTodos.map((book, index) => {
-      return <li key={book.id}>{book.url}</li>;
+      return (
+        <div
+          key={book.id}
+          id="books"
+          onClick={() => fetchBook(id)}
+          className="col-xs-4 card text-center "
+        >
+          <Link className="thumbnail" to={`/books/${book.id}`}>
+            <img src={book.url} className="img-thumbnail card-img-top" />
+            <div className="caption card-body">
+              <h5>
+                <span className="card-text">{book.titulo}</span>
+              </h5>
+            </div>
+            <div>
+              <h5>
+                <span>Star Rating</span>
+              </h5>
+            </div>
+          </Link>
+        </div>
+      );
     });
     // Logic for displaying page numbers
     const pageNumbers = [];
@@ -80,231 +81,3 @@ export default class Books extends React.Component {
     );
   }
 }
-
-/* render() {
-    const total = this.props.books.length * limit;
-    console.log(this.props);
-    const { currentPage } = this.state;
-
-    return (
-      <div>
-        <ul>
-          {this.props.books.length !== 0
-            ? this.props.books.map((book,index) => {
-              index===currentPage
-            <li key={book.id}>{book.url}</li>
-          
-          })
-            : ""}
-        </ul>
-        <Pagination
-          total={total}
-          limit={limit}
-          pageCount={pageCount}
-          currentPage={currentPage}
-        >
-          {({
-            pages,
-            currentPage,
-            hasNextPage,
-            hasPreviousPage,
-            previousPage,
-            nextPage,
-            totalPages,
-            getPageItemProps
-          }) => (
-            <div>
-              <button
-                {...getPageItemProps({
-                  pageValue: 1,
-                  onPageChange: this.handlePageChange
-                })}
-              >
-                first
-              </button>
-
-              {hasPreviousPage && (
-                <button
-                  {...getPageItemProps({
-                    pageValue: previousPage,
-                    onPageChange: this.handlePageChange
-                  })}
-                >
-                  {"<"}
-                </button>
-              )}
-
-              {pages.map(page => {
-                let activePage = null;
-                if (currentPage === page) {
-                  activePage = { backgroundColor: "#fdce09" };
-                }
-                return (
-                  <button
-                    {...getPageItemProps({
-                      pageValue: page,
-                      key: page,
-                      style: activePage,
-                      onPageChange: this.handlePageChange
-                    })}
-                  >
-                    {page}
-                  </button>
-                );
-              })}
-
-              {hasNextPage && (
-                <button
-                  {...getPageItemProps({
-                    pageValue: nextPage,
-                    onPageChange: this.handlePageChange
-                  })}
-                >
-                  {">"}
-                </button>
-              )}
-
-              <button
-                {...getPageItemProps({
-                  pageValue: totalPages,
-                  onPageChange: this.handlePageChange
-                })}
-              >
-                last
-              </button>
-            </div>
-          )}
-        </Pagination>
-      </div>
-    );
-  }
-}
-*/
-/*
-import React from "react";
-import { useEffect } from "react";
-import render from "react-dom";
-import { Link } from "react-router-dom";
-import Pagination from "react-paginating";
-
-const fruits = [
-  ["apple", "orange"],
-  ["banana", "avocado"],
-  ["coconut", "blueberry"],
-  ["payaya", "peach"],
-  ["pear", "plum"]
-];
-const limit = 6;
-const pageCount = 3;
-const total = props.books.length * limit;
-
-export class Books extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      currentPage: 1
-    };
-  }
-
-  componentDidMount() {
-    props.fetchBooks();
-  }
-
-  handlePageChange(page, e) {
-    this.setState({
-      currentPage: page
-    });
-  }
-
-  render() {
-    const { currentPage } = this.state;
-    return (
-      <div>
-        <ul>
-          {fruits[currentPage - 1].map(item => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-        <Pagination
-          total={total}
-          limit={limit}
-          pageCount={pageCount}
-          currentPage={currentPage}
-        >
-          {({
-            pages,
-            currentPage,
-            hasNextPage,
-            hasPreviousPage,
-            previousPage,
-            nextPage,
-            totalPages,
-            getPageItemProps
-          }) => (
-            <div>
-              <button
-                {...getPageItemProps({
-                  pageValue: 1,
-                  onPageChange: this.handlePageChange
-                })}
-              >
-                first
-              </button>
-
-              {hasPreviousPage && (
-                <button
-                  {...getPageItemProps({
-                    pageValue: previousPage,
-                    onPageChange: this.handlePageChange
-                  })}
-                >
-                  {"<"}
-                </button>
-              )}
-
-              {pages.map(page => {
-                let activePage = null;
-                if (currentPage === page) {
-                  activePage = { backgroundColor: "#fdce09" };
-                }
-                return (
-                  <button
-                    {...getPageItemProps({
-                      pageValue: page,
-                      key: page,
-                      style: activePage,
-                      onPageChange: this.handlePageChange
-                    })}
-                  >
-                    {page}
-                  </button>
-                );
-              })}
-
-              {hasNextPage && (
-                <button
-                  {...getPageItemProps({
-                    pageValue: nextPage,
-                    onPageChange: this.handlePageChange
-                  })}
-                >
-                  {">"}
-                </button>
-              )}
-
-              <button
-                {...getPageItemProps({
-                  pageValue: totalPages,
-                  onPageChange: this.handlePageChange
-                })}
-              >
-                last
-              </button>
-            </div>
-          )}
-        </Pagination>
-      </div>
-    );
-  }
-}
-*/

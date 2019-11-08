@@ -1,8 +1,7 @@
 import {connect} from "react-redux"
 import Login from '../components/Login';
 import React, { Component } from 'react';
-import { fetchUser } from '../store/actions/users';
-import axios from 'axios';
+import { fetchUser, loginUser } from '../store/actions/users';
 
 
 class LoginContainer extends Component{
@@ -19,13 +18,7 @@ class LoginContainer extends Component{
 
     handleSubmit(event){
       event.preventDefault();
-      if(this.state.username && this.state.password){
-          axios.post('/login', this.state)
-          .then(res=> { 
-             return this.props.fetchUser(res.data)})
-          return this.props.history.push('/')
-      };
-      
+      this.props.loginUser(this.state.username, this.state.password);    
     }
     
     handleUserInput(username){
@@ -52,7 +45,8 @@ class LoginContainer extends Component{
 
 
 const mapDispatchToProps = dispatch =>({
-  fetchUser: user => dispatch(fetchUser(user))
+  fetchUser: user => dispatch(fetchUser(user)),
+  loginUser: (username, password) => dispatch(loginUser(username, password))
 })
 
 export default connect(null, mapDispatchToProps)(LoginContainer)
