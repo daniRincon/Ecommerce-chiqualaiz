@@ -13,7 +13,8 @@ class RegisterContainer extends React.Component {
       username: "",
       email: "",
       password: "",
-      address: ""
+      address: "",
+      warning: ""
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,7 +28,14 @@ class RegisterContainer extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.signUpUser(this.state);
+    this.props.signUpUser(this.state)
+    .then(() =>{
+       $('#exampleModal').modal('show')
+       $('#register').modal('hide')  
+    })
+    .catch(() => {
+      this.setState({warning : 'Username or email already taken!'})
+    })  ;
   }
 
   render() {
@@ -35,6 +43,7 @@ class RegisterContainer extends React.Component {
       <Register
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
+        warning={this.state.warning}
       />
     );
   }

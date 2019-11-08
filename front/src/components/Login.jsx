@@ -1,4 +1,5 @@
 import React from "react";
+import "../css-modules/register.module.css";
 
 export default props => {
   return (
@@ -12,59 +13,68 @@ export default props => {
     >
       <div className="modal-dialog" role="document">
         <div className="modal-content">
+          <div className="modal-header">
+            <h1 className="text-center" id="registerText">
+              <i className="fas fa-sign-in-alt"></i> Login
+            </h1>
+            <button
+              type="button"
+              id="closeLogin"
+              className="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
           <div className="modal-body">
-              <h1 className="text-center mb-3">
-                <i className="fas fa-sign-in-alt"></i> Login
-              </h1>
-              <form onSubmit={ (e) => {
-                $('#exampleModal').modal('hide')
-                props.handleSubmit(e)
-              }
-              } action="/login" method="POST">
-                <div className="form-group">
-                  <label>Usuario</label>
-                  <input
-                    onChange={event =>
-                      props.handleUserInput(event.target.value)
-                    }
-                    type="text"
-                    id="username"
-                    name="username"
-                    className="form-control"
-                    placeholder="Ingresar Usuario"
-                  />
-                </div> 
-                <div className="form-group">
-                  <label>Contraseña</label>
-                  <input
-                    onChange={event =>
-                      props.handlePasswordInput(event.target.value)
-                    }
-                    type="password"
-                    id="password"
-                    name="password"
-                    className="form-control"
-                    placeholder="Ingresar Contraña"
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary btn-block">
-                  Login
-                </button>
-              </form>
-              <p className="lead mt-4">
-                No Account?{" "}
-              
-                <button
-                data-toggle="modal" data-target="#register"
-                  style={{ border: "none", backgroudColor: "white" }}
-             
-                >Register
-                 
-                </button>
-                <button type="button" id="closeLogin" className="btn btn-secondary" data-dismiss="modal">Close</button>
-
-              </p>
-            </div>
+            <form
+              onSubmit={e => {
+                props.handleSubmit(e);
+              }}
+              action="/login"
+              method="POST"
+            >
+              <div className="form-group">
+                <label>Usuario</label>
+                <input
+                  onChange={event => props.handleUserInput(event.target.value)}
+                  type="text"
+                  id="username"
+                  name="username"
+                  className="form-control"
+                  placeholder="Ingresar Usuario"
+                />
+              </div>
+              <div className="form-group">
+                <label>Contraseña</label>
+                <input
+                  onChange={event =>
+                    props.handlePasswordInput(event.target.value)
+                  }
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Ingresar Contraseña"
+                />
+              </div>
+              <h5 className="text-danger">{props.warning}</h5>
+              <button type="submit" className="btn btn-primary btn-block">
+                Login
+              </button>
+            </form>
+            <p className="lead mt-4">
+              No Account?
+              <button
+                className="btn btn-link"
+                data-toggle="modal"
+                data-target="#register"
+              >
+                Register
+              </button>
+            </p>
+          </div>
         </div>
       </div>
     </div>

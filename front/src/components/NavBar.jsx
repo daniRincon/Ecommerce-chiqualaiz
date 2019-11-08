@@ -1,7 +1,6 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import Greeting from './Greeting';
-import { Link } from 'react-router-dom';
 import '../css-modules/navBar.module.css'
 
 
@@ -13,17 +12,16 @@ export default (props) =>{
             </div>
             <SearchBar />
             {props.loggedName
-            ?<div>
-            <Link>
-                <Greeting name={props.loggedName} />
-            </Link>
-                
+            ?<div className='col-lg-4 login'>
+                <Greeting name={props.loggedName} />   
              </div>
              :
-            <button 
+             <div className='col-lg-4 login'>
+                    <button 
                     data-toggle="modal" data-target="#exampleModal"
                     className='btn btn-info'>Login</button> 
-            }
+            </div>
+            } 
         </nav>
     )
 }

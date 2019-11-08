@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
+const path = require("path")
 const indexRouter = require("./routes/index");
 const userRouter = require("./routes/index");
 const session = require("express-session");
@@ -38,7 +39,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //Router
-app.use("/", indexRouter);
+app.use("/api", indexRouter);
+app.get('/*', (req,res)=>{
+  res.sendFile(path.join(__dirname, "./public", "index.html"));
+})
 
 db.sync()
   .then(function() {
@@ -49,3 +53,5 @@ db.sync()
   .catch(err => console.error(err));
 
 module.exports = app;
+ 
+
