@@ -1,20 +1,14 @@
-/* .App {
-  display: inline-block;
-}
-
-.container{
+.container {
   display: flex;
   height: 40%;
   width: auto;
   box-sizing: border-box;
-
 }
 .imgContainer {
   background-color: red;
   display: inline-block;
   margin-left: 5%;
   text-align: center;
-  
 }
 
 .description {
@@ -23,7 +17,8 @@
   float: right;
   margin-top: 10%;
   margin-right: 20%;
-} */
+}
+*/
 
 /* .img-thumbnail{
   height: 600px;
