@@ -3,7 +3,9 @@ const router = express.Router();
 
 const {fetchBooks, fetchBook} = require("../resolvers/books");
 
+
 router.get("/", fetchBooks);
+router.get("/:id", fetchBook);
 
 router.get('/:id', fetchBook)
 

@@ -5,6 +5,7 @@ const fetchBooks = function(req, res) {
 };
 
 const fetchBook = function(req, res) {
+
   console.log(req.params)
   Book.findOne({
     where: {

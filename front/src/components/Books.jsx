@@ -40,11 +40,14 @@ export default class Books extends React.Component {
     }
     const renderPageNumbers = pageNumbers.map(number => {
       return (
-        <button key={number} id={number} onClick={this.handleClick}>
-          {number}
-        </button>
+        <li className="page-item" key={number}>
+          <a className="page-link" id={number} onClick={this.handleClick}>
+            {number}
+          </a>
+        </li>
       );
     });
+
     return (
       <div className="container">
         <div className="row">
@@ -70,9 +73,11 @@ export default class Books extends React.Component {
               );
             }))
           }
-          <div>
-            <ul id="page-numbers">{renderPageNumbers}</ul>
-          </div>
+          <nav aria-label="Books navigation" className="container">
+            <ul id="page-numbers" className="pagination justify-content-center">
+              {renderPageNumbers}
+            </ul>
+          </nav>
         </div>
       </div>
     );
