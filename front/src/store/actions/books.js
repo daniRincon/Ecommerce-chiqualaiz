@@ -13,12 +13,12 @@ const receiveBook = book => ({
 
 export const fetchBooks = () => dispatch =>
   axios
-    .get("/books")
+    .get("/api/books")
     .then(res => res.data)
     .then(books => dispatch(receiveBooks(books)));
 
 export const fetchBook = id => dispatch =>
   axios
-    .get(`/books/${id}`)
+    .get(`/api/books/${id}`)
     .then(res => res.data)
     .then(book => dispatch(receiveBook(book)));

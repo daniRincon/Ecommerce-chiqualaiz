@@ -5,9 +5,11 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
   import Button from "@material-ui/core/Button";
 
-export default ({ book, fetchBook, truncarDescripcion }) => {
-  console.log(book);
+export default ({ book }) => {
   
+  const truncarDescripcion = (descripcion, length) => {
+   return descripcion.substr(0, length) + "...";
+}
   
   const useStyles = makeStyles(theme => ({
     button: {

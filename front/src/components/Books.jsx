@@ -86,7 +86,7 @@ export default class Books extends React.Component {
                 >
                   <Link className=" text-dark enlace" to={`/books/${book.id}`}>
                     <div className="card text-center img "
-                    onClick={() => this.props.fetchBook(book.id)}>
+                    >
                       <img src={book.url} className="classImg" />
 
                       <span className="descriptions">{book.titulo}</span>
