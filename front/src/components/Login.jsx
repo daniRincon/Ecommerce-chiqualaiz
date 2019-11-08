@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 export default props => {
   return (
@@ -14,11 +13,14 @@ export default props => {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-body">
-            <div className="card card-body">
               <h1 className="text-center mb-3">
                 <i className="fas fa-sign-in-alt"></i> Login
               </h1>
-              <form onSubmit={props.handleSubmit} action="/login" method="POST">
+              <form onSubmit={ (e) => {
+                $('#exampleModal').modal('hide')
+                props.handleSubmit(e)
+              }
+              } action="/login" method="POST">
                 <div className="form-group">
                   <label>Usuario</label>
                   <input
@@ -63,7 +65,6 @@ export default props => {
 
               </p>
             </div>
-          </div>
         </div>
       </div>
     </div>

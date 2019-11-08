@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {GET_USER, LOG_USER} from '../constants/index'
 
 const getUser = user => ({
     type: GET_USER,
@@ -10,12 +11,18 @@ const logUser = logUser => ({
     logUser
    });
 
+export const signUpUser = (user) => dispatch =>{
+    axios.post('register', user)
+    .then(user => true)
+    .catch(err => err)
+}
+
 export const fetchUser = () => dispatch =>
-    axios.get('/api/')
+    axios.get('/users')
         .then(user => dispatch(getUser(user.data)))
 
-export const loguser = () => dispatch =>
-    axios
-        .post("/api/login")
-        .then(res => res.data)
-        .then(user => dispatch(logUser(user.data)));
+export const loginUser = (username, password) => dispatch =>{
+    axios.post("/users/login", {username, password})
+        .then(res => dispatch(logUser(res.data)))
+        .catch(err => console.error(err))
+};
