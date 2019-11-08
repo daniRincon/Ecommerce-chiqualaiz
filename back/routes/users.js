@@ -12,7 +12,7 @@ function isLogedIn(req, res, next) {
 
 router.post("/login", passport.authenticate("local"), (req, res) => {
   if (req.isAuthenticated()) {
-    res.json(req.user.dataValues.name);
+    return res.send(req.user);
   } else {
     res.status(401).res.json({});
   }

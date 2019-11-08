@@ -1,16 +1,18 @@
-import {connect} from "react-redux"
-import NavBarComponent from '../components/NavBar';
+import { connect } from "react-redux";
+import NavBarComponent from "../components/NavBar";
 
-const mapStateToProps = (state) => {
-  console.log(state)
+const mapStateToProps = state => {
   return {
-      loggedName: state.user.loggedName
+    loggedName: state.user.loggedName
   };
-}
+};
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {};
-}
+};
 
-  const NavbarContainer = connect(mapStateToProps, mapDispatchToProps)(NavBarComponent)
-  export default NavbarContainer;
+const NavbarContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NavBarComponent);
+export default NavbarContainer;
