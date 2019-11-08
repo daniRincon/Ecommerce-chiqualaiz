@@ -78,38 +78,4 @@ export default class Books extends React.Component {
   }
 }
 
-/* import React from "react";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
-import "../css-modules/Books.module.css";
 
-export default ({ books, fetchBooks, fetchBook }) => {
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-  return (
-
-    <div className="container ">
-      <div className="row">
-        {books.map(book => (
-          <div
-            key={book.id}
-            id="books"
-            onClick={() => fetchBook(id)}
-            className="col-md-3 mb-2 ajusteCard"
-          >
-            <Link className=" text-dark enlace" to={`/books/${book.id}`}>
-              <div className="card text-center img ">
-                <img src={book.url} className="classImg" />
-
-                <span className="descriptions">{book.titulo}</span>
-
-                <div className="descriptions">Star Rating</div>
-              </div>
-            </Link>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}; */

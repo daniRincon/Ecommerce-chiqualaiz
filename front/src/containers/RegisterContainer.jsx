@@ -3,6 +3,7 @@ import * as actions from "../store/actions/users";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import Register from "../components/Register";
+
 class RegisterContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -27,7 +28,6 @@ class RegisterContainer extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.signUpUser(this.state);
-    document.querySelector("#closeRegister").click()
   }
 
   render() {

@@ -1,11 +1,11 @@
-
+import '../css-modules/greeting.module.css'
 import React from 'react';
 
 export default (props) =>{
     return (
-        <p className='col-lg-4'>
+        <h6 className='col-lg-4 greeting'>
             Hola, {props.name}
-        </p>
+        </h6>
     )
 }
 
