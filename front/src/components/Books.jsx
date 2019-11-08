@@ -67,7 +67,7 @@ export default class Books extends React.Component {
                       <img src={book.url} className="classImg" />
 
                       <span className="descriptions">{book.titulo}</span>
-
+                      <span>$ {book.precio}</span>
                       <Box
                         component="fieldset"
                         mb={3}
