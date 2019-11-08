@@ -1,7 +1,6 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 import Greeting from "./Greeting";
-import { Link } from "react-router-dom";
 import "../css-modules/navBar.module.css";
 
 export default props => {
@@ -10,17 +9,19 @@ export default props => {
       <div className="col-lg-1"></div>
       <SearchBar />
       {props.loggedName ? (
-        <div>
+        <div className="col-lg-4 login">
           <Greeting name={props.loggedName.name} />
         </div>
       ) : (
-        <button
-          data-toggle="modal"
-          data-target="#exampleModal"
-          className="btn btn-info"
-        >
-          Login
-        </button>
+        <div className="col-lg-4 login">
+          <button
+            data-toggle="modal"
+            data-target="#exampleModal"
+            className="btn btn-info"
+          >
+            Login
+          </button>
+        </div>
       )}
     </nav>
   );
