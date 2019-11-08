@@ -12,9 +12,11 @@ const logUser = logUser => ({
    });
 
 export const signUpUser = (user) => dispatch =>{
-    axios.post('register', user)
+    return axios.post('register', user)
     .then(user => true)
-    .catch(err => err)
+    .catch(err => {
+        throw err
+    })
 }
 
 export const fetchUser = () => dispatch =>
