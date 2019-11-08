@@ -2,6 +2,7 @@ import React from "react";
 import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
 import "../css-modules/Books.module.css";
+
 export default class Books extends React.Component {
   constructor(props) {
     super(props);
