@@ -3,6 +3,7 @@ import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
 import "../css-modules/Books.module.css";
 import Rating from "@material-ui/lab/Rating";
+import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 
 export default class Books extends React.Component {
@@ -42,7 +43,12 @@ export default class Books extends React.Component {
     }
     const renderPageNumbers = pageNumbers.map(number => {
       return (
-        <li className="page-item" key={number}>
+        <li
+          className={`page-item ${
+            number === this.state.currentPage ? "active" : ""
+          }`}
+          key={number}
+        >
           <a className="page-link" id={number} onClick={this.handleClick}>
             {number}
           </a>
@@ -80,6 +86,10 @@ export default class Books extends React.Component {
                           precision={0.5}
                           readOnly
                         />
+                        <Typography component="legend">
+                          <strong>Precio:</strong>
+                          <span>${book.precio}</span>
+                        </Typography>
                       </Box>
                     </div>
                   </Link>
