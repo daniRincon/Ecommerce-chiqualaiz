@@ -17,9 +17,18 @@ export default (props) =>{
                 <Greeting name={props.loggedName} />   
              </div>
              :
-            <button 
+             <div>
+                 <button 
                     data-toggle="modal" data-target="#exampleModal"
-                    className='btn btn-info'>Login</button> 
+                    className='btn btn-info'>Login
+                </button>
+                <button 
+                    data-toggle="modal" data-target="#register"
+                    className='btn btn-info'>Register
+                </button> 
+             </div>
+            
+            
             }
         </nav>
     )

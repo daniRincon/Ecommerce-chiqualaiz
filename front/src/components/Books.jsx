@@ -83,20 +83,23 @@ export default class Books extends React.Component {
                   key={book.id}
                   id="books"
                   onClick={() => this.props.fetchBook(book.id)}
-                  className="col-md-3 mb-2 ajusteCard"
+                  className="col-md-3 mb-2 ajusteCard align-items-center"
                 >
                   <Link className=" text-dark enlace" to={`/books/${book.id}`}>
-                    <div className="card text-center img ">
+                    <div className="card text-center img">
                       <img src={book.url} className="classImg" />
 
-                      <span className="descriptions">{book.titulo}</span>
+                      <span id="descriptions">{book.titulo}</span>
 
                       <Box
+                        id='box'
                         component="fieldset"
                         mb={3}
                         borderColor="transparent"
                       >
-                        <Rating
+                      
+                      <Rating
+                          className='rating'
                           name="half-rating"
                           value={book.estrellas / 2}
                           max={5}
@@ -106,7 +109,7 @@ export default class Books extends React.Component {
                         <Typography component="legend">
                           <strong>Precio:</strong>
                           <span>${book.precio}</span>
-                        </Typography>
+                        </Typography>                        
                       </Box>
                     </div>
                   </Link>

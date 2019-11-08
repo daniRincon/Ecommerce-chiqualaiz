@@ -1,5 +1,6 @@
 import React from "react";
 import "../css-modules/register.module.css";
+import { resetWarningCache } from "prop-types";
 
 export default props => {
   return (
@@ -13,23 +14,9 @@ export default props => {
     >
       <div className="modal-dialog" role="document">
         <div className="modal-content">
-        <div className="modal-header">
-<<<<<<< HEAD
-            <h1 className="text-center" id="registerText">
-              <i className="fas fa-sign-in-alt"></i> Login
-            </h1>
-            <button
-              type="button"
-              className="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-            <span aria-hidden="true">×</span>
-            </button>
-          </div>
-
-          <div className="modal-body">
-=======
+          
+          
+          <div className="modal-header">
               <h1 className="text-center" id="registerText">
                 <i className="fas fa-sign-in-alt"></i> Login
               </h1>
@@ -39,15 +26,16 @@ export default props => {
                 className="close"
                 data-dismiss="modal"
                 aria-label="Close"
+                
               >
                 <span aria-hidden="true">×</span>
               </button>
             </div>
           <div className="modal-body">
           
->>>>>>> 0e1255aeefe63d171e341f097161d3f7edd45bad
               <form onSubmit={ (e) => {
                 props.handleSubmit(e)
+                
               }
               } action="/login" method="POST">
                 <div className="form-group">
@@ -81,29 +69,21 @@ export default props => {
                   Login
                 </button>
               </form>
-<<<<<<< HEAD
-              <p className="lead mt-4 text-center">
-                No Account?{" "}
-              
-                <button
-                className="btn btn-primary btn-block text-center"
-                data-toggle="modal" data-target="#register"
-                  style={{ border: "none", backgroudColor: "white" }}
-             
-                >Register
-                 
-                </button>
-=======
               <p className="lead mt-4">
                 No Account?
-                <button class="btn btn-link" data-toggle="modal" data-target="#register">Register</button>
-
-              
-                
-
->>>>>>> 0e1255aeefe63d171e341f097161d3f7edd45bad
+                <button 
+                  className="btn btn-link" 
+                  data-toggle="modal" 
+                  data-target="#register"
+                  onClick={(e) => {
+                    $('#exampleModal').modal('hide');
+                    props.reset()
+                  }}
+                  >Register</button>
               </p>
             </div>
+
+            
         </div>
       </div>
     </div>

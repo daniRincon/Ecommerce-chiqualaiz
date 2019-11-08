@@ -15,6 +15,7 @@ class LoginContainer extends Component{
         this.handleUserInput = this.handleUserInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
+        this.resetLoginState = this.resetLoginState.bind(this);
     }
 
     handleSubmit(event){
@@ -22,7 +23,10 @@ class LoginContainer extends Component{
       this.props.loginUser(this.state.username, this.state.password)
       .then(() => $('#exampleModal').modal('hide'))
       .catch(() => {
-        this.setState({warning : 'Wrong username or password'})
+        this.setState({
+          username: '',
+          password: '',
+          warning : 'Wrong username or password'})
       })    
     }
     
@@ -33,7 +37,15 @@ class LoginContainer extends Component{
     handlePasswordInput(password){
       this.setState({password})
     }
-    
+
+    resetLoginState(){
+      this.setState({
+        username: '',
+        password: '',
+        warning: ''
+      })
+    }
+
     render(){
       return(
           <div>
@@ -42,6 +54,7 @@ class LoginContainer extends Component{
                   handleUserInput={this.handleUserInput} 
                   handlePasswordInput={this.handlePasswordInput} 
                   warning={this.state.warning}
+                  reset={this.resetLoginState}
               />
           </div>
       )
