@@ -13,7 +13,7 @@ router.post("/register", function(req, res) {
     .then(user => {
       res.status(201).send(user);
     })
-    .catch(err => res.status(404).send(console.error(err)));
+    .catch(err => res.status(400).send(console.log(err)));
 });
 
 module.exports = router;
