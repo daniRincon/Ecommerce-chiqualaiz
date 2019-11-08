@@ -52,7 +52,7 @@ export default class Books extends React.Component {
       <div className="container">
         <div className="row">
           {
-            (renderTodos = currentTodos.map((book, index) => {
+            (renderTodos = currentTodos.map((book) => {
               return (
                 <div
                   key={book.id}
@@ -83,3 +83,5 @@ export default class Books extends React.Component {
     );
   }
 }
+
+

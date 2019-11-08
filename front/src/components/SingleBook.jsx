@@ -1,21 +1,35 @@
-import React from 'react'
-import '../css-modules/singlePage.module.css'
 
-export default (props) => (
-    
-<div className='App'>
-    <div className='imgContainer'>
-    <h1>{props.nombre}</h1>
-    <h3>{props.autor}</h3>
-    <img src={props.imgUrl} />
+import React, { useEffect } from "react";
+
+
+export default ({ books, fetchBook }) => {
+  useEffect(() => {
+    fetchBook();
+  }, []);
+  return (
+    //   <div>
+    //   <h1></h1>
+    //   <div className="container">
+    //   <div className="imgContainer">
+    //     <h3>{books.autor}</h3>
+    //     <img className="img-thumbnail" src={books.url} />
+    //   </div>
+    //   <div className="description">
+    //     <p>{books.descripcion}</p>
+    //     <p></p>
+    //     <p></p>
+    //     {console.log(books)}
+    //   </div>
+    // </div>
+    // </div>
+    <div className="media">
+    <img src={books.url} className="align-self-center mr-3" />
+    <div className="media-body">
+      <h1 className="mt-0">{books.titulo}</h1>
+      <p><strong>Sinopsis:</strong>{books.descripcion}</p>
+      <p><strong>Rating:</strong>{books.estrellas}</p>
+      <p className="mb-0"><strong>Precio:</strong>{books.precio}</p>
     </div>
-    <div className='description'>
-    <p >
-        {props.descripcion}
-    </p>
-    <p>{props.precio}</p>
-    <p>{props.rating}</p>
-    </div>
-   
-</div>
-)
+  </div>
+  );
+}

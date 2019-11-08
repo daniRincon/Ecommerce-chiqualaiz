@@ -5,7 +5,14 @@ const fetchBooks = function(req, res) {
 };
 
 const fetchBook = function(req, res) {
-  Book.findByPk(req.params.id).then(book => res.send(book));
-};
 
-module.exports = { fetchBooks, fetchBook };
+  console.log(req.params)
+  Book.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(book => res.send(book))
+}
+
+module.exports = { fetchBooks, fetchBook}
