@@ -71,8 +71,6 @@ export default class Books extends React.Component {
   }
   render() {
     const { currentPage, todosPerPage } = this.state;
-    const parsed = queryString.parse(this.props.location.search);
-    console.log(parsed);
     let renderTodos;
     // Logic for displaying todos
     const indexOfLastTodo = currentPage * todosPerPage;
