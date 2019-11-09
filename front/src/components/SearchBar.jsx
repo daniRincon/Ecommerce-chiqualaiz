@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ handleChange, handleSubmit }) => {
+export default ({ handleChange, handleSubmit, handleKeyPress }) => {
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -10,6 +10,7 @@ export default ({ handleChange, handleSubmit }) => {
         placeholder="Search"
         name="search"
         onChange={handleChange}
+        onKeyPress={handleKeyPress}
       ></input>
     </form>
   );

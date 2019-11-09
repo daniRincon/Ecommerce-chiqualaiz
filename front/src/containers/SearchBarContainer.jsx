@@ -12,6 +12,7 @@ class SearchBarContainer extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   handleChange(evt) {
@@ -19,6 +20,13 @@ class SearchBarContainer extends React.Component {
     this.setState({
       inputValue: value
     });
+    store.dispatch(filterBooks(value, this.props.books));
+  }
+
+  handleKeyPress(evt) {
+    if (event.key === "Enter" && this.props.filtered.length === 1) {
+      this.props.history.push(`/books/${this.props.filtered[0].id}`);
+    }
   }
 
   handleSubmit(evt) {
@@ -40,6 +48,7 @@ class SearchBarContainer extends React.Component {
         <SearchBarComponent
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
+          handleKeyPress={this.handleKeyPress}
         />
       </div>
     );

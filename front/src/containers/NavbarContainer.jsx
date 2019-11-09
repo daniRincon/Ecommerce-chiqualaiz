@@ -5,7 +5,8 @@ import { userLogOut } from "../store/actions/users";
 const mapStateToProps = ({ user, books }) => {
   return {
     loggedName: user.loggedName.name,
-    books: books.list
+    books: books.list,
+    filtered: books.filtered
   };
 };
 

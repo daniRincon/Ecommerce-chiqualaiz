@@ -111,8 +111,7 @@ const libros = [
   (libro5 = {
     titulo: "The Way of Kings: Book One of The Stormlight Archive",
     precio: 14.97,
-    url:
-      "https://images-na.ssl-images-amazon.com/images/I/618G6ty3o1L._SX342_.jpg",
+    url: "https://images-na.ssl-images-amazon.com/images/I/91FZ41RwZzL.jpg",
     estrellas: 9,
     descripcion: `Widely acclaimed for his work completing Robert Jordan's Wheel of Time saga, Brandon Sanderson now begins a grand cycle of his own, one every bit as ambitious and immersive.
 
@@ -380,5 +379,4 @@ User.create({
   address: "Root",
   password: "superadmin",
   permisos: 3
-})
-.catch(err => console.error)
+}).catch(err => console.error);
