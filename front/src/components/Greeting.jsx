@@ -3,7 +3,7 @@ import React from 'react';
 
 export default (props) =>{
     return (
-        <h6 className='col-lg-4 greeting'>
+        <h6>
             Hola, {props.name}
         </h6>
     )
