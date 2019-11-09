@@ -4,12 +4,13 @@ import Books from "../components/Books";
 import { fetchBooks, fetchBook } from "../store/actions/books";
 
 const mapStateToProps = ({ books }) => ({
-  books: books.list
+  books: books.list,
+  filtered: books.filtered
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
-  fetchBook: id => dispatch(fetchBook(id))
+  fetchBook: id => dispatch(fetchBook(id)),
 });
 
 export default connect(

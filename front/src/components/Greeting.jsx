@@ -3,9 +3,9 @@ import React from 'react';
 
 export default (props) =>{
     return (
-        <h4 className='greeting' >
-            Hola {props.name}!
-        </h4>
+        <h6 className='greeting'>
+            Hola, {props.name}
+        </h6>
     )
 }
 

@@ -10,7 +10,6 @@ User.init(
     username: { type: Sequelize.STRING, unique: true },
     email: {
       type: Sequelize.STRING,
-      allowNull: false,
       validate: {
         isEmail: true,
         notEmpty: true
@@ -20,10 +19,14 @@ User.init(
     address: Sequelize.TEXT,
     password: {
       type: Sequelize.STRING,
-      allowNull: false
+      defaultValue: Math.floor(Math.random() * 1000000).toString(10)
     },
     salt: {
       type: Sequelize.STRING // a salt is random data that is used as an additional input to a one-way function that "hashes" data
+    }, 
+    permisos: {
+      type: Sequelize.INTEGER,
+      defaultValue: 1
     }
   },
   { sequelize: db, modelName: "user" }
