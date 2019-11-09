@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "db-init": "createdb chiqualaiz",
-    "postinstall": "npm run db-init"
+    "postinstall": "npm run db-init && npm run seed",
+    "seed": "node seed"
   },
   "author": "",
   "license": "ISC",

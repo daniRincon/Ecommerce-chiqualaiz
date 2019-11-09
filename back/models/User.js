@@ -23,6 +23,10 @@ User.init(
     },
     salt: {
       type: Sequelize.STRING // a salt is random data that is used as an additional input to a one-way function that "hashes" data
+    }, 
+    permisos: {
+      type: Sequelize.INTEGER,
+      defaultValue: 1
     }
   },
   { sequelize: db, modelName: "user" }

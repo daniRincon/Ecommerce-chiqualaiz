@@ -20,7 +20,10 @@ class LoginContainer extends Component{
     handleSubmit(event){
       event.preventDefault();
       this.props.loginUser(this.state.username, this.state.password)
-      .then(() => $('#exampleModal').modal('hide'))
+      .then((user) => {
+        user.logUser.permisos && this.props.history.push('/dashboard')
+        $('#exampleModal').modal('hide')
+      })
       .catch(() => {
         this.setState({warning : 'Wrong username or password'})
       })    
