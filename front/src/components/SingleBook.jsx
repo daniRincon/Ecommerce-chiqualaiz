@@ -33,10 +33,11 @@ export default ({ books, fetchBook, truncarDescripcion }) => {
           />
         </div>
         <div
-          className="col p-3 mb-2 bg-dark text-white rounded-lg"
+          id="divContainer"
+          className="col p-3 mb-2 bg-light text-dark rounded-lg"
           style={{ textAlign: "center", paddingTop: "30%" }}
         >
-          <p
+          <div
             style={{
               padding: "5%"
             }}
@@ -44,9 +45,10 @@ export default ({ books, fetchBook, truncarDescripcion }) => {
             <h3>
               <strong>Sinopsis: </strong>
             </h3>
+
             {books.descripcion ? truncarDescripcion(books.descripcion, 50) : ""}
-          </p>
-          <p
+          </div>
+          <div
             style={{
               padding: "5%"
             }}
@@ -65,11 +67,33 @@ export default ({ books, fetchBook, truncarDescripcion }) => {
                 />
               </Box>
             </div>
-          </p>
-          <p className="mb-0">
-            <strong>Precio: $ </strong>
-            {books.precio}
-          </p>
+          </div>
+          <div
+            style={{
+              padding: "5%"
+            }}
+          >
+            <div className="mb-0">
+              <strong>Precio: $ </strong>
+              {books.precio}
+            </div>
+          </div>
+          <div
+            style={{
+              padding: "5%"
+            }}
+          >
+            <button
+              style={{ marginRight: "5px" }}
+              type="submit"
+              className="btn btn-primary"
+            >
+              Comprar ahora
+            </button>
+            <button type="submit" className="btn btn-outline-primary">
+              Agregar al carrito
+            </button>
+          </div>
         </div>
       </div>
       <div className="media-body"></div>

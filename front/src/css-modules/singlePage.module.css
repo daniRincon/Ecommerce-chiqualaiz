@@ -28,3 +28,10 @@
   max-width: 20%;
   height: auto;
 }
+#divContainer {
+  color: #e8e8e8;
+}
+
+#button {
+  margin-right: 5px;
+}
