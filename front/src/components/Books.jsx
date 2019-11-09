@@ -5,6 +5,7 @@ import "../css-modules/Books.module.css";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+const queryString = require("query-string");
 
 export default class Books extends React.Component {
   constructor(props) {
@@ -18,27 +19,55 @@ export default class Books extends React.Component {
     this.handlePrevious = this.handlePrevious.bind(this);
   }
   handleClick(event) {
-    this.setState({
-      currentPage: Number(event.target.id)
-    });
+    this.setState(
+      {
+        currentPage: Number(event.target.id)
+      },
+      () => {
+        const url = this.setParams({ page: this.state.currentPage });
+        this.props.history.push(`?${url}`);
+      }
+    );
   }
   handleNext(event) {
     this.state.currentPage <
     Math.ceil(this.props.books.length / this.state.todosPerPage)
-      ? this.setState({
-          currentPage: this.state.currentPage + 1
-        })
+      ? this.setState(
+          {
+            currentPage: this.state.currentPage + 1
+          },
+          () => {
+            const url = this.setParams({ page: this.state.currentPage });
+            this.props.history.push(`?${url}`);
+          }
+        )
       : null;
   }
   handlePrevious(event) {
     this.state.currentPage > 1
-      ? this.setState({
-          currentPage: this.state.currentPage - 1
-        })
+      ? this.setState(
+          {
+            currentPage: this.state.currentPage - 1
+          },
+          () => {
+            const url = this.setParams({ page: this.state.currentPage });
+            this.props.history.push(`?${url}`);
+          }
+        )
       : null;
+  }
+  setParams({ page = "" }) {
+    const searchParams = new URLSearchParams();
+    searchParams.set("page", page);
+    return searchParams.toString();
   }
   componentDidMount() {
     this.props.fetchBooks();
+    this.props.fetchUser();
+    const { page } = queryString.parse(this.props.location.search);
+    this.setState({
+      currentPage: page || 1
+    });
   }
   render() {
     const { currentPage, todosPerPage } = this.state;
@@ -46,16 +75,12 @@ export default class Books extends React.Component {
     // Logic for displaying todos
     const indexOfLastTodo = currentPage * todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-    const currentTodos = this.props.books.slice(
-      indexOfFirstTodo,
-      indexOfLastTodo
-    );
+    let renderedBooks;
+    renderedBooks =
+      this.props.filtered.length !== 0 ? this.props.filtered : this.props.books;
+    const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
-    for (
-      let i = 1;
-      i <= Math.ceil(this.props.books.length / todosPerPage);
-      i++
-    ) {
+    for (let i = 1; i <= Math.ceil(renderedBooks.length / todosPerPage); i++) {
       pageNumbers.push(i);
     }
     const renderPageNumbers = pageNumbers.map(number => {
@@ -82,7 +107,6 @@ export default class Books extends React.Component {
                 <div
                   key={book.id}
                   id="books"
-                  onClick={() => this.props.fetchBook(book.id)}
                   className="col-md-3 mb-2 ajusteCard"
                 >
                   <Link className=" text-dark enlace" to={`/books/${book.id}`}>
@@ -102,10 +126,10 @@ export default class Books extends React.Component {
                           precision={0.5}
                           readOnly
                         />
-                        <Typography component="legend">
+                        <div className="align-bottom">
                           <strong>Precio:</strong>
                           <span>${book.precio}</span>
-                        </Typography>
+                        </div>
                       </Box>
                     </div>
                   </Link>

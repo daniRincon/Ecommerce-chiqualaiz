@@ -77,6 +77,7 @@ export default class Register extends React.Component {
                       name="password"
                       className="form-control"
                       placeholder="Enter Password"
+                      required
                       onChange={this.props.handleChange}
                     />
                   </div>

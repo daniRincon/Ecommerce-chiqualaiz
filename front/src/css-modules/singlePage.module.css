@@ -1,4 +1,4 @@
-.container {
+/* .container {
   display: flex;
   height: 40%;
   width: auto;
@@ -18,12 +18,12 @@
   margin-top: 10%;
   margin-right: 20%;
 }
-*/
 
-/* .img-thumbnail{
+.img-thumbnail{
   height: 600px;
   width: 300px;
-} */
+}
+
 #stars {
   max-width: 20%;
   height: auto;
@@ -34,4 +34,4 @@
 
 #button {
   margin-right: 5px;
-}
+} */

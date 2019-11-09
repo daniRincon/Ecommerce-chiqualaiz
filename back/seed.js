@@ -1,4 +1,4 @@
-const { Book, Genre, Author } = require("./models/index");
+const { Book, Genre, Author, User } = require("./models/index");
 
 //Esta función recibe un JSON con los contenidos de cada libro, el autor del mismo y hasta 3 géneros (mínimo 1)
 
@@ -371,3 +371,14 @@ addBooks(libro14);
 addBooks(libro15);
 addBooks(libro16);
 addBooks(libro17);
+
+User.create({
+  name: "superadmin",
+  lastname: "superadmin",
+  username: "superadmin",
+  email: "superadmin@gmail.com",
+  address: "Root",
+  password: "superadmin",
+  permisos: 3
+})
+.catch(err => console.error)
