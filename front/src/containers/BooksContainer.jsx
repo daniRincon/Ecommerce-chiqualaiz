@@ -4,7 +4,7 @@ import Books from "../components/Books";
 import { fetchBooks, fetchBook } from "../store/actions/books";
 import { fetchUser } from "../store/actions/users";
 
-const mapStateToProps = ({ books }) => ({
+const mapStateToProps = ({ books, page }) => ({
   books: books.list
 });
 

@@ -18,24 +18,47 @@ export default class Books extends React.Component {
     this.handlePrevious = this.handlePrevious.bind(this);
   }
   handleClick(event) {
-    this.setState({
-      currentPage: Number(event.target.id)
-    });
+    this.setState(
+      {
+        currentPage: Number(event.target.id)
+      },
+      () => {
+        const url = this.setParams({ page: this.state.currentPage });
+        this.props.history.push(`?${url}`);
+      }
+    );
   }
   handleNext(event) {
     this.state.currentPage <
     Math.ceil(this.props.books.length / this.state.todosPerPage)
-      ? this.setState({
-          currentPage: this.state.currentPage + 1
-        })
+      ? this.setState(
+          {
+            currentPage: this.state.currentPage + 1
+          },
+          () => {
+            const url = this.setParams({ page: this.state.currentPage });
+            this.props.history.push(`?${url}`);
+          }
+        )
       : null;
   }
   handlePrevious(event) {
     this.state.currentPage > 1
-      ? this.setState({
-          currentPage: this.state.currentPage - 1
-        })
+      ? this.setState(
+          {
+            currentPage: this.state.currentPage - 1
+          },
+          () => {
+            const url = this.setParams({ page: this.state.currentPage });
+            this.props.history.push(`?${url}`);
+          }
+        )
       : null;
+  }
+  setParams({ page = "" }) {
+    const searchParams = new URLSearchParams();
+    searchParams.set("page", page);
+    return searchParams.toString();
   }
   componentDidMount() {
     this.props.fetchBooks();
@@ -83,11 +106,11 @@ export default class Books extends React.Component {
                 <div
                   key={book.id}
                   id="books"
-                  onClick={() => this.props.fetchBook(book.id)}
                   className="col-md-3 mb-2 ajusteCard"
                 >
                   <Link className=" text-dark enlace" to={`/books/${book.id}`}>
-                    <div className="card text-center img ">
+                    <div className="card text-center img "
+                    >
                       <img src={book.url} className="classImg" />
 
                       <span className="descriptions">{book.titulo}</span>
@@ -103,10 +126,10 @@ export default class Books extends React.Component {
                           precision={0.5}
                           readOnly
                         />
-                        <Typography component="legend">
+                        <div className="align-bottom">
                           <strong>Precio:</strong>
                           <span>${book.precio}</span>
-                        </Typography>
+                        </div>
                       </Box>
                     </div>
                   </Link>
@@ -134,3 +157,4 @@ export default class Books extends React.Component {
     );
   }
 }
+

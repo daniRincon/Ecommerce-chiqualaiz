@@ -25,38 +25,40 @@ class LoginContainer extends Component{
         $('#exampleModal').modal('hide')
       })
       .catch(() => {
-        this.setState({warning : 'Wrong username or password'})
-      })    
-    }
-    
-    handleUserInput(username){
-      this.setState({username})
-    }
-    
-    handlePasswordInput(password){
-      this.setState({password})
-    }
-    
-    render(){
-      return(
-          <div>
-              <Login 
-                  handleSubmit={this.handleSubmit} 
-                  handleUserInput={this.handleUserInput} 
-                  handlePasswordInput={this.handlePasswordInput} 
-                  warning={this.state.warning}
-              />
-          </div>
-      )
-    }
-    
+        this.setState({ warning: "Wrong username or password" });
+      });
+  }
+
+  handleUserInput(username) {
+    this.setState({ username });
+  }
+
+  handlePasswordInput(password) {
+    this.setState({ password });
+  }
+
+  render() {
+    return (
+      <div>
+        <Login
+          handleSubmit={this.handleSubmit}
+          handleUserInput={this.handleUserInput}
+          handlePasswordInput={this.handlePasswordInput}
+          warning={this.state.warning}
+        />
+      </div>
+    );
+  }
 }
 
-const mapDispatchToProps = dispatch =>({
+const mapDispatchToProps = dispatch => ({
   fetchUser: user => dispatch(fetchUser(user)),
   loginUser: (username, password) => {
-      return dispatch(loginUser(username, password))
+    return dispatch(loginUser(username, password));
   }
-})
+});
 
-export default connect(null, mapDispatchToProps)(LoginContainer)
+export default connect(
+  null,
+  mapDispatchToProps
+)(LoginContainer);
