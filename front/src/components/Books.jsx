@@ -63,7 +63,6 @@ export default class Books extends React.Component {
   }
   componentDidMount() {
     this.props.fetchBooks();
-    this.props.fetchUser();
     const { page } = queryString.parse(this.props.location.search);
     this.setState({
       currentPage: page || 1

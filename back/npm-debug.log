@@ -24,20 +24,20 @@
 23 silly mapToRegistry uri https://registry.npmjs.org/fsevents
 24 verbose request uri https://registry.npmjs.org/fsevents
 25 verbose request no auth needed
-26 info attempt registry request try #1 at 1:21:46 AM
-27 verbose request id ad78d9028a5cd9d2
+26 info attempt registry request try #1 at 12:33:29 PM
+27 verbose request id f4f079be642c2ca4
 28 verbose etag W/"35bc4abb688e84407f379ae72bbe4b91"
 29 verbose lastModified Fri, 08 Nov 2019 09:59:30 GMT
 30 http request GET https://registry.npmjs.org/fsevents
 31 http 304 https://registry.npmjs.org/fsevents
-32 verbose headers { date: 'Sat, 09 Nov 2019 04:21:47 GMT',
+32 verbose headers { date: 'Sat, 09 Nov 2019 15:33:30 GMT',
 32 verbose headers   connection: 'keep-alive',
 32 verbose headers   'set-cookie':
-32 verbose headers    [ '__cfduid=dabdaa2c3b6dbcbf00d51e85fadf9a9d11573273306; expires=Sun, 08-Nov-20 04:21:46 GMT; path=/; domain=.npmjs.org; HttpOnly' ],
+32 verbose headers    [ '__cfduid=d5a0050a889096a77b80c7f9b4bce041a1573313610; expires=Sun, 08-Nov-20 15:33:30 GMT; path=/; domain=.npmjs.org; HttpOnly' ],
 32 verbose headers   'cf-cache-status': 'HIT',
 32 verbose headers   'cache-control': 'max-age=300',
-32 verbose headers   'cf-ray': '532d0078a80e67e3-EZE',
-32 verbose headers   age: '2775',
+32 verbose headers   'cf-ray': '5330d86eec67d2c0-EZE',
+32 verbose headers   age: '2974',
 32 verbose headers   etag: '"35bc4abb688e84407f379ae72bbe4b91"',
 32 verbose headers   'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
 32 verbose headers   'last-modified': 'Fri, 08 Nov 2019 09:59:30 GMT',
@@ -45,14 +45,14 @@
 32 verbose headers   'x-amz-meta-rev': '166-b3bd50b4cf513d0b9819555fec29c181',
 32 verbose headers   server: 'cloudflare' }
 33 silly get cb [ 304,
-33 silly get   { date: 'Sat, 09 Nov 2019 04:21:47 GMT',
+33 silly get   { date: 'Sat, 09 Nov 2019 15:33:30 GMT',
 33 silly get     connection: 'keep-alive',
 33 silly get     'set-cookie':
-33 silly get      [ '__cfduid=dabdaa2c3b6dbcbf00d51e85fadf9a9d11573273306; expires=Sun, 08-Nov-20 04:21:46 GMT; path=/; domain=.npmjs.org; HttpOnly' ],
+33 silly get      [ '__cfduid=d5a0050a889096a77b80c7f9b4bce041a1573313610; expires=Sun, 08-Nov-20 15:33:30 GMT; path=/; domain=.npmjs.org; HttpOnly' ],
 33 silly get     'cf-cache-status': 'HIT',
 33 silly get     'cache-control': 'max-age=300',
-33 silly get     'cf-ray': '532d0078a80e67e3-EZE',
-33 silly get     age: '2775',
+33 silly get     'cf-ray': '5330d86eec67d2c0-EZE',
+33 silly get     age: '2974',
 33 silly get     etag: '"35bc4abb688e84407f379ae72bbe4b91"',
 33 silly get     'expect-ct': 'max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"',
 33 silly get     'last-modified': 'Fri, 08 Nov 2019 09:59:30 GMT',
