@@ -75,16 +75,12 @@ export default class Books extends React.Component {
     // Logic for displaying todos
     const indexOfLastTodo = currentPage * todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-    const currentTodos = this.props.books.slice(
-      indexOfFirstTodo,
-      indexOfLastTodo
-    );
+    let renderedBooks;
+    renderedBooks =
+      this.props.filtered.length !== 0 ? this.props.filtered : this.props.books;
+    const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
-    for (
-      let i = 1;
-      i <= Math.ceil(this.props.books.length / todosPerPage);
-      i++
-    ) {
+    for (let i = 1; i <= Math.ceil(renderedBooks.length / todosPerPage); i++) {
       pageNumbers.push(i);
     }
     const renderPageNumbers = pageNumbers.map(number => {
