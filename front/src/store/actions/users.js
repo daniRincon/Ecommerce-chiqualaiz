@@ -13,11 +13,11 @@ const logUser = logUser => ({
 
 export const signUpUser = (user) => dispatch =>{
     if(!user.password.length) throw Error('No password')
-    return axios.post('/users', user)
-    .then(user => true)
-    .catch(err => {
-        throw err
-    })
+    return axios.post('/api/users', user)
+      .then(user => true)
+      .catch(err => {
+          throw err
+      })
 }
 
 export const fetchUser = () => dispatch =>
