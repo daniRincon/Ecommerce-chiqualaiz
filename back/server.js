@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const path = require("path")
 const indexRouter = require("./routes/index");
-const userRouter = require("./routes/index");
+const cookieParser = require('cookie-parser')
 const session = require("express-session");
 const passport = require("../back/config/passport");
 const db = require("./config/db");
@@ -13,6 +13,12 @@ const { Author, Genre, Book } = require("./models"); //NO BORRAR: Necesario para
 require("dotenv").config();
 
 const app = express();
+
+//Allow CORS
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 //.env
 const PORT = process.env.PORT || 3000;
@@ -26,8 +32,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //Morgan logger
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 //Passport
+app.use(cookieParser());
 app.use(
   session({
     secret: "chiqualaiz",
@@ -44,7 +52,7 @@ app.get('/*', (req,res)=>{
   res.sendFile(path.join(__dirname, "./public", "index.html"));
 })
 
-db.sync()
+db.sync( {force: true})
   .then(function() {
     app.listen(PORT, function() {
       console.log("Chiqualize listening on " + PORT);

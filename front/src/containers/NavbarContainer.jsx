@@ -1,18 +1,22 @@
-import { connect } from "react-redux";
-import NavBarComponent from "../components/NavBar";
+import {connect} from "react-redux"
+import NavBarComponent from '../components/NavBar';
+import {userLogOut} from '../store/actions/users'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    loggedName: state.user.loggedName
+      loggedName: state.user.loggedName.name
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {};
-};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleLogOut: () =>{
+      dispatch(userLogOut())
+    }
+  };
+}
 
-const NavbarContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NavBarComponent);
-export default NavbarContainer;
+
+
+  const NavbarContainer = connect(mapStateToProps, mapDispatchToProps)(NavBarComponent)
+  export default NavbarContainer;

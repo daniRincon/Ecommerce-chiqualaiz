@@ -10,4 +10,9 @@ router.post("/", function(req, res) {
     .catch(err => res.status(400).send(console.log(err)));
 });
 
+router.get('/', function(req, res){
+  req.user? (req.user[0]? res.send(req.user[0]): res.send(req.user)) : res.send({})
+})
+
+
 module.exports = router;

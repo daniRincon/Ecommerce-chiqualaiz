@@ -62,6 +62,7 @@ export default class Books extends React.Component {
   }
   componentDidMount() {
     this.props.fetchBooks();
+    this.props.fetchUser();
   }
   render() {
     const { currentPage, todosPerPage } = this.state;

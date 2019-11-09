@@ -57,6 +57,7 @@ export default props => {
                   name="password"
                   className="form-control"
                   placeholder="Ingresar Contraseña"
+                  required
                 />
               </div>
               <h5 className="text-danger">{props.warning}</h5>
@@ -74,6 +75,10 @@ export default props => {
                 Register
               </button>
             </p>
+            <div className="networks">
+            <a href="/sessions/auth/google/"><button href="#" className="fa fa-google"></button></a>
+              <a href="/sessions/auth/facebook/"><button href="#" className="fa fa-facebook"></button></a>
+            </div>
           </div>
         </div>
       </div>
