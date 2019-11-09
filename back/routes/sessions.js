@@ -1,13 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const passport = require('../config/passport')
+const passport = require("../config/passport");
 
 function isLogedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-      res.send(req.user.email);
-    } else {
-      res.send(false);
-    }
+  if (req.isAuthenticated()) {
+    res.send(req.user.email);
+  } else {
+    res.send(false);
   }
   
   router.post("/", passport.authenticate("local"), (req, res) => {
@@ -38,4 +37,15 @@ router.delete('/', function(req, res){
 
   router.get("/", isLogedIn);
 
-  module.exports = router;
+
+router.post("/", passport.authenticate("local"), (req, res) => {
+  if (req.isAuthenticated()) {
+    res.send(req.user);
+  } else {
+    res.status(401).res.json({});
+  }
+});
+
+router.get("/", isLogedIn);
+
+module.exports = router;

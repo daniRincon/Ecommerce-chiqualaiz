@@ -6,7 +6,7 @@ const mapStateToProps = (state) => {
   return {
       loggedName: state.user.loggedName.name
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
