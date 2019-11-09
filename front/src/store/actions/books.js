@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_BOOKS, GET_BOOK } from "../constants";
+import { GET_BOOKS, GET_BOOK, FILTER_BOOKS } from "../constants";
 
 const receiveBooks = books => ({
   type: GET_BOOKS,
@@ -9,6 +9,11 @@ const receiveBooks = books => ({
 const receiveBook = book => ({
   type: GET_BOOK,
   book
+});
+
+const filteredBooks = books => ({
+  type: FILTER_BOOKS,
+  books
 });
 
 export const fetchBooks = () => dispatch =>
@@ -22,3 +27,10 @@ export const fetchBook = id => dispatch =>
     .get(`/api/books/${id}`)
     .then(res => res.data)
     .then(book => dispatch(receiveBook(book)));
+
+export const filterBooks = (searchValue, books) => dispatch => {
+  const filtBooks = books.filter(book =>
+    book.titulo.toLowerCase().match(searchValue.toLowerCase())
+  );
+  dispatch(filteredBooks(filtBooks));
+};
