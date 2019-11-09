@@ -2,9 +2,7 @@ import React from "react";
 
 export default props => {
   return (
-    <form className="bar col-lg-5" style={{
-      backgroundColor:"green"
-      }}>
+    <form>
       <input
         size="30"
         className="form-control"
