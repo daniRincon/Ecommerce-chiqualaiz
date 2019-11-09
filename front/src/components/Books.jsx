@@ -14,7 +14,8 @@ export default class Books extends React.Component {
     super(props);
     this.state = {
       currentPage: 1,
-      todosPerPage: 8
+      todosPerPage: 8,
+      maxPage: 1
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleNext = this.handleNext.bind(this);
@@ -36,8 +37,7 @@ export default class Books extends React.Component {
     );
   }
   handleNext(event) {
-    this.state.currentPage <
-    Math.ceil(this.props.books.length / this.state.todosPerPage)
+    this.state.currentPage < this.state.maxPage
       ? this.setState(
           {
             currentPage: this.state.currentPage + 1
@@ -74,7 +74,6 @@ export default class Books extends React.Component {
     const searchParams = new URLSearchParams();
     searchParams.set("search", search);
     searchParams.set("page", page);
-    console.log(searchParams);
     return searchParams.toString();
   }
   componentDidMount() {
@@ -88,10 +87,23 @@ export default class Books extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.books.length !== this.props.books.length) {
       const { search } = queryString.parse(this.props.location.search);
-
       if (search) {
         store.dispatch(filterBooks(search, this.props.books));
       }
+      const renderedBooks =
+        this.props.filtered.length !== 0
+          ? this.props.filtered
+          : this.props.books;
+      const max = Math.ceil(renderedBooks.length / this.state.todosPerPage);
+      this.setState({ maxPage: max });
+    }
+    if (prevProps.filtered.length !== this.props.filtered.length) {
+      const renderedBooks =
+        this.props.filtered.length !== 0
+          ? this.props.filtered
+          : this.props.books;
+      const max = Math.ceil(renderedBooks.length / this.state.todosPerPage);
+      this.setState({ maxPage: max });
     }
   }
   render() {
@@ -104,9 +116,10 @@ export default class Books extends React.Component {
     let renderedBooks;
     renderedBooks =
       this.props.filtered.length !== 0 ? this.props.filtered : this.props.books;
+    const max = Math.ceil(renderedBooks.length / todosPerPage);
     const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(renderedBooks.length / todosPerPage); i++) {
+    for (let i = 1; i <= max; i++) {
       pageNumbers.push(i);
     }
     const renderPageNumbers = pageNumbers.map(number => {
