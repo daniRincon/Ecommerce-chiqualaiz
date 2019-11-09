@@ -1,27 +1,29 @@
-import { connect } from "react-redux";
-import Login from "../components/Login";
-import React, { Component } from "react";
-import { fetchUser, loginUser } from "../store/actions/users";
+import {connect} from "react-redux"
+import Login from '../components/Login';
+import React, { Component } from 'react';
+import { fetchUser, loginUser } from '../store/actions/users';
 
-class LoginContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: "",
-      password: "",
-      warning: ""
-    };
-    this.handleUserInput = this.handleUserInput.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePasswordInput = this.handlePasswordInput.bind(this);
-  }
 
-  handleSubmit(event) {
-    event.preventDefault();
+class LoginContainer extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            username: '',
+            password: '',
+            warning: ''
+        }
+        this.handleUserInput = this.handleUserInput.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handlePasswordInput = this.handlePasswordInput.bind(this);
+    }
 
-    this.props
-      .loginUser(this.state.username, this.state.password)
-      .then(() => $("#exampleModal").modal("hide"))
+    handleSubmit(event){
+      event.preventDefault();
+      this.props.loginUser(this.state.username, this.state.password)
+      .then((user) => {
+        user.logUser.permisos && this.props.history.push('/dashboard')
+        $('#exampleModal').modal('hide')
+      })
       .catch(() => {
         this.setState({ warning: "Wrong username or password" });
       });

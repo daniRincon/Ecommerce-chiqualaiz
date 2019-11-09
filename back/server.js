@@ -52,7 +52,7 @@ app.get('/*', (req,res)=>{
   res.sendFile(path.join(__dirname, "./public", "index.html"));
 })
 
-db.sync( {force: true})
+db.sync()
   .then(function() {
     app.listen(PORT, function() {
       console.log("Chiqualize listening on " + PORT);

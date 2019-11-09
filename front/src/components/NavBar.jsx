@@ -18,7 +18,10 @@ export default props => {
              </div>
             {props.loggedName
             ?<div className='col-lg-4 login'>
-                <button className='btn btn-danger' onClick={()=> props.handleLogOut()}>Logout</button>
+                <button className='btn btn-danger' onClick={()=>{
+                                                             props.history.push('/') 
+                                                             props.handleLogOut()
+                                                             }}>Logout</button>
                 <Greeting name={props.loggedName} />   
              </div>
              :
