@@ -5,6 +5,7 @@ import "../css-modules/Books.module.css";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+const queryString = require("query-string");
 
 export default class Books extends React.Component {
   constructor(props) {
@@ -63,9 +64,15 @@ export default class Books extends React.Component {
   componentDidMount() {
     this.props.fetchBooks();
     this.props.fetchUser();
+    const { page } = queryString.parse(this.props.location.search);
+    this.setState({
+      currentPage: page || 1
+    });
   }
   render() {
     const { currentPage, todosPerPage } = this.state;
+    const parsed = queryString.parse(this.props.location.search);
+    console.log(parsed);
     let renderTodos;
     // Logic for displaying todos
     const indexOfLastTodo = currentPage * todosPerPage;
@@ -109,8 +116,7 @@ export default class Books extends React.Component {
                   className="col-md-3 mb-2 ajusteCard"
                 >
                   <Link className=" text-dark enlace" to={`/books/${book.id}`}>
-                    <div className="card text-center img "
-                    >
+                    <div className="card text-center img ">
                       <img src={book.url} className="classImg" />
 
                       <span className="descriptions">{book.titulo}</span>
@@ -157,4 +163,3 @@ export default class Books extends React.Component {
     );
   }
 }
-

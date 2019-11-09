@@ -6,7 +6,7 @@ import SingleBookContainer from "../containers/SingleBookContainer";
 import NavBarContainer from "../containers/NavbarContainer";
 import LoginContainer from "../containers/LoginContainer";
 import RegisterContainer from "../containers/RegisterContainer";
-import DashboardContainer from "../containers/DashboardContainer"
+import DashboardContainer from "../containers/DashboardContainer";
 
 export default () => {
   return (
