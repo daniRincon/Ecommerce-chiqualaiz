@@ -1,10 +1,12 @@
 import React from "react";
 import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
+import store from "../store";
 import "../css-modules/Books.module.css";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { filterBooks } from "../store/actions/books";
 const queryString = require("query-string");
 
 export default class Books extends React.Component {
@@ -24,7 +26,11 @@ export default class Books extends React.Component {
         currentPage: Number(event.target.id)
       },
       () => {
-        const url = this.setParams({ page: this.state.currentPage });
+        const { search } = queryString.parse(this.props.location.search);
+        const url = this.setParams({
+          search: search,
+          page: this.state.currentPage
+        });
         this.props.history.push(`?${url}`);
       }
     );
@@ -37,7 +43,11 @@ export default class Books extends React.Component {
             currentPage: this.state.currentPage + 1
           },
           () => {
-            const url = this.setParams({ page: this.state.currentPage });
+            const { search } = queryString.parse(this.props.location.search);
+            const url = this.setParams({
+              search: search,
+              page: this.state.currentPage
+            });
             this.props.history.push(`?${url}`);
           }
         )
@@ -50,15 +60,21 @@ export default class Books extends React.Component {
             currentPage: this.state.currentPage - 1
           },
           () => {
-            const url = this.setParams({ page: this.state.currentPage });
+            const { search } = queryString.parse(this.props.location.search);
+            const url = this.setParams({
+              search: search,
+              page: this.state.currentPage
+            });
             this.props.history.push(`?${url}`);
           }
         )
       : null;
   }
-  setParams({ page = "" }) {
+  setParams({ search = "", page = "" }) {
     const searchParams = new URLSearchParams();
+    searchParams.set("search", search);
     searchParams.set("page", page);
+    console.log(searchParams);
     return searchParams.toString();
   }
   componentDidMount() {
@@ -68,8 +84,19 @@ export default class Books extends React.Component {
       currentPage: page || 1
     });
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.books.length !== this.props.books.length) {
+      const { search } = queryString.parse(this.props.location.search);
+
+      if (search) {
+        store.dispatch(filterBooks(search, this.props.books));
+      }
+    }
+  }
   render() {
     const { currentPage, todosPerPage } = this.state;
+
     let renderTodos;
     // Logic for displaying todos
     const indexOfLastTodo = currentPage * todosPerPage;

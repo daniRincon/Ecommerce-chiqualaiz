@@ -14,7 +14,7 @@ export default props => {
         </Link>
       </div>
       <div className="bar col-lg-5">
-        <SearchBarContainer books={props.books} />
+        <SearchBarContainer books={props.books} history={props.history} />
       </div>
       {props.loggedName ? (
         <div className="col-lg-4 login">
