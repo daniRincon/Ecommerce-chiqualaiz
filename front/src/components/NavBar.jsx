@@ -13,6 +13,7 @@ export default (props) =>{
             <SearchBar />
             {props.loggedName
             ?<div className='col-lg-4 login'>
+                <button className='btn btn-danger' onClick={()=> props.handleLogOut()}>Logout</button>
                 <Greeting name={props.loggedName} />   
              </div>
              :

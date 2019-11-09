@@ -12,6 +12,7 @@ const logUser = logUser => ({
    });
 
 export const signUpUser = (user) => dispatch =>{
+    if(!user.password.length) throw Error('No password')
     return axios.post('/users', user)
     .then(user => true)
     .catch(err => {
@@ -24,9 +25,17 @@ export const fetchUser = () => dispatch =>
         .then(user => dispatch(getUser(user.data)))
 
 export const loginUser = (username, password) => dispatch =>{
+    if(!password.length) throw Error('No password')
     return axios.post("/sessions", {username, password})
         .then(res => dispatch(logUser(res.data)))
         .catch(err => {
             throw err
         })
 };
+
+export const userLogOut = () => dispatch => {
+    axios.delete('/sessions')
+    .then(res => {
+      dispatch(getUser({}))
+    }).catch(error => console.log(error))
+  }
