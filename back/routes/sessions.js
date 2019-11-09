@@ -4,7 +4,7 @@ const passport = require('../config/passport')
 
 function isLogedIn(req, res, next) {
     if (req.isAuthenticated()) {
-      res.send(req.user.email);
+      req.user? (req.user[0]? res.send(req.user[0]): res.send(req.user)) : res.send({})
     } else {
       res.send(false);
     }

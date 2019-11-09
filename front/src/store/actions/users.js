@@ -21,12 +21,12 @@ export const signUpUser = (user) => dispatch =>{
 }
 
 export const fetchUser = () => dispatch =>
-    axios.get('/users')
+    axios.get('/api/sessions')
         .then(user => dispatch(getUser(user.data)))
 
 export const loginUser = (username, password) => dispatch =>{
     if(!password.length) throw Error('No password')
-    return axios.post("/sessions", {username, password})
+    return axios.post("/api/sessions", {username, password})
         .then(res => dispatch(logUser(res.data)))
         .catch(err => {
             throw err
@@ -34,7 +34,7 @@ export const loginUser = (username, password) => dispatch =>{
 };
 
 export const userLogOut = () => dispatch => {
-    axios.delete('/sessions')
+    axios.delete('/api/sessions')
     .then(res => {
       dispatch(getUser({}))
     }).catch(error => console.log(error))

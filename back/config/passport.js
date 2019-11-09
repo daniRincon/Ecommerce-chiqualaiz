@@ -28,7 +28,7 @@ passport.use(
 passport.use(new FacebookStrategy({
   clientID: "545998876197362",
   clientSecret: "66ca2afda75d526ff3e4b3bb392e4018",
-  callbackURL: "http://localhost:3000/sessions/auth/facebook/callback"
+  callbackURL: "http://localhost:3000/api/sessions/auth/facebook/callback"
 },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({where: {
@@ -45,7 +45,7 @@ passport.use(new FacebookStrategy({
 passport.use(new GoogleStrategy({
   clientID: "871324229312-su9nf4ia7b1c315g2cnqscui8s5rqk7d.apps.googleusercontent.com",
   clientSecret: "jVCUcnjK7AuZSTGK8cr12-_t",
-  callbackURL: "http://localhost:3000/sessions/auth/google/callback"
+  callbackURL: "http://localhost:3000/api/sessions/auth/google/callback"
 },
 function(token, tokenSecret, profile, done) {
   console.log(profile)
