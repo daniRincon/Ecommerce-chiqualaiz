@@ -27,30 +27,17 @@ export default class Books extends React.Component {
       {
         currentPage: Number(event.target.id)
       },
-      () => {
-        const { search } = queryString.parse(this.props.location.search);
-        const url = this.setParams({
-          search: search,
-          page: this.state.currentPage
-        });
-        this.props.history.push(`?${url}`);
-      }
+      this.handleUrlNavigation
     );
   }
+
   handleNext(event) {
     this.state.currentPage < this.state.maxPage
       ? this.setState(
           {
             currentPage: this.state.currentPage + 1
           },
-          () => {
-            const { search } = queryString.parse(this.props.location.search);
-            const url = this.setParams({
-              search: search,
-              page: this.state.currentPage
-            });
-            this.props.history.push(`?${url}`);
-          }
+          this.handleUrlNavigation
         )
       : null;
   }
@@ -60,17 +47,20 @@ export default class Books extends React.Component {
           {
             currentPage: this.state.currentPage - 1
           },
-          () => {
-            const { search } = queryString.parse(this.props.location.search);
-            const url = this.setParams({
-              search: search,
-              page: this.state.currentPage
-            });
-            this.props.history.push(`?${url}`);
-          }
+          this.handleUrlNavigation
         )
       : null;
   }
+
+  handleUrlNavigation() {
+    const { search } = queryString.parse(this.props.location.search);
+    const url = this.setParams({
+      search: search,
+      page: this.state.currentPage
+    });
+    this.props.history.push(`?${url}`);
+  }
+
   setParams({ search = "", page = "" }) {
     const searchParams = new URLSearchParams();
     searchParams.set("search", search);
@@ -92,7 +82,8 @@ export default class Books extends React.Component {
         store.dispatch(filterBooks(search, this.props.books));
       }
       const renderedBooks =
-        this.props.filtered.length !== 0
+        this.props.filtered.length !== 0 ||
+        (this.props.filtered.length === 0 && this.props.emptySearch === true)
           ? this.props.filtered
           : this.props.books;
       const max = Math.ceil(renderedBooks.length / this.state.todosPerPage);
@@ -100,7 +91,8 @@ export default class Books extends React.Component {
     }
     if (prevProps.filtered.length !== this.props.filtered.length) {
       const renderedBooks =
-        this.props.filtered.length !== 0
+        this.props.filtered.length !== 0 ||
+        (this.props.filtered.length === 0 && this.props.emptySearch === true)
           ? this.props.filtered
           : this.props.books;
       const max = Math.ceil(renderedBooks.length / this.state.todosPerPage);
@@ -109,6 +101,7 @@ export default class Books extends React.Component {
   }
   render() {
     const { currentPage, todosPerPage } = this.state;
+    console.log(this.props.filtered, this.props.emptySearch);
 
     let renderTodos;
     // Logic for displaying todos
@@ -116,8 +109,12 @@ export default class Books extends React.Component {
     const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
     let renderedBooks;
     renderedBooks =
-      this.props.filtered.length !== 0 ? this.props.filtered : this.props.books;
+      this.props.filtered.length !== 0 ||
+      (this.props.filtered.length === 0 && this.props.emptySearch === true)
+        ? this.props.filtered
+        : this.props.books;
     const max = Math.ceil(renderedBooks.length / todosPerPage);
+    console.log(max);
     const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
     for (let i = 1; i <= max; i++) {
@@ -149,7 +146,10 @@ export default class Books extends React.Component {
                   id="books"
                   className={"col-md-3 mb-2 " + styles.ajusteCard}
                 >
-                  <Link className={"text-dark " + styles.enlace} to={`/books/${book.id}`}>
+                  <Link
+                    className={"text-dark " + styles.enlace}
+                    to={`/books/${book.id}`}
+                  >
                     <div className={"card " + "text-center " + styles.img}>
                       <img src={book.url} className={styles.classImg} />
 
@@ -173,28 +173,46 @@ export default class Books extends React.Component {
                       </Box>
                     </div>
                   </Link>
-                  <button  onClick={ () => {
-                          this.props.addBook({id: book.id, precio: book.precio, titulo: book.titulo})
-                        }}className="btn btn-info">+</button>
+                  <button
+                    onClick={() => {
+                      this.props.addBook({
+                        id: book.id,
+                        precio: book.precio,
+                        titulo: book.titulo
+                      });
+                    }}
+                    className="btn btn-info"
+                  >
+                    +
+                  </button>
                 </div>
               );
             }))
           }
-          <nav aria-label="Books navigation" className="container">
-            <ul id="page-numbers" className="pagination justify-content-center">
-              <li className="page-item">
-                <a className="page-link" onClick={this.handlePrevious}>
-                  Previous
-                </a>
-              </li>
-              {renderPageNumbers}
-              <li className="page-item">
-                <a className="page-link" onClick={this.handleNext}>
-                  Next
-                </a>
-              </li>
-            </ul>
-          </nav>
+          {max !== 0 ? (
+            <nav aria-label="Books navigation" className="container">
+              <ul
+                id="page-numbers"
+                className="pagination justify-content-center"
+              >
+                <li className="page-item">
+                  <a className="page-link" onClick={this.handlePrevious}>
+                    Previous
+                  </a>
+                </li>
+                {renderPageNumbers}
+                <li className="page-item">
+                  <a className="page-link" onClick={this.handleNext}>
+                    Next
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          ) : (
+            <div className="container text-center">
+              <h1>No se encontraron resultados</h1>
+            </div>
+          )}
         </div>
       </div>
     );

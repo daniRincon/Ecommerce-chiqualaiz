@@ -5,7 +5,8 @@ import { addCart } from "../store/actions/cart";
 
 const mapStateToProps = ({ books }) => ({
   books: books.list,
-  filtered: books.filtered
+  filtered: books.filtered,
+  emptySearch: books.emptySearch
 });
 
 const mapDispatchToProps = dispatch => ({
