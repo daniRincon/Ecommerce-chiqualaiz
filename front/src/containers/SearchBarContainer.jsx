@@ -17,10 +17,13 @@ class SearchBarContainer extends React.Component {
 
   handleChange(evt) {
     const value = evt.target.value;
-    this.setState({
-      inputValue: value
-    });
-    store.dispatch(filterBooks(value, this.props.books));
+    console.log(value);
+    if (/^\w|\s+$/.test(value[value.length - 1])) {
+      this.setState({
+        inputValue: value
+      });
+      store.dispatch(filterBooks(value, this.props.books));
+    }
   }
 
   handleKeyPress(evt) {
@@ -49,6 +52,7 @@ class SearchBarContainer extends React.Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
           handleKeyPress={this.handleKeyPress}
+          inputValue={this.state.inputValue}
         />
       </div>
     );
