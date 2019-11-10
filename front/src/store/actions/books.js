@@ -47,3 +47,20 @@ export const filterBooks = (searchValue, books) => dispatch => {
   );
   dispatch(filteredBooks(filtBooks));
 };
+
+export const addBook = (book) => dispatch => {
+  return axios.post('/api/books', book)
+    .then(book => dispatch(receiveBook(book)))
+    .catch(err => {
+        throw err
+    })
+};
+
+export const updateBook = (book) => dispatch => {
+  return axios.put(`/api/books/${book.id}`, book)
+    .then(book => dispatch(receiveBook(book)))
+    .catch(err => {
+        throw err
+    })
+};
+
