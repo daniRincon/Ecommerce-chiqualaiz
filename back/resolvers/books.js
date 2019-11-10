@@ -1,7 +1,9 @@
 const { Book, Author } = require("../models/");
 
 const fetchBooks = function(req, res) {
-  Book.findAll()
+  Book.findAll({ where:{
+    visible:true
+  }})
     .then(books => res.send(books))
     .catch(err => res.status(404).send(err));
 };
@@ -61,5 +63,16 @@ const updateBook = function(req, res){
   .catch(err => res.status(404).send(err))
 }
 
+const deleteBook = function(req, res){
+  Book.update({
+    visible: false
+  },{ 
+    where: {
+      id : req.params.id
+    }
+  })
+  .then(() => res.sendStatus(204))
+  .catch(err => res.status(404).send(err))
+}
 
-module.exports = { fetchBooks, fetchBook, addBook, updateBook };
+module.exports = { fetchBooks, fetchBook, addBook, updateBook, deleteBook };
