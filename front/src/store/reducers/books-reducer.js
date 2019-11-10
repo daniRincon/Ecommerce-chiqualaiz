@@ -4,8 +4,9 @@ import { CardActions } from "@material-ui/core";
 const initialState = {
   list: [],
   filtered: [],
+  emptySearch: false,
   selected: {},
-  AllGenres: [],
+  AllGenres: []
 };
 
 export default (state = initialState, action) => {
@@ -15,9 +16,12 @@ export default (state = initialState, action) => {
     case GET_BOOKS:
       return Object.assign({}, state, { list: action.books });
     case FILTER_BOOKS:
-      return Object.assign({}, state, { filtered: action.books });
+      return Object.assign({}, state, {
+        filtered: action.books,
+        emptySearch: action.emptySearch
+      });
     case FILTER_GENRE:
-      return Object.assign({}, state, { AllGenres: action.genres })
+      return Object.assign({}, state, { AllGenres: action.genres });
     default:
       return state;
   }

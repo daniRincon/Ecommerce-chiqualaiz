@@ -11,15 +11,16 @@ const receiveBook = book => ({
   book
 });
 
-const filteredBooks = books => ({
+const filteredBooks = (books, emptySearch) => ({
   type: FILTER_BOOKS,
-  books
+  books,
+  emptySearch
 });
 
 const filterGenre = genres => ({
   type: FILTER_GENRE,
   genres
-})
+});
 
 export const fetchBooks = () => dispatch =>
   axios
@@ -33,34 +34,34 @@ export const fetchBook = id => dispatch =>
     .then(res => res.data)
     .then(book => dispatch(receiveBook(book)));
 
-
-export const fetchGenre = () => dispatch => 
+export const fetchGenre = () => dispatch =>
   axios
-  .get("/api/books/genre")
-  .then(res => res.data)
-  .then(genres => dispatch(filterGenre(genres)));
-
+    .get("/api/books/genre")
+    .then(res => res.data)
+    .then(genres => dispatch(filterGenre(genres)));
 
 export const filterBooks = (searchValue, books) => dispatch => {
   const filtBooks = books.filter(book =>
     book.titulo.toLowerCase().match(searchValue.toLowerCase())
   );
-  dispatch(filteredBooks(filtBooks));
+  const emptySearch = filtBooks.length ? false : true;
+  dispatch(filteredBooks(filtBooks, emptySearch));
 };
 
-export const addBook = (book) => dispatch => {
-  return axios.post('/api/books', book)
+export const addBook = book => dispatch => {
+  return axios
+    .post("/api/books", book)
     .then(book => dispatch(receiveBook(book)))
     .catch(err => {
-        throw err
-    })
+      throw err;
+    });
 };
 
-export const updateBook = (book) => dispatch => {
-  return axios.put(`/api/books/${book.id}`, book)
+export const updateBook = book => dispatch => {
+  return axios
+    .put(`/api/books/${book.id}`, book)
     .then(book => dispatch(receiveBook(book)))
     .catch(err => {
-        throw err
-    })
+      throw err;
+    });
 };
-
