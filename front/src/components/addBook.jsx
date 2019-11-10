@@ -31,14 +31,16 @@ export default (props) => {
                     type="text"
                     name="title"
                     className="form-control"
-                    placeholder="Ingresar title">
+                    placeholder="Ingresar title"
+                    defaultValue={props.selected.titulo || ''}>
                 </input>
                 <input  
                     required
                     type="text"
                     name="author"
                     className="form-control"
-                    placeholder="Ingresar autor">
+                    placeholder="Ingresar autor"
+                    defaultValue={props.selected.author || ''}>
                 </input>
               </h1>
             </div>
@@ -56,7 +58,8 @@ export default (props) => {
               <input  type="text"
                     name="imagen"
                     className="form-control"
-                    placeholder="Ingresar URL imagen">
+                    placeholder="Ingresar URL imagen"
+                    defaultValue={props.selected.url || ''}>
                 </input>
             </div>
             <div
@@ -75,7 +78,8 @@ export default (props) => {
                     type="text"
                     name="description"
                     className="form-control"
-                    placeholder="Ingresar descripcion">
+                    placeholder="Ingresar descripcion"
+                    defaultValue={props.selected.descripcion || ''}>
               </input>
 
               <div>
@@ -88,11 +92,12 @@ export default (props) => {
                     type="text"
                     name="precio"
                     className="form-control"
-                    placeholder="Ingresar precio">
+                    placeholder="Ingresar precio"
+                    defaultValue={props.selected.precio || ''}>
                 </input>
               </p>
               <button type="submit" className="btn btn-primary btn-block">
-                  add book
+                  {props.selected.titulo? "edit book": "update book"}
                 </button>
               <h5 className="text-danger">{props.warning}</h5>
               <h5 className="text-success">{props.success}</h5>

@@ -3,9 +3,9 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
-  import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 
-export default ({ book }) => {
+export default ({ book, authorized, history }) => {
   
   const truncarDescripcion = (descripcion, length) => {
    return descripcion.substr(0, length) + "...";
@@ -78,11 +78,21 @@ export default ({ book }) => {
             <strong>Precio: $ </strong>
             {book.precio}
           </p>
-          <Button href="/" variant="contained" className={classes.button} style={{
-            margin:"20%"
+          <Button  onClick={() => {
+                    history.push('/')}
+                    } variant="contained" className={classes.button} style={{
+            margin:"1%"
           }}>
         Home
       </Button>
+      {authorized > 1
+          ? <Button onClick={() => {
+            history.push('/books/' + book.id + '/edit')}
+            }  variant="contained" className={classes.button} style={{
+            margin:"1%"
+          }}> Editar</Button>
+          : false
+          }
         </div>
       </div>
       <div className="media-body"></div>

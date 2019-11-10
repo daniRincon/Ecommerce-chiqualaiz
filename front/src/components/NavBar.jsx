@@ -19,6 +19,14 @@ export default props => {
       {props.loggedName ? (
         <div className="col-lg-4 login">
           <button
+            className="btn btn-info"
+            onClick={() => {
+              props.history.push("/dashboard");
+            }}
+          >
+            Dashboard
+          </button>
+          <button
             className="btn btn-danger"
             onClick={() => {
               props.history.push("/");

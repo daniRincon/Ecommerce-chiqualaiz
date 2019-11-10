@@ -7,12 +7,16 @@ const fetchBooks = function(req, res) {
 };
 
 const fetchBook = function(req, res) {
+  
   Book.findOne({
     where: {
       id: req.params.id
     }
   })
-    .then(book => res.json(book))
+    .then(async (book) => {
+      const author = await book.getAuthor()
+      res.json({...book.dataValues, author: author.nombre})}
+      )
     .catch(err => res.status(404).send(err));
 };
 
@@ -34,4 +38,28 @@ const addBook = function(req, res){
   .catch(err => res.status(404).send(err))
 }
 
-module.exports = { fetchBooks, fetchBook, addBook };
+const updateBook = function(req, res){
+
+  Promise.all(
+    [Book.update({
+    titulo: req.body.title,
+    precio: req.body.precio,
+    url: req.body.imgUrl.length? req.body.imgUrl : undefined,
+    descripcion: req.body.descripcion,
+  },{
+    returning: true,
+    plain: true,
+    where : {
+      id :req.body.id
+    }
+  }),
+  Author.findOrCreate({ where: { nombre: req.body.author } })])
+  .then(([newBook, author]) => {
+    newBook[1].setAuthor(author[0])
+    res.send(newBook[1])
+  })
+  .catch(err => res.status(404).send(err))
+}
+
+
+module.exports = { fetchBooks, fetchBook, addBook, updateBook };
