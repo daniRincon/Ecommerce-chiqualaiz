@@ -7,7 +7,9 @@ export default (props) =>{
     return (
        <div className="btn-group-vertical dashboard">
                 <Link to="/dashboard/add"><button className="btn btn-info">Agregar productos</button> </Link>
-                <button className="btn btn-info">Editar productos</button> 
+                <button onClick={() => {
+                    props.history.push('/')}
+                    } className="btn btn-info">Editar productos</button> 
                 <button className="btn btn-info">Crear género</button> 
                 <button className="btn btn-info">Órdenes</button> 
                 <button className="btn btn-info">Editar usuarios</button> 

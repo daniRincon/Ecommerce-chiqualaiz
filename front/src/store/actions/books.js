@@ -42,3 +42,11 @@ export const addBook = (book) => dispatch => {
         throw err
     })
 };
+
+export const updateBook = (book) => dispatch => {
+  return axios.put(`/api/books/${book.id}`, book)
+    .then(book => dispatch(receiveBook(book)))
+    .catch(err => {
+        throw err
+    })
+};

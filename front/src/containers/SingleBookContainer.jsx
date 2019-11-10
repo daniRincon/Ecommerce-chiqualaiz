@@ -10,12 +10,13 @@ class SingleBookContainer extends React.Component {
   }
 
   render() {
-    return <SingleBook book={this.props.book}/>
+    return <SingleBook book={this.props.book} history={this.props.history} authorized={this.props.authorized}/>
   }
 }
 
-const mapStateToProps = ({ books }) => ({
-  book: books.selected
+const mapStateToProps = ({ books, user }) => ({
+  book: books.selected,
+  authorized: user.loggedName.permisos,
 });
 
 const mapDispatchToProps = dispatch => ({
