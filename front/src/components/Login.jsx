@@ -1,5 +1,5 @@
 import React from "react";
-import "../css-modules/register.module.css";
+import styles from "../css-modules/register.module.css";
 
 export default props => {
   return (
@@ -75,9 +75,9 @@ export default props => {
                 Register
               </button>
             </p>
-            <div className="networks">
-            <a href="/api/sessions/auth/google/"><button href="#" className="fa fa-google"></button></a>
-              <a href="/api/sessions/auth/facebook/"><button href="#" className="fa fa-facebook"></button></a>
+            <div className={styles.networks}>
+            <a href="/api/sessions/auth/google/"><button href="#" className={"fa fa-google " + styles.fa + " " + styles.google}></button></a>
+              <a href="/api/sessions/auth/facebook/"><button href="#" className={"fa fa-facebook " + styles.fa + " " + styles.facebook}></button></a>
             </div>
           </div>
         </div>

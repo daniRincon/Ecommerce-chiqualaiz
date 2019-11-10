@@ -2,11 +2,12 @@ import React from "react";
 import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
 import store from "../store";
-import "../css-modules/Books.module.css";
+import styles from "../css-modules/Books.module.css";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { filterBooks } from "../store/actions/books";
+import zIndex from "@material-ui/core/styles/zIndex";
 const queryString = require("query-string");
 
 export default class Books extends React.Component {
@@ -136,13 +137,13 @@ export default class Books extends React.Component {
                 <div
                   key={book.id}
                   id="books"
-                  className="col-md-3 mb-2 ajusteCard"
+                  className={"col-md-3 mb-2 " + styles.ajusteCard}
                 >
-                  <Link className=" text-dark enlace" to={`/books/${book.id}`}>
-                    <div className="card text-center img ">
-                      <img src={book.url} className="classImg" />
+                  <Link className={"text-dark " + styles.enlace} to={`/books/${book.id}`}>
+                    <div className={"card " + "text-center " + styles.img}>
+                      <img src={book.url} className={styles.classImg} />
 
-                      <span className="descriptions">{book.titulo}</span>
+                      <span className={styles.descriptions}>{book.titulo}</span>
                       <Box
                         component="fieldset"
                         mb={3}
@@ -162,6 +163,9 @@ export default class Books extends React.Component {
                       </Box>
                     </div>
                   </Link>
+                  <button  onClick={ () => {
+                          this.props.addBook({id: book.id, precio: book.precio, titulo: book.titulo})
+                        }}className="btn btn-info">+</button>
                 </div>
               );
             }))
