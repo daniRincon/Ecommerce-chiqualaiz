@@ -3,14 +3,12 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
-  import Button from "@material-ui/core/Button";
 
 export default ({ book }) => {
-  
   const truncarDescripcion = (descripcion, length) => {
-   return descripcion.substr(0, length) + "...";
-}
-  
+    return descripcion.substr(0, length) + "...";
+  };
+
   const useStyles = makeStyles(theme => ({
     button: {
       margin: theme.spacing(1)
@@ -19,7 +17,7 @@ export default ({ book }) => {
       display: "none"
     }
   }));
-  
+
   const classes = useStyles();
   return (
     <div className="container">
@@ -47,7 +45,8 @@ export default ({ book }) => {
           />
         </div>
         <div
-          className="col p-3 mb-2 bg-dark text-white rounded-lg"
+          id="divContainer"
+          className="col p-3 mb-2 bg-light text-dark rounded-lg"
           style={{ textAlign: "center", paddingTop: "30%" }}
         >
           <h3
@@ -78,15 +77,25 @@ export default ({ book }) => {
             <strong>Precio: $ </strong>
             {book.precio}
           </p>
-          <Button href="/" variant="contained" className={classes.button} style={{
-            margin:"20%"
-          }}>
-        Home
-      </Button>
+          <div
+            style={{
+              padding: "5%"
+            }}
+          >
+            <button
+              style={{ marginRight: "5px" }}
+              type="submit"
+              className="btn btn-primary"
+            >
+              Comprar ahora
+            </button>
+            <button type="submit" className="btn btn-outline-primary">
+              Agregar al carrito
+            </button>
+          </div>
         </div>
       </div>
       <div className="media-body"></div>
-      
     </div>
   );
 };

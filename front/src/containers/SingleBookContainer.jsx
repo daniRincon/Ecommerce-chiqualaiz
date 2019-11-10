@@ -2,15 +2,15 @@ import React from "react";
 import SingleBook from "../components/SingleBook";
 import { connect } from "react-redux";
 import { fetchBook, truncarDescripcion } from "../store/actions/books";
+import { fetchUser } from "../store/actions/users";
 
 class SingleBookContainer extends React.Component {
-  
   componentDidMount() {
     this.props.fetchBook(this.props.match.params.id);
   }
 
   render() {
-    return <SingleBook book={this.props.book}/>
+    return <SingleBook book={this.props.book} />;
   }
 }
 
