@@ -9,7 +9,7 @@ const mapStateToProps = ({ user, books, genres }) => {
     loggedName: user.loggedName.name,
     books: books.list,
 
-    genres: genres.AllGenres
+    genres: genres.AllGenres,
 
     filtered: books.filtered
 
