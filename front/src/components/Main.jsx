@@ -9,7 +9,8 @@ import NavBarContainer from "../containers/NavbarContainer";
 import LoginContainer from "../containers/LoginContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 import DashboardContainer from "../containers/DashboardContainer";
-import AddBookContainer from "../containers/AddBookContainer"
+import AddBookContainer from "../containers/AddBookContainer";
+import KartContainer from "../containers/KartContainer";
 
 import {fetchUser} from "../store/actions/users"
 
@@ -22,6 +23,7 @@ export default () => {
   return (
     <div id="main">
       <Route path="/" component={NavBarContainer} />
+      <Route path="/" component={KartContainer} />
       <Route exact path="/books/:id" component={SingleBookContainer} />
       <Route exact path="/" component={BooksContainer} />
       <Route path="/" component={LoginContainer} />
