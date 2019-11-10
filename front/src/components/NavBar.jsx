@@ -4,8 +4,11 @@ import Greeting from "./Greeting";
 import { Link } from "react-router-dom";
 import logo from "../../../back/public/images/logo_transparent.png";
 import "../css-modules/navBar.module.css";
+import Genres from './Genres'
+
 
 export default props => {
+  console.log(props)
   return (
     <nav className="navbar navbar-expand-sm">
       <div className="col-lg-3">
@@ -13,12 +16,17 @@ export default props => {
           <img src={logo} width="auto" height="40" alt="" />
         </Link>
       </div>
-      <div className="bar col-lg-5">
+
+      <div className="bar col-lg-4">
         <SearchBarContainer
           books={props.books}
           filtered={props.filtered}
           history={props.history}
         />
+
+      </div>
+      <div className="bar col-lg-1">
+        <Genres fetchGenre={props.fetchGenre} genres={props.genres}/>
       </div>
       {props.loggedName ? (
         <div className="col-lg-4 login">

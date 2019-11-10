@@ -1,4 +1,5 @@
-const { Book, Author } = require("../models/");
+
+const { Book, Author, Genre } = require("../models/");
 
 const fetchBooks = function(req, res) {
   Book.findAll({ where:{
@@ -21,6 +22,12 @@ const fetchBook = function(req, res) {
       )
     .catch(err => res.status(404).send(err));
 };
+
+const fetchGenre = function(req,res) {
+  Genre.findAll()
+  .then(data=> res.send(data))
+  .catch(err => res.status(404).send(err));
+}
 
 const addBook = function(req, res){
   Promise.all(
@@ -75,4 +82,4 @@ const deleteBook = function(req, res){
   .catch(err => res.status(404).send(err))
 }
 
-module.exports = { fetchBooks, fetchBook, addBook, updateBook, deleteBook };
+module.exports = { fetchBooks, fetchBook, addBook, updateBook, deleteBook, fetchGenre };

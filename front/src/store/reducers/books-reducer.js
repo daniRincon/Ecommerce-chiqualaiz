@@ -1,9 +1,11 @@
-import { GET_BOOKS, GET_BOOK, FILTER_BOOKS } from "../constants";
+import { GET_BOOKS, GET_BOOK, FILTER_BOOKS, FILTER_GENRE } from "../constants";
+import { CardActions } from "@material-ui/core";
 
 const initialState = {
   list: [],
   filtered: [],
-  selected: {}
+  selected: {},
+  AllGenres: [],
 };
 
 export default (state = initialState, action) => {
@@ -14,6 +16,8 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, { list: action.books });
     case FILTER_BOOKS:
       return Object.assign({}, state, { filtered: action.books });
+    case FILTER_GENRE:
+      return Object.assign({}, state, { AllGenres: action.genres })
     default:
       return state;
   }
