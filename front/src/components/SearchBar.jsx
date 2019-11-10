@@ -11,6 +11,7 @@ export default ({ handleChange, handleSubmit }) => {
         name="search"
         onChange={handleChange}
       ></input>
+      
     </form>
   );
 };

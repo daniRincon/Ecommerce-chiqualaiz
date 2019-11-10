@@ -1,21 +1,21 @@
 import { connect } from "react-redux";
 import NavBarComponent from "../components/NavBar";
 import { userLogOut } from "../store/actions/users";
+import { fetchGenre } from '../store/actions/books'
 
-const mapStateToProps = ({ user, books }) => {
+
+const mapStateToProps = ({ user, books, genres }) => {
   return {
     loggedName: user.loggedName.name,
-    books: books.list
+    books: books.list,
+    genres: genres.AllGenres
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleLogOut: () => {
-      dispatch(userLogOut());
-    }
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  handleLogOut: () => dispatch(userLogOut()),
+  fetchGenre: () => dispatch(fetchGenre())
+});
 
 const NavbarContainer = connect(
   mapStateToProps,
