@@ -4,6 +4,7 @@ import axios from "axios";
 import SingleBook from "../components/SingleBook";
 import { connect } from "react-redux";
 import { fetchBook } from "../store/actions/books";
+import { addCart } from "../store/actions/cart";
 
 class SingleBookContainer extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class SingleBookContainer extends React.Component {
   }
 
   render() {
-    return <SingleBook deleteBook= {this.delBook} book={this.props.book} history={this.props.history} authorized={this.props.authorized}/>
+    return <SingleBook addBook= {this.props.addBookCart} deleteBook= {this.delBook} book={this.props.book} history={this.props.history} authorized={this.props.authorized}/>
   }
 }
 
@@ -34,6 +35,7 @@ const mapStateToProps = ({ books, user }) => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchBook: book => dispatch(fetchBook(book)),
+  addBookCart : book => dispatch(addCart(book))
 });
 
 export default connect(
