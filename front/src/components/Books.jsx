@@ -26,30 +26,17 @@ export default class Books extends React.Component {
       {
         currentPage: Number(event.target.id)
       },
-      () => {
-        const { search } = queryString.parse(this.props.location.search);
-        const url = this.setParams({
-          search: search,
-          page: this.state.currentPage
-        });
-        this.props.history.push(`?${url}`);
-      }
+      this.handleUrlNavigation
     );
   }
+
   handleNext(event) {
     this.state.currentPage < this.state.maxPage
       ? this.setState(
           {
             currentPage: this.state.currentPage + 1
           },
-          () => {
-            const { search } = queryString.parse(this.props.location.search);
-            const url = this.setParams({
-              search: search,
-              page: this.state.currentPage
-            });
-            this.props.history.push(`?${url}`);
-          }
+          this.handleUrlNavigation
         )
       : null;
   }
@@ -59,17 +46,20 @@ export default class Books extends React.Component {
           {
             currentPage: this.state.currentPage - 1
           },
-          () => {
-            const { search } = queryString.parse(this.props.location.search);
-            const url = this.setParams({
-              search: search,
-              page: this.state.currentPage
-            });
-            this.props.history.push(`?${url}`);
-          }
+          this.handleUrlNavigation
         )
       : null;
   }
+
+  handleUrlNavigation() {
+    const { search } = queryString.parse(this.props.location.search);
+    const url = this.setParams({
+      search: search,
+      page: this.state.currentPage
+    });
+    this.props.history.push(`?${url}`);
+  }
+
   setParams({ search = "", page = "" }) {
     const searchParams = new URLSearchParams();
     searchParams.set("search", search);
