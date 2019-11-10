@@ -1,0 +1,31 @@
+.fixedbtn{
+    position: fixed;
+    top: 60px;
+    color: white;
+    background-color: #5588a3;
+    border-radius: 0;
+    z-index: 10;
+    outline-style: none !important;
+    right: 0;
+    
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.drawer{
+    background-color: #5588a3;
+    position: fixed;
+    top:60px;
+    right:0 ;
+    overflow-x: hidden;
+    padding: 0;
+    height: 400px;
+    z-index: 10;
+    color: white;
+    max-width: 0px;
+
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
