@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import { useSpring, animated } from "react-spring/web.cjs";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "space-between",
-    textAlign: "left"
+    textAlign: "left",
+    flexWrap: "wrap"
     //backgroundColor:"red",
   },
   paper: {
@@ -100,45 +101,36 @@ export default props => {
         <Fade
           in={open}
           style={{
+            height: "45%",
             width: "45%"
           }}
         >
           <div className={classes.paper}>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Seleccione categoria</FormLabel>
-              <FormGroup className={classes.modal}>
-                {props.genres.map(genre => {
-                  return (
-                    <FormControlLabel
-                      style={{ margin: "3%" }}
-                      control={
-                        <Checkbox
-                          checked={state}
-                          onChange={() => {
-                            state ? setState(false) : setState(true);
-                          }}
-                          value={genre.nombre}
-                        />
-                      }
-                      label={genre.nombre}
-                      style={{
-                        margin: "3%"
+            <ul>
+              {props.genres.map(genre => {
+                return (
+                  <li>
+                    <input
+                      key={genre.id}
+                      onClick={()=> {
+                        
                       }}
+                      type="checkbox"
+                      checked={props.isChecked}
+                      value={props.value}
                     />
-                  );
-                })}
-                
-                <button
-                  type="button"
-                  className="btn btn-link btn btn-light"
-                  onClick={handleClose}
-                >
-                  Filtrar
-                </button>
-              
-               
-              </FormGroup>
-            </FormControl>
+                    {props.value}
+                  </li>
+                );
+              })}
+              <button
+                type="button"
+                className="btn btn-link btn btn-light"
+                onClick={handleClose}
+              >
+                Filtrar
+              </button>
+            </ul>
           </div>
         </Fade>
       </Modal>
