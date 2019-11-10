@@ -380,5 +380,4 @@ User.create({
   address: "Root",
   password: "superadmin",
   permisos: 3
-})
-.catch(err => console.error)
+}).catch(err => console.error);

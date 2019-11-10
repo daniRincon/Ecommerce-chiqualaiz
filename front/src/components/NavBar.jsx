@@ -16,6 +16,11 @@ export default props => {
       <div className="bar col-lg-5">
         <SearchBarContainer books={props.books} />
       </div>
+
+      <button className="btn btn-info" onClick={props.fetchKart}>
+        Kart
+      </button>
+
       {props.loggedName ? (
         <div className="col-lg-4 login">
           <button

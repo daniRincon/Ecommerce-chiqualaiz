@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import NavBarComponent from "../components/NavBar";
 import { userLogOut } from "../store/actions/users";
+import { fetchKart } from "../store/actions/kart";
 
 const mapStateToProps = ({ user, books }) => {
   return {
@@ -13,7 +14,8 @@ const mapDispatchToProps = dispatch => {
   return {
     handleLogOut: () => {
       dispatch(userLogOut());
-    }
+    },
+    fetchKart: () => dispatch(fetchKart())
   };
 };
 

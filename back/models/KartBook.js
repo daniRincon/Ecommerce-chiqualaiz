@@ -1,15 +1,15 @@
 const S = require("sequelize");
 const db = require("../config/db");
 
-class Kart extends S.Model {}
-Kart.init(
+class KartBook extends S.Model {}
+KartBook.init(
   {
     cantidad: {
       type: S.INTEGER,
       defaultValue: 1
     }
   },
-  { sequelize: db, modelName: "kart" }
+  { sequelize: db }
 );
 
-module.exports = Kart;
+module.exports = KartBook;

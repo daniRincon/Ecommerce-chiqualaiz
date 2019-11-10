@@ -1,7 +1,7 @@
-import React, {useEffect} from "react";
-import { Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Redirect } from "react-router-dom";
 
-import store from "../store/index"
+import store from "../store/index";
 
 import BooksContainer from "../containers/BooksContainer";
 import SingleBookContainer from "../containers/SingleBookContainer";
@@ -9,14 +9,14 @@ import NavBarContainer from "../containers/NavbarContainer";
 import LoginContainer from "../containers/LoginContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 import DashboardContainer from "../containers/DashboardContainer";
-import AddBookContainer from "../containers/AddBookContainer"
+import AddBookContainer from "../containers/AddBookContainer";
+import KartContainer from "../containers/KartContainer";
 
-import {fetchUser} from "../store/actions/users"
+import { fetchUser } from "../store/actions/users";
 
 export default () => {
-
   useEffect(() => {
-    store.dispatch(fetchUser())
+    store.dispatch(fetchUser());
   });
 
   return (
@@ -28,6 +28,7 @@ export default () => {
       <Route path="/" component={RegisterContainer} />
       <Route exact path="/dashboard" component={DashboardContainer} />
       <Route exact path="/dashboard/add" component={AddBookContainer} />
+      <Route exact path="/kart" component={KartContainer} />
     </div>
   );
 };

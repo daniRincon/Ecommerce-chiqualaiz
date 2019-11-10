@@ -35,10 +35,13 @@ export const filterBooks = (searchValue, books) => dispatch => {
   dispatch(filteredBooks(filtBooks));
 };
 
-export const addBook = (book) => dispatch => {
-  return axios.post('/api/books', book)
-    .then(book => dispatch(receiveBook(book)))
-    .catch(err => {
-        throw err
+export const addBook = book => dispatch => {
+  return axios
+    .post("/api/books", book)
+    .then(book => {
+      dispatch(receiveBook(book));
     })
+    .catch(err => {
+      throw err;
+    });
 };

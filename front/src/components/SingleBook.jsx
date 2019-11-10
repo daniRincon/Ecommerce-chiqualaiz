@@ -3,8 +3,9 @@ import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
-export default ({ book }) => {
+export default ({ book, fetchToKart, user, kart, fetchKart }) => {
   const truncarDescripcion = (descripcion, length) => {
     return descripcion.substr(0, length) + "...";
   };
@@ -89,9 +90,16 @@ export default ({ book }) => {
             >
               Comprar ahora
             </button>
-            <button type="submit" className="btn btn-outline-primary">
+            <button
+              type="submit"
+              className="btn btn-outline-primary"
+              onClick={() => fetchToKart([user, book, kart])}
+            >
               Agregar al carrito
             </button>
+            <Link to={`/kart`}>
+              <button onClick={() => fetchKart(user)}>IR AL CARRITO</button>
+            </Link>
           </div>
         </div>
       </div>
