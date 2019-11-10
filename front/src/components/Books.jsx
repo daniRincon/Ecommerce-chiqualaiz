@@ -173,9 +173,7 @@ export default class Books extends React.Component {
                       </Box>
                     </div>
                   </Link>
-                  <button style={{
-                          zIndex:10
-                          }} onClick={ () => {
+                  <button  onClick={ () => {
                           this.props.addBook({id: book.id, precio: book.precio, titulo: book.titulo})
                         }}className="btn btn-info">+</button>
                 </div>

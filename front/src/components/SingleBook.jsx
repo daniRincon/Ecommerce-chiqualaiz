@@ -5,7 +5,7 @@ import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
-export default ({ book, authorized, history, deleteBook }) => {
+export default ({ book, authorized, history, deleteBook,addBook }) => {
   
   const truncarDescripcion = (descripcion, length) => {
    return descripcion.substr(0, length) + "...";
@@ -84,6 +84,16 @@ export default ({ book, authorized, history, deleteBook }) => {
             margin:"1%"
           }}>
         Home
+      </Button>
+      <Button style={{
+                  margin:"1%"
+              }} 
+              variant="contained" 
+              onClick={ () => {
+                      addBook({id: book.id, precio: book.precio, titulo: book.titulo})
+                    }}
+              className={classes.button}>
+                          +
       </Button>
       {authorized > 1
           ? <div>
