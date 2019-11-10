@@ -1,16 +1,5 @@
-.fixedbtn{
-    position: fixed;
-    top: 60px;
-    color: white;
-    background-color: #5588a3;
-    border-radius: 0;
-    z-index: 10;
-    outline-style: none !important;
-    right: 0;
-    
-    transition-property: all;
-    transition-duration: .5s;
-    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+.block{
+    display:block;
 }
 
 .drawer{
@@ -29,3 +18,25 @@
     transition-duration: .5s;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
+
+.bookList{
+    font-size: 13px;
+}
+.fixedbtn{
+    position: fixed;
+    top: 60px;
+    color: white;
+    background-color: #5588a3;
+    border-radius: 0;
+    z-index: 10;
+    outline-style: none !important;
+    right: 0;
+    
+    transition-property: all;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+
+
+
