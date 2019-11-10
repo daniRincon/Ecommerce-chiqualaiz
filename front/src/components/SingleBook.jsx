@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 
-export default ({ book }) => {
+export default ({ book, fetchToKart, user, kart }) => {
   const truncarDescripcion = (descripcion, length) => {
     return descripcion.substr(0, length) + "...";
   };
@@ -91,7 +91,11 @@ export default ({ book }) => {
             >
               Comprar ahora
             </button>
-            <button type="submit" className="btn btn-outline-primary">
+            <button
+              type="submit"
+              className="btn btn-outline-primary"
+              onClick={() => fetchToKart([user, book, kart])}
+            >
               Agregar al carrito
             </button>
           </div>

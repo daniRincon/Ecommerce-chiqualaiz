@@ -1,4 +1,5 @@
-const { Book } = require("../models/");
+const { Book, Kart, KartBook } = require("../models/");
+const sequelize = require("sequelize");
 
 const fetchBooks = function(req, res) {
   Book.findAll()
@@ -16,4 +17,28 @@ const fetchBook = function(req, res) {
     .catch(err => res.status(404).send(err));
 };
 
-module.exports = { fetchBooks, fetchBook };
+const fetchToKart = function(req, res) {
+  Promise.all([
+    Book.findAll({ where: { id: req.params.id } }),
+    Kart.findAll({ where: { userId: req.body.id } })
+  ])
+    .then(([book, kart]) => kart[0].addBook(book[0]))
+    .then(data => res.send(data))
+    .catch(console.log);
+};
+
+const addToKart = function(req, res) {
+  Promise.all([
+    Book.findAll({ where: { id: req.params.id } }),
+    Kart.findAll({ where: { userId: req.body.id } })
+  ])
+    .then(([book, kart]) =>
+      KartBook.increment("cantidad", {
+        where: { kartId: kart[0].id, bookId: book[0].id }
+      })
+    )
+    .then(kartbook => console.log(kartbook))
+    .catch(console.log);
+};
+
+module.exports = { fetchBooks, fetchBook, fetchToKart, addToKart };
