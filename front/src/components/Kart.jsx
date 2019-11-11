@@ -37,7 +37,29 @@ export default props => {
                     >
                       X
                     </button>
-                    {book[2]} <br></br> {book[1]}$
+                    {book[2]} <br></br>Precio: ${book[1]} Cantidad: {book[0]}
+                    <div>
+                      <button
+                        className="btn btn-info"
+                        onClick={() =>
+                          arrayBook[index][0] === 1
+                            ? props.delFromCart(Object.keys(props.cart)[index])
+                            : props.handleDecrement(
+                                Object.keys(props.cart)[index]
+                              )
+                        }
+                      >
+                        -
+                      </button>
+                      <button
+                        className="btn btn-info"
+                        onClick={() =>
+                          props.handleIncrement(Object.keys(props.cart)[index])
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
                   </li>
                   <hr></hr>
                 </div>
@@ -53,7 +75,11 @@ export default props => {
               <span className="total-price">
                 $
                 {parseFloat(
-                  arrayBook.reduce((total, book) => total + Number(book[1]), 0)
+                  arrayBook.reduce(
+                    (total, book, index, cart) =>
+                      total + Number(book[1] * cart[index][0]),
+                    0
+                  )
                 ).toFixed(2)}
               </span>
             </button>
