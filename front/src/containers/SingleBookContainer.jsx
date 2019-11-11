@@ -25,14 +25,6 @@ class SingleBookContainer extends React.Component {
     this.props.fetchBook(this.props.match.params.id);
   }
 
-  cancelButton() {
-    $("#addButton").click(function() {
-      $(this)
-        .prop("disabled", true)
-        .text("Added to Cart");
-    });
-  }
-
   render() {
     return (
       <SingleBook
@@ -41,15 +33,16 @@ class SingleBookContainer extends React.Component {
         book={this.props.book}
         history={this.props.history}
         authorized={this.props.authorized}
-        cancelButton={this.cancelButton}
+        cart={this.props.cart}
       />
     );
   }
 }
 
-const mapStateToProps = ({ books, user }) => ({
+const mapStateToProps = ({ books, user, cart }) => ({
   book: books.selected,
-  authorized: user.loggedName.permisos
+  authorized: user.loggedName.permisos,
+  cart: cart
 });
 
 const mapDispatchToProps = dispatch => ({

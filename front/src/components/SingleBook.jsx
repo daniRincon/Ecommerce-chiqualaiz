@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 
-export default ({
-  book,
-  authorized,
-  history,
-  deleteBook,
-  addBook,
-  cancelButton
-}) => {
+export default ({ book, authorized, history, deleteBook, addBook, cart }) => {
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (cart[book.id]) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  });
+
   const truncarDescripcion = (descripcion, length) => {
     return descripcion.substr(0, length) + "...";
   };
@@ -81,39 +86,51 @@ export default ({
             </Box>
           </div>
 
-          <p className="mb-0">
+          <div
+            style={{
+              padding: "5%"
+            }}
+            className="mb-0"
+          >
             <strong>Precio: $ </strong>
             {book.precio}
-          </p>
+          </div>
+
           <Button
-            onClick={() => {
-              history.push("/");
-            }}
-            variant="contained"
-            className={classes.button}
-            style={{
-              margin: "1%"
-            }}
-          >
-            Home
-          </Button>
-          <Button
+            disabled={disabled}
             id="addButton"
-            style={{
-              margin: "1%"
-            }}
-            variant="contained"
             onClick={() => {
               addBook({
                 id: book.id,
                 precio: book.precio,
                 titulo: book.titulo
               });
-              cancelButton();
+              $("#slider").addClass("open");
             }}
-            className={classes.button}
           >
-            +
+            {disabled ? (
+              <FontAwesomeIcon
+                style={{
+                  margin: "10%",
+                  color: "#5588a3"
+                }}
+                size="2x"
+                variant="contained"
+                className={classes.button}
+                icon={faMinusCircle}
+              ></FontAwesomeIcon>
+            ) : (
+              <FontAwesomeIcon
+                style={{
+                  margin: "10%",
+                  color: "#5588a3"
+                }}
+                size="2x"
+                variant="contained"
+                className={classes.button}
+                icon={faCartPlus}
+              ></FontAwesomeIcon>
+            )}
           </Button>
           {authorized > 1 ? (
             <div>
@@ -127,7 +144,6 @@ export default ({
                   margin: "1%"
                 }}
               >
-                {" "}
                 Editar
               </Button>
 

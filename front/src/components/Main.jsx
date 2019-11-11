@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import store from "../store/index";
 
