@@ -135,7 +135,6 @@ export default class Books extends React.Component {
         </li>
       );
     });
-
     return (
       <div className="container">
         <div className="row">
