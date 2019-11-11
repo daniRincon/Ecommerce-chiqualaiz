@@ -22,13 +22,13 @@ const filterGenre = genres => ({
   genres
 });
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 // const selectedGenres = sGenres => ({
 //   type: SELECTED_GENRES,
 //   sGenres
 // })
-=======
->>>>>>> b22d15efda885349b44f20dc33b11877cd00ac96
+
 
 export const fetchBooks = () => dispatch =>
   axios
