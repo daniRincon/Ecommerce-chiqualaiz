@@ -76,8 +76,20 @@ export default props => {
               </button>
             </p>
             <div className={styles.networks}>
-            <a href="/api/sessions/auth/google/"><button href="#" className={"fa fa-google " + styles.fa + " " + styles.google}></button></a>
-              <a href="/api/sessions/auth/facebook/"><button href="#" className={"fa fa-facebook " + styles.fa + " " + styles.facebook}></button></a>
+              <a href="/api/sessions/auth/google/">
+                <button
+                  href="#"
+                  className={"fa fa-google " + styles.fa + " " + styles.google}
+                ></button>
+              </a>
+              <a href="/api/sessions/auth/facebook/">
+                <button
+                  href="#"
+                  className={
+                    "fa fa-facebook " + styles.fa + " " + styles.facebook
+                  }
+                ></button>
+              </a>
             </div>
           </div>
         </div>

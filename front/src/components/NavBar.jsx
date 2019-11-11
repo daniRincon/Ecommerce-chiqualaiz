@@ -27,6 +27,11 @@ export default props => {
       <div className="bar col-lg-1">
         <Genres fetchGenre={props.fetchGenre} genres={props.genres} filteredGenres={props.filteredGenres}/>
       </div>
+
+      <button className="btn btn-info" onClick={props.fetchKart}>
+        Kart
+      </button>
+
       {props.loggedName ? (
         <div className={"col-lg-4 " + styles.login}>
           {props.loggedName.permisos > 1

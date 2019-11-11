@@ -12,11 +12,13 @@ class SingleBookContainer extends React.Component {
     this.delBook = this.delBook.bind(this);
   }
 
-  delBook(id){
-    axios.delete(`/api/books/${id}`)
-    .then(()=> {
-      this.props.history.push('/')})
-    .catch(err => console.error(err))
+  delBook(id) {
+    axios
+      .delete(`/api/books/${id}`)
+      .then(() => {
+        this.props.history.push("/");
+      })
+      .catch(err => console.error(err));
   }
 
   componentDidMount() {
@@ -24,19 +26,36 @@ class SingleBookContainer extends React.Component {
   }
 
   render() {
-    return <SingleBook userId = {this.props.userId} addBook= {this.props.addBookCart} deleteBook= {this.delBook} book={this.props.book} history={this.props.history} authorized={this.props.authorized}/>
+
+    return (
+      <SingleBook
+        addBook={this.props.addBookCart}
+        deleteBook={this.delBook}
+        book={this.props.book}
+        history={this.props.history}
+        authorized={this.props.authorized}
+        cart={this.props.cart}
+      />
+    );
+
   }
 }
 
-const mapStateToProps = ({ books, user }) => ({
+const mapStateToProps = ({ books, user, cart }) => ({
   book: books.selected,
   authorized: user.loggedName.permisos,
+
+  cart: cart
+
   userId: user.loggedName.id
+
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchBook: book => dispatch(fetchBook(book)),
+
   addBookCart : (book, userId) => dispatch(addCart(book, userId))
+
 });
 
 export default connect(

@@ -1,5 +1,16 @@
 import styles from "../css-modules/kart.module.css";
+
+import React from "react";
+import Button from "@material-ui/core/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCartPlus,
+  faMinusCircle,
+  faShoppingCart
+} from "@fortawesome/free-solid-svg-icons";
+
 import React, { useEffect } from "react";
+
 
 export default props => {
   const arrayBook = [];
@@ -20,13 +31,13 @@ export default props => {
     <div>
       <button
         id="slide-button"
-        className={styles.fixedbtn + " btn btn-info"}
+        className={styles.fixedbtn + " btn  btn-info"}
         onClick={() => {
           $("#slide-button").toggleClass("moved");
           $("#slider").toggleClass("open");
         }}
       >
-        <i className="fa fa-shopping-cart"></i>
+        <FontAwesomeIcon size="2x" icon={faShoppingCart} />
       </button>
 
       <div id="slider" className={"container " + styles.drawer}>

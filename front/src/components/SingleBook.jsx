@@ -1,19 +1,39 @@
+
+import React, { useState, useEffect } from "react";
+
 import React from "react";
 import { shadows } from '@material-ui/system';
+
 
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+
+export default ({ book, authorized, history, deleteBook, addBook, cart }) => {
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    if (cart[book.id]) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  });
+
+
 import Reviews from "./Reviews"
 export default ({ book, authorized, history, deleteBook,addBook, userId }) => {
 
-  
+
   const truncarDescripcion = (descripcion, length) => {
-   return descripcion.substr(0, length) + "...";
-}
-  
+    return descripcion.substr(0, length) + "...";
+  };
+
   const useStyles = makeStyles(theme => ({
     button: {
       margin: theme.spacing(1)
@@ -34,7 +54,7 @@ export default ({ book, authorized, history, deleteBook,addBook, userId }) => {
       flexDirection: "row"
     }
   }));
-  
+
   const classes = useStyles();
   return (
     <div>
@@ -59,6 +79,7 @@ export default ({ book, authorized, history, deleteBook,addBook, userId }) => {
           }}
         />
       </div>
+
       <div
         className="col p-3 mb-2 bg-dark text-white rounded-lg"
         style={{ textAlign: "center", paddingTop: "30%" }}
@@ -68,6 +89,7 @@ export default ({ book, authorized, history, deleteBook,addBook, userId }) => {
           style={{
             padding: "5%"
           }}
+
         >
           <strong>Sinopsis: </strong>
         </h3>
@@ -88,21 +110,56 @@ export default ({ book, authorized, history, deleteBook,addBook, userId }) => {
           </Box>
         </div>
 
-        <p className="mb-0">
-          <strong>Precio: $ </strong>
-          {book.precio}
-        </p>
+          <div
+            style={{
+              padding: "5%"
+            }}
+            className="mb-0"
+          >
+            <strong>Precio: $ </strong>
+            {book.precio}
+          </div>
+
+          <Button
+            disabled={disabled}
+            id="addButton"
+            onClick={() => {
+              addBook({
+                id: book.id,
+                precio: book.precio,
+                titulo: book.titulo
+              },  userId);
+              $("#slider").addClass("open");
+            }}
+          >
+            {disabled ? (
+              <FontAwesomeIcon
+                style={{
+                  margin: "10%",
+                  color: "#5588a3"
+                }}
+                size="2x"
+                variant="contained"
+                className={classes.button}
+                icon={faMinusCircle}
+              ></FontAwesomeIcon>
+            ) : (
+              <FontAwesomeIcon
+                style={{
+                  margin: "10%",
+                  color: "#5588a3"
+                }}
+                size="2x"
+                variant="contained"
+                className={classes.button}
+                icon={faCartPlus}
+              ></FontAwesomeIcon>
+            )}
+          </Button>
+
+       
         
-    <Button style={{
-                margin:"1%"
-            }} 
-            variant="contained" 
-            onClick={ () => {
-                    addBook({id: book.id, precio: book.precio, titulo: book.titulo}, userId)
-                  }}
-            className={classes.button}>
-                        +
-    </Button>
+    
     {authorized > 1
         ? <div>
             <Button onClick={() => {
@@ -115,10 +172,12 @@ export default ({ book, authorized, history, deleteBook,addBook, userId }) => {
           variant="contained" className={classes.button} style={{
             margin:"1%"
           }}> Eliminar</Button>
+
         </div>
         : false
         }
       </div>
+
     </div>
     </div>
   </Box>
