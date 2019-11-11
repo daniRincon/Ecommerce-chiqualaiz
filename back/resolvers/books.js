@@ -1,4 +1,5 @@
-
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op
 const { Book, Author, Genre } = require("../models/");
 
 const fetchBooks = function(req, res) {
@@ -27,6 +28,15 @@ const fetchGenre = function(req,res) {
   Genre.findAll()
   .then(data=> res.send(data))
   .catch(err => res.status(404).send(err));
+}
+
+const filterGenre = function (req, res) {
+  Genre.findAll({
+    include : [{
+      model: Book
+    }]
+  })
+  .then(book=> res.send(book))
 }
 
 const addBook = function(req, res){
@@ -82,4 +92,4 @@ const deleteBook = function(req, res){
   .catch(err => res.status(404).send(err))
 }
 
-module.exports = { fetchBooks, fetchBook, addBook, updateBook, deleteBook, fetchGenre };
+module.exports = { fetchBooks, fetchBook, addBook, updateBook, deleteBook, fetchGenre, filterGenre };

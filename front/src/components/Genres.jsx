@@ -12,6 +12,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
 
+
 const useStyles = makeStyles(theme => ({
   modal: {
     display: "flex",
@@ -65,16 +66,19 @@ const Fade = React.forwardRef(function Fade(props, ref) {
 export default props => {
   console.log(props);
 
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState(false);
+  const categories = [];
+
   const handleOpen = () => {
     setOpen(true);
     props.fetchGenre();
   };
 
-  const handleClose = () => {
+  const handleClose = (books, categories) => {
     setOpen(false);
+    props.filteredGenres(books, categories);
   };
 
   return (
@@ -107,27 +111,24 @@ export default props => {
         >
           <div className={classes.paper}>
             <ul>
-              {props.genres.map(genre => {
+              {props.genres.map((genre, i) => {
                 return (
-                  <li>
-                    <input
-                      key={genre.id}
-                      onClick={()=> {
-                        
+                  <li key={i}>
+                    <input                      
+                      onClick={() => {
+                        categories.push(genre.id);
                       }}
                       type="checkbox"
-                      checked={props.isChecked}
-                      value={props.value}
+                      value={genre.nombre}
                     />
-                    {props.value}
+                    {genre.nombre}
                   </li>
                 );
               })}
               <button
                 type="button"
                 className="btn btn-link btn btn-light"
-                onClick={handleClose}
-              >
+                onClick={()=> handleClose(props.genres, categories)}>
                 Filtrar
               </button>
             </ul>

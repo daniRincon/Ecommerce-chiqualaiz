@@ -19,7 +19,12 @@ const filteredBooks = books => ({
 const filterGenre = genres => ({
   type: FILTER_GENRE,
   genres
-})
+});
+
+// const selectedGenres = sGenres => ({
+//   type: SELECTED_GENRES,
+//   sGenres
+// })
 
 export const fetchBooks = () => dispatch =>
   axios
@@ -33,13 +38,46 @@ export const fetchBook = id => dispatch =>
     .then(res => res.data)
     .then(book => dispatch(receiveBook(book)));
 
-
-export const fetchGenre = () => dispatch => 
+export const fetchGenre = () => dispatch =>
   axios
-  .get("/api/books/genre")
-  .then(res => res.data)
-  .then(genres => dispatch(filterGenre(genres)));
+    .get("/api/books/genres")
+    .then(res => res.data)
+    .then(genres => dispatch(filterGenre(genres)));
 
+function flattenDeep(arr1) {
+  return arr1.reduce(
+    (acc, val) =>
+      Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val),
+    []
+  );
+}
+
+function eliminarObjetosDuplicados(arr, prop) {
+  var nuevoArray = [];
+  var lookup = {};
+
+  for (var i in arr) {
+    lookup[arr[i][prop]] = arr[i];
+  }
+  for (i in lookup) {
+    nuevoArray.push(lookup[i]);
+  }
+  return nuevoArray;
+}
+
+export const filteredGenres = (books, genres) => dispatch => {
+  const sGenres = [];
+  for (var i = 0; i < books.length; i++) {
+    for (var j = 0; j < genres.length; j++) {
+      if (books[i].id == genres[j]) {
+        sGenres.push(books[i].books);
+      }
+    }
+  }
+  const flat = flattenDeep(sGenres);
+  const total = eliminarObjetosDuplicados(flat, "id");
+  dispatch(filteredBooks(total));
+};
 
 export const filterBooks = (searchValue, books) => dispatch => {
   const filtBooks = books.filter(book =>
@@ -48,19 +86,20 @@ export const filterBooks = (searchValue, books) => dispatch => {
   dispatch(filteredBooks(filtBooks));
 };
 
-export const addBook = (book) => dispatch => {
-  return axios.post('/api/books', book)
+export const addBook = book => dispatch => {
+  return axios
+    .post("/api/books", book)
     .then(book => dispatch(receiveBook(book)))
     .catch(err => {
-        throw err
-    })
+      throw err;
+    });
 };
 
-export const updateBook = (book) => dispatch => {
-  return axios.put(`/api/books/${book.id}`, book)
+export const updateBook = book => dispatch => {
+  return axios
+    .put(`/api/books/${book.id}`, book)
     .then(book => dispatch(receiveBook(book)))
     .catch(err => {
-        throw err
-    })
+      throw err;
+    });
 };
-
