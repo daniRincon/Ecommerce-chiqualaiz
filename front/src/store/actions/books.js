@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_BOOKS, GET_BOOK, FILTER_BOOKS, FILTER_GENRE } from "../constants";
+import { GET_BOOKS, GET_BOOK, FILTER_BOOKS, FILTER_GENRE, FRESH_PAGE } from "../constants";
 
 const receiveBooks = books => ({
   type: GET_BOOKS,
@@ -22,11 +22,10 @@ const filterGenre = genres => ({
   genres
 });
 
+const firstTimes = () => ({
+  type: FRESH_PAGE
+})
 
-// const selectedGenres = sGenres => ({
-//   type: SELECTED_GENRES,
-//   sGenres
-// })
 
 
 export const fetchBooks = () => dispatch =>
@@ -107,3 +106,7 @@ export const updateBook = book => dispatch => {
       throw err;
     });
 };
+
+export const firstTime = () => dispatch => {
+  return dispatch(firstTimes())
+}

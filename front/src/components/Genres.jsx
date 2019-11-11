@@ -64,7 +64,6 @@ const Fade = React.forwardRef(function Fade(props, ref) {
 });
 
 export default props => {
-  console.log(props);
 
 
   const classes = useStyles();

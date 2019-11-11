@@ -48,7 +48,6 @@ passport.use(new GoogleStrategy({
   callbackURL: "http://localhost:3000/api/sessions/auth/google/callback"
 },
 function(token, tokenSecret, profile, done) {
-  console.log(profile)
     User.findOrCreate({ where: {
       username: 'g' + profile.id,
       name: profile.displayName

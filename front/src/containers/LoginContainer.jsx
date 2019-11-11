@@ -22,6 +22,7 @@ class LoginContainer extends Component{
       this.props.loginUser(this.state.username, this.state.password)
       .then((user) => {
         $('#exampleModal').modal('hide')
+        localStorage.clear()
       })
       .catch((err) => {
         console.log(err)
