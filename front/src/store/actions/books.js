@@ -11,20 +11,24 @@ const receiveBook = book => ({
   book
 });
 
-const filteredBooks = books => ({
+const filteredBooks = (books, emptySearch) => ({
   type: FILTER_BOOKS,
-  books
+  books,
+  emptySearch
 });
 
 const filterGenre = genres => ({
   type: FILTER_GENRE,
   genres
 });
+<<<<<<< HEAD
 
 // const selectedGenres = sGenres => ({
 //   type: SELECTED_GENRES,
 //   sGenres
 // })
+=======
+>>>>>>> b22d15efda885349b44f20dc33b11877cd00ac96
 
 export const fetchBooks = () => dispatch =>
   axios
@@ -83,7 +87,8 @@ export const filterBooks = (searchValue, books) => dispatch => {
   const filtBooks = books.filter(book =>
     book.titulo.toLowerCase().match(searchValue.toLowerCase())
   );
-  dispatch(filteredBooks(filtBooks));
+  const emptySearch = filtBooks.length ? false : true;
+  dispatch(filteredBooks(filtBooks, emptySearch));
 };
 
 export const addBook = book => dispatch => {
