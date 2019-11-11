@@ -21,8 +21,7 @@ const filterGenre = genres => ({
   type: FILTER_GENRE,
   genres
 });
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 
 // const selectedGenres = sGenres => ({
 //   type: SELECTED_GENRES,
