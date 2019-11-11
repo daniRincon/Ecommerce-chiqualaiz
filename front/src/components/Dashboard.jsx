@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import styles from '../css-modules/Dashboard.module.css'
 
 export default (props) =>{
+
+    useEffect(() => {
+        props.fetchBooks()
+    }, [])
+
     if(props.authorized > 1){
     return (
        <div className={"btn-group-vertical " + styles.dashboard}>

@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     case GET_BOOK:
       return Object.assign({}, state, { selected: action.book, firstTime: false });
     case GET_BOOKS:
-      return Object.assign({}, state, { list: action.books, firstTime: false});
+      return Object.assign({}, state, { list: action.books, selected: {}, firstTime: false});
     case FILTER_BOOKS:
       return Object.assign({}, state, {
         filtered: action.books,
