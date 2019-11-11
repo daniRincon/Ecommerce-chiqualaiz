@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default ({ book, authorized, history, deleteBook, addBook }) => {
   const truncarDescripcion = (descripcion, length) => {
@@ -74,37 +76,34 @@ export default ({ book, authorized, history, deleteBook, addBook }) => {
             </Box>
           </div>
 
-          <p className="mb-0">
+          <div
+            style={{
+              padding: "5%"
+            }}
+            className="mb-0"
+          >
             <strong>Precio: $ </strong>
             {book.precio}
-          </p>
-          <Button
-            onClick={() => {
-              history.push("/");
-            }}
-            variant="contained"
-            className={classes.button}
-            style={{
-              margin: "1%"
-            }}
-          >
-            Home
-          </Button>
-          <Button
-            style={{
-              margin: "1%"
-            }}
-            variant="contained"
-            onClick={() => {
-              addBook({
-                id: book.id,
-                precio: book.precio,
-                titulo: book.titulo
-              });
-            }}
-            className={classes.button}
-          >
-            +
+          </div>
+
+          <Button>
+            <FontAwesomeIcon
+              style={{
+                margin: "10%",
+                color: "#5588a3"
+              }}
+              size="2x"
+              variant="contained"
+              onClick={() => {
+                addBook({
+                  id: book.id,
+                  precio: book.precio,
+                  titulo: book.titulo
+                });
+              }}
+              className={classes.button}
+              icon={faCartPlus}
+            ></FontAwesomeIcon>
           </Button>
           {authorized > 1 ? (
             <div>
