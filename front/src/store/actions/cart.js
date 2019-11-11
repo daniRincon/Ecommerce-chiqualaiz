@@ -32,7 +32,8 @@ const destroyCart = () => ({
   type: EMPTY_CART
 })
 
-export const getCart = userId => dispatch => {
+export const getCart = (userId, refreshedCart = null) => dispatch => {
+  if(refreshedCart) return dispatch(fetchCart(refreshedCart))
   if(!userId) return undefined
   axios.get(`/api/carts/${userId}`)
   .then((cart) =>{ 
@@ -72,6 +73,7 @@ export const emptyCart = () => dispatch => {
 }
 
 export const syncCart = () => dispatch => {
-  const cart = store.getState();
-  return axios.put('/api/carts', cart.cart)
+    const cart = store.getState();
+    return axios.put('/api/carts', cart.cart)
+
 }

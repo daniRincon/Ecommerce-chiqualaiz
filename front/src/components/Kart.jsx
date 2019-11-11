@@ -1,10 +1,20 @@
 import styles from "../css-modules/kart.module.css";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default props => {
   const arrayBook = [];
   for (let book of Object.values(props.cart)) {
     arrayBook.push(book);
+  }
+  let refreshedCart, userNotLoggedIn = props.userId;
+  if(!userNotLoggedIn){
+    if(props.firstTime){
+      refreshedCart = JSON.parse(localStorage.getItem('cart'));
+      props.refresh(); 
+      props.fetchCart(0, refreshedCart)
+    } else{
+      localStorage.setItem('cart', JSON.stringify(props.cart))
+    }                               
   }
   return (
     <div>

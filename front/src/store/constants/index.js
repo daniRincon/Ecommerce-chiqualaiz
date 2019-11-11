@@ -6,8 +6,9 @@ export const GET_USER = "GET_USER";
 export const GET_BOOKS = "GET_BOOKS";
 export const GET_BOOK = "GET_BOOK";
 export const FILTER_BOOKS = "FILTER_BOOKS";
-export const FILTER_GENRE = "FILTER_GENRE"
-export const SELECTED_GENRES = "SELECTED_GENRES"
+export const FILTER_GENRE = "FILTER_GENRE";
+export const SELECTED_GENRES = "SELECTED_GENRES";
+export const FRESH_PAGE = "FRESH_PAGE"
 
 // Cart
 export const ADD_CART = "ADD_CART";
