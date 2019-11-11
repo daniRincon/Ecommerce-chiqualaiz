@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import { useSpring, animated } from "react-spring/web.cjs";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -12,13 +12,15 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Radio from "@material-ui/core/Radio";
 
+
 const useStyles = makeStyles(theme => ({
   modal: {
     display: "flex",
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "space-between",
-    textAlign: "left"
+    textAlign: "left",
+    flexWrap: "wrap"
     //backgroundColor:"red",
   },
   paper: {
@@ -64,16 +66,19 @@ const Fade = React.forwardRef(function Fade(props, ref) {
 export default props => {
   console.log(props);
 
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [state, setState] = React.useState(false);
+  const categories = [];
+
   const handleOpen = () => {
     setOpen(true);
     props.fetchGenre();
   };
 
-  const handleClose = () => {
+  const handleClose = (books, categories) => {
     setOpen(false);
+    props.filteredGenres(books, categories);
   };
 
   return (
@@ -100,45 +105,33 @@ export default props => {
         <Fade
           in={open}
           style={{
+            height: "45%",
             width: "45%"
           }}
         >
           <div className={classes.paper}>
-            <FormControl component="fieldset" className={classes.formControl}>
-              <FormLabel component="legend">Seleccione categoria</FormLabel>
-              <FormGroup className={classes.modal}>
-                {props.genres.map(genre => {
-                  return (
-                    <FormControlLabel
-                      style={{ margin: "3%" }}
-                      control={
-                        <Checkbox
-                          checked={state}
-                          onChange={() => {
-                            state ? setState(false) : setState(true);
-                          }}
-                          value={genre.nombre}
-                        />
-                      }
-                      label={genre.nombre}
-                      style={{
-                        margin: "3%"
+            <ul>
+              {props.genres.map((genre, i) => {
+                return (
+                  <li key={i}>
+                    <input                      
+                      onClick={() => {
+                        categories.push(genre.id);
                       }}
+                      type="checkbox"
+                      value={genre.nombre}
                     />
-                  );
-                })}
-                
-                <button
-                  type="button"
-                  className="btn btn-link btn btn-light"
-                  onClick={handleClose}
-                >
-                  Filtrar
-                </button>
-              
-               
-              </FormGroup>
-            </FormControl>
+                    {genre.nombre}
+                  </li>
+                );
+              })}
+              <button
+                type="button"
+                className="btn btn-link btn btn-light"
+                onClick={()=> handleClose(props.genres, categories)}>
+                Filtrar
+              </button>
+            </ul>
           </div>
         </Fade>
       </Modal>

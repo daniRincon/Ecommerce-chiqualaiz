@@ -25,7 +25,7 @@ export default props => {
 
       </div>
       <div className="bar col-lg-1">
-        <Genres fetchGenre={props.fetchGenre} genres={props.genres}/>
+        <Genres fetchGenre={props.fetchGenre} genres={props.genres} filteredGenres={props.filteredGenres}/>
       </div>
       {props.loggedName ? (
         <div className={"col-lg-4 " + styles.login}>

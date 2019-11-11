@@ -70,17 +70,19 @@ export default props => {
             <button href="#0" className={"btn btn-danger " + styles.block}>
               Vaciar
             </button>
-            <button href="#0" className={"btn btn-success " + styles.block}>
+            <button
+              href="#0"
+              className={"btn btn-success " + styles.block}
+              onClick={() =>
+                props.handleClick(
+                  props.calculateTotal(arrayBook),
+                  props.history
+                )
+              }
+            >
               Checkout -
               <span className="total-price">
-                $
-                {parseFloat(
-                  arrayBook.reduce(
-                    (total, book, index, cart) =>
-                      total + Number(book[1] * cart[index][0]),
-                    0
-                  )
-                ).toFixed(2)}
+                {props.calculateTotal(arrayBook)}
               </span>
             </button>
           </div>

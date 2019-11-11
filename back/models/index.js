@@ -5,6 +5,9 @@ const User = require("./User");
 const Cart = require("./Cart")
 
 Book.belongsTo(Author);
-Book.belongsToMany(Genre, { through: "BookGenre" });
+Book.belongsToMany(Genre, { through: "BookGenre" })
+Genre.belongsToMany(Book, { through: "BookGenre" })
+
+
 
 module.exports = { Author, Genre, Book, User, Cart };

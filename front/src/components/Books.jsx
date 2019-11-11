@@ -100,6 +100,7 @@ export default class Books extends React.Component {
     }
   }
   render() {
+    console.log(this.props)
     const { currentPage, todosPerPage } = this.state;
 
     let renderTodos;
@@ -132,7 +133,6 @@ export default class Books extends React.Component {
         </li>
       );
     });
-
     return (
       <div className="container">
         <div className="row">
@@ -216,3 +216,4 @@ export default class Books extends React.Component {
     );
   }
 }
+
