@@ -29,14 +29,14 @@ export default props => {
       </div>
       {props.loggedName ? (
         <div className={"col-lg-4 " + styles.login}>
-          <button
+          {props.loggedName.permisos > 1
+           ?<button
             className="btn btn-info"
             onClick={() => {
               props.history.push("/dashboard");
-            }}
-          >
+            }}>   
             Dashboard
-          </button>
+          </button>: false}
           <button
             className="btn btn-danger"
             onClick={() => {

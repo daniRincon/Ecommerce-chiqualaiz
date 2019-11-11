@@ -13,3 +13,6 @@ export const ADD_CART = "ADD_CART";
 export const DEL_CART = "DEL_CART";
 export const INC_CART = "INC_CART";
 export const DEC_CART = "DEC_CART";
+export const GET_CART = "GET_CART";
+export const EMPTY_CART = "EMPTY_CART";
+export const SYNC_CART = "SYNC_CART"

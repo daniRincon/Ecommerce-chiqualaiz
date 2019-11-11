@@ -101,7 +101,6 @@ export default class Books extends React.Component {
   }
   render() {
     const { currentPage, todosPerPage } = this.state;
-    console.log(this.props.filtered, this.props.emptySearch);
 
     let renderTodos;
     // Logic for displaying todos
@@ -114,7 +113,6 @@ export default class Books extends React.Component {
         ? this.props.filtered
         : this.props.books;
     const max = Math.ceil(renderedBooks.length / todosPerPage);
-    console.log(max);
     const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
     for (let i = 1; i <= max; i++) {
@@ -179,11 +177,11 @@ export default class Books extends React.Component {
                         id: book.id,
                         precio: book.precio,
                         titulo: book.titulo
-                      });
+                      }, this.props.userId);
                     }}
                     className="btn btn-info"
                   >
-                    +
+                    Add to cart
                   </button>
                 </div>
               );
