@@ -67,7 +67,7 @@ export default ({ cart, calculateTotal }) => {
                 })}
               </tbody>
             </table>
-            <div className="pull-right">Total: {calculateTotal(arrayBook)}</div>
+            <div className="pull-right">Total:  ${calculateTotal(arrayBook)} </div>
           </div>
         ) : (
           ""

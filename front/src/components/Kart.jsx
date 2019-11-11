@@ -80,8 +80,8 @@ export default props => {
                 )
               }
             >
-              Checkout -
-              <span className="total-price">
+              Checkout{" "} 
+              <span className="total-price"> $
                 {props.calculateTotal(arrayBook)}
               </span>
             </button>
