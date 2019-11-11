@@ -1,6 +1,5 @@
-
 const Sequelize = require("sequelize");
-const Op = Sequelize.Op
+const Op = Sequelize.Op;
 
 const { Book, Author, Genre } = require("../models/");
 
@@ -29,37 +28,19 @@ const fetchBook = function(req, res) {
 
 const fetchGenre = function(req, res) {
   Genre.findAll()
-  .then(data=> res.send(data))
-  .catch(err => res.status(404).send(err));
-}
+    .then(data => res.send(data))
+    .catch(err => res.status(404).send(err));
+};
 
-const filterGenre = function (req, res) {
+const filterGenre = function(req, res) {
   Genre.findAll({
-    include : [{
-      model: Book
-    }]
-  })
-  .then(book=> res.send(book))
-}
-
-const addBook = function(req, res){
-  Promise.all(
-    [Book.create({
-    titulo: req.body.title,
-    precio: req.body.precio,
-    url: req.body.imgUrl.length? req.body.imgUrl : undefined,
-    descripcion: req.body.descripcion,
-    visible: true,
-    stock: 1
-  }),
-  Author.findOrCreate({ where: { nombre: req.body.author } })])
-  .then(([newBook, author]) => {
-    newBook.setAuthor(author[0])
-    res.send(newBook)
-  })
-  .catch(err => res.status(404).send(err))
-}
-
+    include: [
+      {
+        model: Book
+      }
+    ]
+  }).then(book => res.send(book));
+};
 
 const addBook = function(req, res) {
   Promise.all([
@@ -121,6 +102,12 @@ const deleteBook = function(req, res) {
     .catch(err => res.status(404).send(err));
 };
 
-
-module.exports = { fetchBooks, fetchBook, addBook, updateBook, deleteBook, fetchGenre, filterGenre };
-
+module.exports = {
+  fetchBooks,
+  fetchBook,
+  addBook,
+  updateBook,
+  deleteBook,
+  fetchGenre,
+  filterGenre
+};
