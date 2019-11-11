@@ -21,10 +21,11 @@ class LoginContainer extends Component{
       event.preventDefault();
       this.props.loginUser(this.state.username, this.state.password)
       .then((user) => {
-        user.logUser.permisos > 1 && this.props.history.push('/dashboard')
         $('#exampleModal').modal('hide')
+        localStorage.clear()
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         this.setState({ warning: "Wrong username or password" });
       });
   }
