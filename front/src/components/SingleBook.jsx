@@ -1,10 +1,12 @@
 import React from "react";
+import { shadows } from '@material-ui/system';
+
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-
+import Reviews from "./Reviews"
 export default ({ book, authorized, history, deleteBook,addBook }) => {
   
   const truncarDescripcion = (descripcion, length) => {
@@ -17,26 +19,36 @@ export default ({ book, authorized, history, deleteBook,addBook }) => {
     },
     input: {
       display: "none"
+    },
+    reviews: {
+      display: "flex", justifyContent: "flex-end"
+    },
+    container:{
+      display: "flex",
+      paddingTop: "3%",
+      justifyContent: "center"
     }
   }));
   
   const classes = useStyles();
   return (
+    <Box
+    width="75%"
+    boxShadow={3}
+    bgcolor="background.paper"
+    mx="auto" 
+    p={1}
+    className= {classes.container}
+  >
+
     <div className="container">
       <div className="row">
         <div className="col">
-          <h1
-            style={{
-              padding: "3%",
-              textAlign: "center"
-            }}
-          >
-            {book.titulo}
-          </h1>
+      
         </div>
       </div>
       <div className="row">
-        <div className="col" style={{ textAlign: "center" }}>
+        <div className="col" >
           <img
             src={book.url}
             style={{
@@ -50,6 +62,7 @@ export default ({ book, authorized, history, deleteBook,addBook }) => {
           className="col p-3 mb-2 bg-dark text-white rounded-lg"
           style={{ textAlign: "center", paddingTop: "30%" }}
         >
+          <h1> {book.titulo}</h1>
           <h3
             style={{
               padding: "5%"
@@ -113,7 +126,12 @@ export default ({ book, authorized, history, deleteBook,addBook }) => {
         </div>
       </div>
       <div className="media-body"></div>
-      
+      <div className={classes.reviews}>
+        
+      <Reviews/>
+
+      </div>
     </div>
+    </Box>
   );
 };
