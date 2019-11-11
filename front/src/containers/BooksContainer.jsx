@@ -3,10 +3,12 @@ import Books from "../components/Books";
 import { fetchBooks, fetchBook } from "../store/actions/books";
 import { addCart } from "../store/actions/cart";
 
-const mapStateToProps = ({ books }) => ({
+const mapStateToProps = ({ books, cart }) => ({
   books: books.list,
   filtered: books.filtered,
-  emptySearch: books.emptySearch
+  emptySearch: books.emptySearch,
+  cart: cart,
+  book: books.selected
 });
 
 const mapDispatchToProps = dispatch => ({

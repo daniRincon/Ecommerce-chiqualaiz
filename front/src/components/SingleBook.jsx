@@ -98,7 +98,6 @@ export default ({ book, authorized, history, deleteBook, addBook, cart }) => {
 
           <Button
             disabled={disabled}
-            id="addButton"
             onClick={() => {
               addBook({
                 id: book.id,

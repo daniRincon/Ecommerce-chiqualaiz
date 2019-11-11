@@ -20,12 +20,15 @@ export default class Books extends React.Component {
     this.state = {
       currentPage: 1,
       todosPerPage: 8,
-      maxPage: 1
+      maxPage: 1,
+      disabled: false
     };
+
     this.handleClick = this.handleClick.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
   }
+
   handleClick(event) {
     this.setState(
       {
@@ -180,6 +183,7 @@ export default class Books extends React.Component {
                     </div>
                   </Link>
                   <Button
+                    disabled={this.state.disabled}
                     onClick={() => {
                       this.props.addBook({
                         id: book.id,
@@ -188,14 +192,26 @@ export default class Books extends React.Component {
                       });
                     }}
                   >
-                    <FontAwesomeIcon
-                      style={{
-                        color: "#5588a3"
-                      }}
-                      size="2x"
-                      variant="contained"
-                      icon={faCartPlus}
-                    ></FontAwesomeIcon>
+                    {this.state.disabled ? (
+                      <FontAwesomeIcon
+                        style={{
+                          color: "#5588a3"
+                        }}
+                        size="2x"
+                        variant="contained"
+                        icon={faMinusCircle}
+                      ></FontAwesomeIcon>
+                    ) : (
+                      <FontAwesomeIcon
+                        style={{
+                          margin: "10%",
+                          color: "#5588a3"
+                        }}
+                        size="2x"
+                        variant="contained"
+                        icon={faCartPlus}
+                      ></FontAwesomeIcon>
+                    )}
                   </Button>
                 </div>
               );
