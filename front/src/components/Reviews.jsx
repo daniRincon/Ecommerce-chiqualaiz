@@ -11,7 +11,7 @@ import Rating from '@material-ui/lab/Rating';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "200%",
+    width: "230%",
     maxWidth: 500,
     backgroundColor: theme.palette.background.paper
   },
