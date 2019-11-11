@@ -23,6 +23,12 @@ const filterGenre = genres => ({
 });
 
 
+// const selectedGenres = sGenres => ({
+//   type: SELECTED_GENRES,
+//   sGenres
+// })
+
+
 export const fetchBooks = () => dispatch =>
   axios
     .get("/api/books")
