@@ -6,7 +6,7 @@ import { fetchGenre, filterBooks, filteredGenres } from '../store/actions/books'
 
 const mapStateToProps = ({ user, books, genres }) => {
   return {
-    loggedName: user.loggedName.name,
+    loggedName: user.loggedName,
     books: books.list,
      
     genres: genres.AllGenres,

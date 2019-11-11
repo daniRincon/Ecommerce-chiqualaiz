@@ -46,7 +46,7 @@ export default props => {
           >
             Logout
           </button>
-          <Greeting name={props.loggedName} />
+          <Greeting name={props.loggedName.name} />
         </div>
       ) : (
         <div className={"col-lg-4 " + styles.login}>
