@@ -1,9 +1,16 @@
-import React, { Component } from "react";
 import { connect } from "react-redux";
 import Kart from "../components/Kart";
+import { delCart } from "../store/actions/cart";
 
-const mapStateToProps = ({ kart }) => ({
-  kart: kart.list
+const mapStateToProps = state => ({
+  cart: state.cart
 });
 
-export default connect(mapStateToProps)(Kart);
+const mapDispatchToProps = dispatch => ({
+  delFromCart: id => dispatch(delCart(id))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Kart);

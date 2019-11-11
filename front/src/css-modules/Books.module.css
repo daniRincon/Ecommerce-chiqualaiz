@@ -56,11 +56,10 @@
   border: solid 1px purple;
 }
 
-.rating{
+.rating {
   padding: 0;
 }
 
-#box{
+#box {
   max-height: 20px;
 }
-

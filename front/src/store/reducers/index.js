@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
 import userReducer from "./user-reducer";
 import booksReducer from "./books-reducer";
-import kartReducer from "./kart-reducer";
+import cartReducer from "./cart-reducer";
 
 export default combineReducers({
   user: userReducer,
   books: booksReducer,
-  kart: kartReducer
+  genres: booksReducer,
+  cart: cartReducer
 });

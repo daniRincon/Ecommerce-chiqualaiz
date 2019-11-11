@@ -1,5 +1,5 @@
 import React from "react";
-import "../css-modules/register.module.css";
+import styles from "../css-modules/register.module.css";
 
 export default class Register extends React.Component {
   render() {
@@ -105,7 +105,7 @@ export default class Register extends React.Component {
                     />
                   </div>
                   <h5 className="text-danger">{this.props.warning}</h5>
-                  <button type="submit" className="btn submit btn-block">
+                  <button type="submit" className={"btn btn-block " + styles.submit}>
                     Sign up
                   </button>
                 </form>

@@ -22,13 +22,14 @@ export default () => {
   return (
     <div id="main">
       <Route path="/" component={NavBarContainer} />
-      <Route path="/books/:id" component={SingleBookContainer} />
+      <Route path="/" component={KartContainer} />
+      <Route exact path="/books/:id" component={SingleBookContainer} />
       <Route exact path="/" component={BooksContainer} />
       <Route path="/" component={LoginContainer} />
       <Route path="/" component={RegisterContainer} />
       <Route exact path="/dashboard" component={DashboardContainer} />
       <Route exact path="/dashboard/add" component={AddBookContainer} />
-      <Route exact path="/kart" component={KartContainer} />
+      <Route exact path="/books/:id/edit" component={AddBookContainer} />
     </div>
   );
 };

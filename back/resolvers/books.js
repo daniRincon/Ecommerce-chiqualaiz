@@ -1,8 +1,11 @@
-const { Book, Kart, KartBook } = require("../models/");
-const sequelize = require("sequelize");
+const { Book, Author, Genre } = require("../models/");
 
 const fetchBooks = function(req, res) {
-  Book.findAll()
+  Book.findAll({
+    where: {
+      visible: true
+    }
+  })
     .then(books => res.send(books))
     .catch(err => res.status(404).send(err));
 };
@@ -13,32 +16,84 @@ const fetchBook = function(req, res) {
       id: req.params.id
     }
   })
-    .then(book => res.json(book))
+    .then(async book => {
+      const author = await book.getAuthor();
+      res.json({ ...book.dataValues, author: author.nombre });
+    })
     .catch(err => res.status(404).send(err));
 };
 
-const fetchToKart = function(req, res) {
-  Promise.all([
-    Book.findAll({ where: { id: req.params.id } }),
-    Kart.findAll({ where: { userId: req.body.id } })
-  ])
-    .then(([book, kart]) => kart[0].addBook(book[0]))
+const fetchGenre = function(req, res) {
+  Genre.findAll()
     .then(data => res.send(data))
-    .catch(console.log);
+    .catch(err => res.status(404).send(err));
 };
 
-const addToKart = function(req, res) {
+const addBook = function(req, res) {
   Promise.all([
-    Book.findAll({ where: { id: req.params.id } }),
-    Kart.findAll({ where: { userId: req.body.id } })
+    Book.create({
+      titulo: req.body.title,
+      precio: req.body.precio,
+      url: req.body.imgUrl.length ? req.body.imgUrl : undefined,
+      descripcion: req.body.descripcion,
+      visible: true,
+      stock: 1
+    }),
+    Author.findOrCreate({ where: { nombre: req.body.author } })
   ])
-    .then(([book, kart]) =>
-      KartBook.increment("cantidad", {
-        where: { kartId: kart[0].id, bookId: book[0].id }
-      })
-    )
-    .then(kartbook => console.log(kartbook))
-    .catch(console.log);
+    .then(([newBook, author]) => {
+      newBook.setAuthor(author[0]);
+      res.send(newBook);
+    })
+    .catch(err => res.status(404).send(err));
 };
 
-module.exports = { fetchBooks, fetchBook, fetchToKart, addToKart };
+const updateBook = function(req, res) {
+  Promise.all([
+    Book.update(
+      {
+        titulo: req.body.title,
+        precio: req.body.precio,
+        url: req.body.imgUrl.length ? req.body.imgUrl : undefined,
+        descripcion: req.body.descripcion
+      },
+      {
+        returning: true,
+        plain: true,
+        where: {
+          id: req.body.id
+        }
+      }
+    ),
+    Author.findOrCreate({ where: { nombre: req.body.author } })
+  ])
+    .then(([newBook, author]) => {
+      newBook[1].setAuthor(author[0]);
+      res.send(newBook[1]);
+    })
+    .catch(err => res.status(404).send(err));
+};
+
+const deleteBook = function(req, res) {
+  Book.update(
+    {
+      visible: false
+    },
+    {
+      where: {
+        id: req.params.id
+      }
+    }
+  )
+    .then(() => res.sendStatus(204))
+    .catch(err => res.status(404).send(err));
+};
+
+module.exports = {
+  fetchBooks,
+  fetchBook,
+  addBook,
+  updateBook,
+  deleteBook,
+  fetchGenre
+};

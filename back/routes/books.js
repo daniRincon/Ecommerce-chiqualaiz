@@ -4,13 +4,16 @@ const router = express.Router();
 const {
   fetchBooks,
   fetchBook,
-  fetchToKart,
-  addToKart
+  addBook,
+  updateBook,
+  deleteBook,
+  fetchGenre
 } = require("../resolvers/books");
 
 router.get("/", fetchBooks);
+router.get("/genre", fetchGenre);
 router.get("/:id", fetchBook);
-router.post("/:id", fetchToKart);
-router.put("/:id", addToKart);
-
+router.post("/", addBook);
+router.put("/:id", updateBook);
+router.delete("/:id", deleteBook);
 module.exports = router;
