@@ -4,6 +4,9 @@ const Book = require("./Book");
 const User = require("./User")
 
 Book.belongsTo(Author);
-Book.belongsToMany(Genre, { through: "BookGenre" });
+Book.belongsToMany(Genre, { through: "BookGenre" })
+Genre.belongsToMany(Book, { through: "BookGenre" })
+
+
 
 module.exports = { Author, Genre, Book, User };
