@@ -208,11 +208,11 @@ export default class Books extends React.Component {
                 </li>
               </ul>
             </nav>
-          ) : (
+          ) : this.props.emptySearch?(
             <div className="container text-center">
               <h1>No se encontraron resultados</h1>
             </div>
-          )}
+          ): ""}
         </div>
       </div>
     );
