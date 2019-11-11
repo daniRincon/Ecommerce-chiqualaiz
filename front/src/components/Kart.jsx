@@ -31,7 +31,7 @@ export default props => {
                       onClick={() => {
                         confirm(
                           "¿Está seguro que quiere eliminar del carrito?"
-                        ) && props.delFromCart(Object.keys(props.cart)[index]);
+                        ) && props.delFromCart(Object.keys(props.cart)[index], props.userId);
                       }}
                       className="btn btn-danger"
                     >
@@ -43,9 +43,9 @@ export default props => {
                         className="btn btn-info"
                         onClick={() =>
                           arrayBook[index][0] === 1
-                            ? props.delFromCart(Object.keys(props.cart)[index])
+                            ? props.delFromCart(Object.keys(props.cart)[index], props.userId)
                             : props.handleDecrement(
-                                Object.keys(props.cart)[index]
+                                Object.keys(props.cart)[index], props.userId
                               )
                         }
                       >
@@ -54,7 +54,7 @@ export default props => {
                       <button
                         className="btn btn-info"
                         onClick={() =>
-                          props.handleIncrement(Object.keys(props.cart)[index])
+                          props.handleIncrement(Object.keys(props.cart)[index], props.userId)
                         }
                       >
                         +

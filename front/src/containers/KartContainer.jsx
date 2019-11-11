@@ -16,13 +16,14 @@ const handleClick = (total, history) => {
 };
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  userId : state.user.loggedName.id
 });
 
 const mapDispatchToProps = dispatch => ({
-  delFromCart: id => dispatch(delCart(id)),
-  handleDecrement: id => dispatch(decCart(id)),
-  handleIncrement: id => dispatch(incCart(id)),
+  delFromCart: (id, userId) => dispatch(delCart(id)),
+  handleDecrement: (id, userId) => dispatch(decCart(id, userId)),
+  handleIncrement: (id, userId) => dispatch(incCart(id, userId)),
   calculateTotal,
   handleClick
 });

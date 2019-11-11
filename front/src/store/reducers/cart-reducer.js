@@ -1,4 +1,4 @@
-import { ADD_CART, DEL_CART, INC_CART, DEC_CART } from "../constants";
+import { ADD_CART, DEL_CART, INC_CART, DEC_CART, GET_CART, EMPTY_CART } from "../constants";
 
 const initialState = {};
 
@@ -19,6 +19,10 @@ export default (state = initialState, action) => {
       const decCart = Object.assign({}, state, { ...state });
       decCart[action.id][0]--;
       return decCart;
+    case GET_CART:
+      return Object.assign({}, state, { ...action.cart });
+    case EMPTY_CART:
+      return {}
     default:
       return state;
   }
