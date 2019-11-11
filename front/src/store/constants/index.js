@@ -11,3 +11,5 @@ export const FILTER_GENRE = "FILTER_GENRE";
 // Cart
 export const ADD_CART = "ADD_CART";
 export const DEL_CART = "DEL_CART";
+export const INC_CART = "INC_CART";
+export const DEC_CART = "DEC_CART";
