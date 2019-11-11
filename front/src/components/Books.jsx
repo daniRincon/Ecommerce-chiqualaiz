@@ -100,6 +100,7 @@ export default class Books extends React.Component {
     }
   }
   render() {
+    console.log(this.props)
     const { currentPage, todosPerPage } = this.state;
     console.log(this.props.filtered, this.props.emptySearch);
 
@@ -217,3 +218,4 @@ export default class Books extends React.Component {
     );
   }
 }
+

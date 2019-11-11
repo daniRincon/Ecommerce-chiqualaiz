@@ -51,8 +51,8 @@ app.use("/api", indexRouter);
 app.get('/*', (req,res)=>{
   res.sendFile(path.join(__dirname, "./public", "index.html"));
 })
-
-db.sync()
+Book
+db.sync({force: false})
   .then(function() {
     app.listen(PORT, function() {
       console.log("Chiqualize listening on " + PORT);
