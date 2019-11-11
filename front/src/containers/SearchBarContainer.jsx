@@ -17,7 +17,6 @@ class SearchBarContainer extends React.Component {
 
   handleChange(evt) {
     const value = evt.target.value;
-    console.log(value);
     if (/^\w|\s+$/.test(value[value.length - 1])) {
       this.setState({
         inputValue: value
