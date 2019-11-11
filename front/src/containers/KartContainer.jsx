@@ -1,16 +1,16 @@
 import { connect } from "react-redux";
-import Dashboard from "../components/Dashboard";
-
+import Kart from "../components/Kart";
+import { delCart } from "../store/actions/cart"
 
 const mapStateToProps = (state) => ({
-  authorized: state.user.loggedName.permisos
+  cart: state.cart
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  delFromCart: (id) => dispatch(delCart(id))
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dashboard);
+)(Kart);

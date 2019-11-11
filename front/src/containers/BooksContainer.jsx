@@ -1,18 +1,18 @@
-import React from "react";
 import { connect } from "react-redux";
 import Books from "../components/Books";
 import { fetchBooks, fetchBook } from "../store/actions/books";
-import { fetchUser } from "../store/actions/users";
+import { addCart } from "../store/actions/cart";
 
 const mapStateToProps = ({ books }) => ({
   books: books.list,
-  filtered: books.filtered
+  filtered: books.filtered,
+  emptySearch: books.emptySearch
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
   fetchBook: id => dispatch(fetchBook(id)),
-  fetchUser: () => dispatch(fetchUser())
+  addBook: book => dispatch(addCart(book))
 });
 
 export default connect(

@@ -1,38 +1,51 @@
 import React from "react";
+import axios from "axios";
+
 import SingleBook from "../components/SingleBook";
 import { connect } from "react-redux";
-import { fetchBook, truncarDescripcion } from "../store/actions/books";
-import { fetchUser } from "../store/actions/users";
-import { fetchToKart } from "../store/actions/kart";
+import { fetchBook } from "../store/actions/books";
+import { addCart } from "../store/actions/cart";
 
 class SingleBookContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.delBook = this.delBook.bind(this);
+  }
+
+  delBook(id) {
+    axios
+      .delete(`/api/books/${id}`)
+      .then(() => {
+        this.props.history.push("/");
+      })
+      .catch(err => console.error(err));
+  }
+
   componentDidMount() {
     this.props.fetchBook(this.props.match.params.id);
-    this.props.fetchUser();
   }
 
   render() {
     return (
       <SingleBook
-        user={this.props.user}
+        addBook={this.props.addBookCart}
+        deleteBook={this.delBook}
         book={this.props.book}
-        kart={this.props.kart}
-        fetchToKart={this.props.fetchToKart}
+        history={this.props.history}
+        authorized={this.props.authorized}
       />
     );
   }
 }
 
-const mapStateToProps = ({ books, user, kart }) => ({
+const mapStateToProps = ({ books, user }) => ({
   book: books.selected,
-  user: user.loggedName,
-  kart: kart.list
+  authorized: user.loggedName.permisos
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchBook: book => dispatch(fetchBook(book)),
-  fetchUser: () => dispatch(fetchUser()),
-  fetchToKart: ([user, book, kart]) => dispatch(fetchToKart([user, book, kart]))
+  addBookCart: book => dispatch(addCart(book))
 });
 
 export default connect(

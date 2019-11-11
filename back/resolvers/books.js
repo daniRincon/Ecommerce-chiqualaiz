@@ -1,5 +1,4 @@
 const { Book, Kart, KartBook } = require("../models/");
-const sequelize = require("sequelize");
 
 const fetchBooks = function(req, res) {
   Book.findAll()
