@@ -28,8 +28,13 @@ export default props => {
         id="slide-button"
         className={styles.fixedbtn + " btn  btn-info"}
         onClick={() => {
+          $("#history-button").removeClass("moved");
+          $("#slider-history").removeClass("open");
           $("#slide-button").toggleClass("moved");
           $("#slider").toggleClass("open");
+          
+
+          
         }}
       >
         <FontAwesomeIcon size="2x" icon={faShoppingCart} />

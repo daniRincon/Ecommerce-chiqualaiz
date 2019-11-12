@@ -29,19 +29,17 @@ router.post("/", function(req, res) {
 router.get("/historial", function(req, res) {
   Pedido.findAll({
     where: { userId: req.user.id }
-  })
-    .then(arr => {
-      return Promise.all(
-        arr.map(pedido => {
-          return (pedido.id = OrderItem.findAll({
-            where: { pedidoId: pedido.id }
-          }));
-        })
-      );
-    })
-    .then(historial => {
-      res.status(200).send(historial);
+  }).then(arr => {
+    let historial = arr.map(async pedido => {
+      let items = await OrderItem.findAll({
+        where: { pedidoId: pedido.id }
+      });
+      return { pedido: pedido.id, items: items };
     });
+    Promise.all(historial).then(realHistorial =>
+      res.status(200).send(realHistorial)
+    );
+  });
 });
 
 module.exports = router;

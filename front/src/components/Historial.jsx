@@ -10,7 +10,8 @@ const Historial = (props) => {
         onClick={() => {
           $("#history-button").toggleClass("moved");
           $("#slider-history").toggleClass("open");
-        
+          $("#slider").removeClass("open");
+          $("#slide-button").removeClass("moved");
 
         }}
       >
@@ -26,7 +27,7 @@ const Historial = (props) => {
              {props.historial.length?( props.historial.map((pedido, index)=>{
                  return(
                      <div key={index}>
-                         <li>Pedido </li>
+                         <li>Pedido: {pedido.pedido} </li>
                      </div>
                  )
              })): "No orders found..."}
