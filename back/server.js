@@ -53,6 +53,7 @@ app.get("/*", (req, res) => {
 });
 Book;
 db.sync({ force: false })
+
   .then(function() {
     app.listen(PORT, function() {
       console.log("Chiqualize listening on " + PORT);

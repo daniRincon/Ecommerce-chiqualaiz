@@ -15,13 +15,14 @@ class LoginContainer extends Component{
         this.handleUserInput = this.handleUserInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
-    }
+        }
 
     handleSubmit(event){
       event.preventDefault();
       this.props.loginUser(this.state.username, this.state.password)
       .then((user) => {
         $('#exampleModal').modal('hide')
+        localStorage.clear()
       })
       .catch((err) => {
         console.log(err)

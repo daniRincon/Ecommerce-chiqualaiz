@@ -1,7 +1,12 @@
 import axios from "axios";
-
-export function placeOrder(cart, user) {
-  axios.post("/api/checkout", { user: user, cart: cart }).then(pedido => {
-    console.log(pedido);
-  });
-}
+import { setHistorial, userHistorial } from "./users";
+export const placeOrder = () => dispatch => {
+  axios
+    .post("/api/checkout")
+    .then(res => {
+      res.data; //pedido created
+    })
+    .then(() => {
+      dispatch(userHistorial());
+    });
+};

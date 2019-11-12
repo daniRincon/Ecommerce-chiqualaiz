@@ -5,6 +5,7 @@ import * as actions from '../store/actions/pedido'
 import { bindActionCreators } from "redux";
 
 
+
 const calculateTotal = arrayBook => {
   return parseFloat(
     arrayBook.reduce(
@@ -22,7 +23,7 @@ class CheckoutContainer extends Component {
   }
   handleSubmit(e){
   e.preventDefault()
-  this.props.placeOrder(this.props.cart, this.props.loggedName)
+  this.props.placeOrder()
   }
   render() {
     return (
@@ -36,9 +37,9 @@ class CheckoutContainer extends Component {
 
 
 
-const mapStateToProps = ({ cart }) => ({
-  cart
-});
+const mapStateToProps = ( state ) => {
+  return state
+};
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(actions, dispatch)

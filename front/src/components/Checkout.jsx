@@ -6,6 +6,22 @@ export default ({ cart, calculateTotal, handleSubmit }) => {
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
+
+  const checkOut = ()  => {
+    if(user.id){
+      return axios
+    .post('api/checkOut')
+    .then(data => console.log(data))
+    }else{
+      return alert('Login required to purchase')
+    }
+  } 
+
+//  const handleSubmit = e => {
+//     e.preventDefault()
+//     checkOut()
+//   };
+
   return (
     <div className="container text-center" id={styles.checkoutContainer} >
       <form action="/confirm" method="POST" onSubmit={handleSubmit}>
