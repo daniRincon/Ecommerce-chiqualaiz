@@ -18,7 +18,6 @@ class EditGenreContainer extends React.Component {
 
   handleSubmit(e, oldGenre, newGenre) {
     e.preventDefault();
-    console.log("AXIOS", oldGenre, newGenre);
     axios
       .patch(`/api/books/genres/${oldGenre}`, { newGenre })
       .then(res => res.data)
