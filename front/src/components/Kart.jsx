@@ -32,8 +32,13 @@ export default props => {
         id="slide-button"
         className={styles.fixedbtn + " btn  btn-info"}
         onClick={() => {
+          $("#history-button").removeClass("moved");
+          $("#slider-history").removeClass("open");
           $("#slide-button").toggleClass("moved");
           $("#slider").toggleClass("open");
+          
+
+          
         }}
       >
         <FontAwesomeIcon size="2x" icon={faShoppingCart} />
@@ -122,8 +127,8 @@ export default props => {
                 )
               }
             >
-              Checkout -
-              <span className="total-price">
+              Checkout{" "} 
+              <span className="total-price"> $
                 {props.calculateTotal(arrayBook)}
               </span>
             </button> : <strong>Not enough Stock</strong>

@@ -8,9 +8,7 @@ const session = require("express-session");
 const passport = require("../back/config/passport");
 const db = require("./config/db");
 
-
-const { Author, Genre, Book  } = require("./models"); //NO BORRAR: Necesario para generar las relaciones y tablas al correr por primera vez
-
+const { Author, Genre, Book, Review, OrderItem, Pedido } = require("./models"); //NO BORRAR: Necesario para generar las relaciones y tablas al correr por primera vez
 
 require("dotenv").config();
 
@@ -52,10 +50,9 @@ app.use(passport.session());
 app.use("/api", indexRouter);
 app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public", "index.html"));
-
-})
-Book
-db.sync({force: false})
+});
+Book;
+db.sync({ force: false })
 
   .then(function() {
     app.listen(PORT, function() {
