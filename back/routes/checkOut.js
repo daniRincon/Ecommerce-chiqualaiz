@@ -1,9 +1,9 @@
-const express = require("express");
-const router = express.Router();
+// const express = require("express");
+// const router = express.Router();
 
 
-const { checkOut } = require("../resolvers/books");
+// const { checkOut } = require("../resolvers/books");
 
-router.post("/", checkOut);
+// router.use("/", checkOut);
 
-module.exports = router;
+// module.exports = router;
