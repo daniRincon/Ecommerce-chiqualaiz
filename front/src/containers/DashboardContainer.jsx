@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import Dashboard from "../components/Dashboard";
+import { fetchBooks } from "../store/actions/books";
 
 
 const mapStateToProps = (state) => ({
@@ -7,7 +8,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  fetchBooks:() => dispatch(fetchBooks())
 });
 
 export default connect(
