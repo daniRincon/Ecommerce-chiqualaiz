@@ -45,9 +45,48 @@ const filterGenre = function(req, res) {
 };
 
 const addGenre = function(req, res) {
-  Genre.findOrCreate({ where: { nombre: Object.keys(req.body)[0] } }).then(
-    genre => res.send(genre)
-  );
+  Genre.findOrCreate({
+    where: { nombre: Object.keys(req.body)[0] }
+  }).then(genre => res.send(genre));
+};
+
+const changeGenre = function(req, res) {
+  Genre.update(
+    {
+      nombre: req.body.newGenre
+    },
+    {
+      where: {
+        nombre: req.params.oldGenre
+      }
+    }
+  )
+    .then(genre => res.send(genre))
+    .catch(err => console.log(err));
+};
+
+const deleteGenre = function(req, res) {
+  Book.findAll({
+    include: [
+      {
+        model: Genre,
+
+        where: {
+          nombre: req.params.genre
+        }
+      }
+    ]
+  }).then(books => {
+    books.length === 0
+      ? Genre.destroy({
+          where: {
+            nombre: req.params.genre
+          }
+        })
+          .then(genre => res.send("OK"))
+          .catch(err => console.log(err))
+      : res.send(false);
+  });
 };
 
 const addBook = function(req, res) {
@@ -75,13 +114,15 @@ const addBook = function(req, res) {
 };
 
 const updateBook = function(req, res) {
+  console.log(req.body.stock)
   Promise.all([
     Book.update(
       {
         titulo: req.body.title,
         precio: req.body.precio,
         url: req.body.imgUrl.length ? req.body.imgUrl : undefined,
-        descripcion: req.body.descripcion
+        descripcion: req.body.descripcion,
+        stock: req.body.stock
       },
       {
         returning: true,
@@ -128,5 +169,7 @@ module.exports = {
   deleteBook,
   fetchGenre,
   filterGenre,
-  addGenre
+  addGenre,
+  changeGenre,
+  deleteGenre
 };

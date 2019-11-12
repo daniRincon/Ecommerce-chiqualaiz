@@ -12,7 +12,6 @@ const mapDispatchToProps = dispatch => ({
       .post("/api/books/genres", genre)
       .then(res => res.data)
       .then(genre => {
-        console.log(genre);
         genre[1]
           ? $("#modalGenre").modal("hide") &&
             $("#msgAddGenre").addClass(styles.msgHide)

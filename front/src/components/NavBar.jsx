@@ -43,6 +43,7 @@ export default props => {
           ) : (
             false
           )}
+          <Greeting name={props.loggedName.name} />
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -50,9 +51,9 @@ export default props => {
               props.handleLogOut(props.loggedName.id);
             }}
           >
+            <span className="fas fa-sign-out-alt"></span>
             Logout
           </button>
-          <Greeting name={props.loggedName.name} />
         </div>
       ) : (
         <div className={"col-lg-4 " + styles.login}>
@@ -61,6 +62,7 @@ export default props => {
             data-target="#exampleModal"
             className="btn btn-info"
           >
+            <span className="fas fa-sign-in-alt"></span>
             Login
           </button>
         </div>

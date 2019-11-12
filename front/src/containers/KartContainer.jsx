@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Kart from "../components/Kart";
-import { delCart, incCart, decCart, getCart } from "../store/actions/cart";
+import { delCart, incCart, decCart, getCart, emptyCart } from "../store/actions/cart";
 import { firstTime } from "../store/actions/books"
 
 const calculateTotal = arrayBook => {
@@ -16,11 +16,20 @@ const handleClick = (total, history) => {
   history.push("/checkout");
 };
 
-const mapStateToProps = state => ({
+
+
+const mapStateToProps = state =>{ 
+  let bookList = []
+  state.books.list.map(book => {
+    bookList[book.id] = book.stock
+  })
+  return ({
   cart: state.cart,
   userId : state.user.loggedName.id,
-  firstTime: state.books.firstTime
-});
+  firstTime: state.books.firstTime,
+  bookStocks: bookList
+  })
+};
 
 const mapDispatchToProps = dispatch => ({
   delFromCart: (id, userId) => dispatch(delCart(id, userId)),
@@ -28,6 +37,7 @@ const mapDispatchToProps = dispatch => ({
   handleIncrement: (id, userId) => dispatch(incCart(id, userId)),
   fetchCart : (id, cart) => dispatch(getCart(id, cart)),
   refresh: () => dispatch(firstTime()),
+  handleEmpty: (noUserId = false) => dispatch(emptyCart(noUserId)),
   calculateTotal,
   handleClick,
 });
