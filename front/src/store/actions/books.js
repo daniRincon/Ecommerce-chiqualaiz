@@ -23,12 +23,6 @@ const filterGenre = genres => ({
 });
 
 
-// const selectedGenres = sGenres => ({
-//   type: SELECTED_GENRES,
-//   sGenres
-// })
-
-
 export const fetchBooks = () => dispatch =>
   axios
     .get("/api/books")
@@ -69,14 +63,21 @@ function eliminarObjetosDuplicados(arr, prop) {
 }
 
 export const filteredGenres = (books, genres) => dispatch => {
-  const sGenres = [];
-  for (var i = 0; i < books.length; i++) {
-    for (var j = 0; j < genres.length; j++) {
-      if (books[i].id == genres[j]) {
-        sGenres.push(books[i].books);
+  let sGenres = [];
+  for (var i = 0; i < genres.length; i++){
+    for (var j = 0; j < books.length; j++){
+      if(books[j].id == genres[i]) {
+        sGenres.push(books[j].books)
       }
     }
   }
+  // for (var i = 0; i < books.length; i++) {
+  //   for (var j = 0; j < genres.length; j++) {
+  //     if (books[i].id == genres[j]) {
+  //       sGenres.push(books[i].books);
+  //     }
+  //   }
+  // }
   const flat = flattenDeep(sGenres);
   const total = eliminarObjetosDuplicados(flat, "id");
   dispatch(filteredBooks(total));
@@ -98,6 +99,12 @@ export const addBook = book => dispatch => {
       throw err;
     });
 };
+
+// export const checkOut = ()  => {
+//   return axios
+//   .post('api/checkOut')
+//   .then(data => console.log(data))
+// } 
 
 export const updateBook = book => dispatch => {
   return axios

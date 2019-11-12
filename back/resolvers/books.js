@@ -92,4 +92,8 @@ const deleteBook = function(req, res){
   .catch(err => res.status(404).send(err))
 }
 
-module.exports = { fetchBooks, fetchBook, addBook, updateBook, deleteBook, fetchGenre, filterGenre };
+const checkOut = function(req, res) {
+  console.log(req.body)
+}
+
+module.exports = { fetchBooks, fetchBook, addBook, updateBook, deleteBook, fetchGenre, filterGenre, checkOut };

@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import CheckoutComponent from "../components/Checkout";
 
+
 const calculateTotal = arrayBook => {
   return parseFloat(
     arrayBook.reduce(
