@@ -26,7 +26,7 @@ class SearchBarContainer extends React.Component {
   }
 
   handleKeyPress(evt) {
-    if (event.key === "Enter" && this.props.filtered.length === 1) {
+    if (evt.key === "Enter" && this.props.filtered.length === 1) {
       this.props.history.push(`/books/${this.props.filtered[0].id}`);
     }
   }

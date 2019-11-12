@@ -56,11 +56,22 @@ export const fetchGenre = () => dispatch =>
     .then(res => res.data)
     .then(genres => dispatch(filterGenre(genres)));
 
-export const fetchGenres = () => dispatch =>
-  axios
-    .get("api/books/genres")
-    .then(res => res.data)
-    .then(genres => dispatch(receiveGenres(genres)));
+// FILTRADO POR GÉNEROS
+
+export const filteredGenres = (books, genres) => dispatch => {
+  let sGenres = [];
+  for (let i = 0; i < genres.length; i++){
+    for (let j = 0; j < books.length; j++){
+      if(books[j].id == genres[i]) {
+        sGenres.push(books[j].books)
+      }
+    }
+  }
+  const flat = flattenDeep(sGenres);
+  const total = eliminarObjetosDuplicados(flat, "id");
+  dispatch(filteredBooks(total));
+};
+
 
 function flattenDeep(arr1) {
   return arr1.reduce(
@@ -71,31 +82,19 @@ function flattenDeep(arr1) {
 }
 
 function eliminarObjetosDuplicados(arr, prop) {
-  var nuevoArray = [];
-  var lookup = {};
+  let nuevoArray = [];
+  let lookup = {};
 
-  for (var i in arr) {
+  for (let i in arr) {
     lookup[arr[i][prop]] = arr[i];
   }
-  for (i in lookup) {
-    nuevoArray.push(lookup[i]);
+  for (let i in lookup) {
+    if(lookup[i].visible){
+      nuevoArray.push(lookup[i]);
+    }
   }
   return nuevoArray;
 }
-
-export const filteredGenres = (books, genres) => dispatch => {
-  let sGenres = [];
-  for (var i = 0; i < genres.length; i++) {
-    for (var j = 0; j < books.length; j++) {
-      if (books[j].id == genres[i]) {
-        sGenres.push(books[j].books);
-      }
-    }
-  }
-  const flat = flattenDeep(sGenres);
-  const total = eliminarObjetosDuplicados(flat, "id");
-  dispatch(filteredBooks(total));
-};
 
 export const filterBooks = (searchValue, books) => dispatch => {
   const filtBooks = books.filter(book =>

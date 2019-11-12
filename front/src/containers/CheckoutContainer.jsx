@@ -11,8 +11,9 @@ const calculateTotal = arrayBook => {
   ).toFixed(2);
 };
 
-const mapStateToProps = ({ cart }) => ({
-  cart
+const mapStateToProps = ({ cart, user }) => ({
+  cart,
+  user: user.loggedName
 });
 
 const mapDispatchToProps = dispatch => ({
