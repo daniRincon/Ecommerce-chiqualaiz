@@ -114,6 +114,7 @@ const deleteBook = function(req, res) {
     .catch(err => res.status(404).send(err));
 };
 
+
 module.exports = {
   fetchBooks,
   fetchBook,
@@ -123,3 +124,4 @@ module.exports = {
   fetchGenre,
   filterGenre
 };
+
