@@ -3,7 +3,7 @@ import axios from "axios";
 
 import SingleBook from "../components/SingleBook";
 import { connect } from "react-redux";
-import { fetchBook } from "../store/actions/books";
+import { fetchBook, fetchBooks } from "../store/actions/books";
 import { addCart } from "../store/actions/cart";
 
 class SingleBookContainer extends React.Component {
@@ -16,7 +16,7 @@ class SingleBookContainer extends React.Component {
     axios
       .delete(`/api/books/${id}`)
       .then(() => {
-        this.props.history.push("/");
+        this.props.fetchBooks().then(() => this.props.history.push("/"))
       })
       .catch(err => console.error(err));
   }
@@ -48,8 +48,8 @@ const mapStateToProps = ({ books, user, cart }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  fetchBooks: () => dispatch(fetchBooks()),
   fetchBook: book => dispatch(fetchBook(book)),
-
   addBookCart: (book, userId) => dispatch(addCart(book, userId))
 });
 
