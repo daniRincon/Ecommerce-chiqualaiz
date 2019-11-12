@@ -25,7 +25,7 @@ export default props => {
 
       </div>
       <div className="bar col-lg-1">
-        <Genres fetchGenre={props.fetchGenre} genres={props.genres}/>
+        <Genres fetchGenre={props.fetchGenre} genres={props.genres} filteredGenres={props.filteredGenres}/>
       </div>
 
       <button className="btn btn-info" onClick={props.fetchKart}>
@@ -34,14 +34,14 @@ export default props => {
 
       {props.loggedName ? (
         <div className={"col-lg-4 " + styles.login}>
-          <button
+          {props.loggedName.permisos > 1
+           ?<button
             className="btn btn-info"
             onClick={() => {
               props.history.push("/dashboard");
-            }}
-          >
+            }}>   
             Dashboard
-          </button>
+          </button>: false}
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -51,7 +51,7 @@ export default props => {
           >
             Logout
           </button>
-          <Greeting name={props.loggedName} />
+          <Greeting name={props.loggedName.name} />
         </div>
       ) : (
         <div className={"col-lg-4 " + styles.login}>

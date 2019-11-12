@@ -1,5 +1,6 @@
 import styles from "../css-modules/kart.module.css";
-import React from "react";
+
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -12,6 +13,17 @@ export default props => {
   const arrayBook = [];
   for (let book of Object.values(props.cart)) {
     arrayBook.push(book);
+  }
+  let refreshedCart,
+    userNotLoggedIn = props.userId;
+  if (!userNotLoggedIn) {
+    if (props.firstTime) {
+      refreshedCart = JSON.parse(localStorage.getItem("cart"));
+      props.refresh();
+      props.fetchCart(0, refreshedCart);
+    } else {
+      localStorage.setItem("cart", JSON.stringify(props.cart));
+    }
   }
   return (
     <div>
@@ -38,7 +50,11 @@ export default props => {
                       onClick={() => {
                         confirm(
                           "¿Está seguro que quiere eliminar del carrito?"
-                        ) && props.delFromCart(Object.keys(props.cart)[index]);
+                        ) &&
+                          props.delFromCart(
+                            Object.keys(props.cart)[index],
+                            props.userId
+                          );
                       }}
                       className="btn btn-danger"
                     >
@@ -50,9 +66,13 @@ export default props => {
                         className="btn btn-info"
                         onClick={() =>
                           arrayBook[index][0] === 1
-                            ? props.delFromCart(Object.keys(props.cart)[index])
+                            ? props.delFromCart(
+                                Object.keys(props.cart)[index],
+                                props.userId
+                              )
                             : props.handleDecrement(
-                                Object.keys(props.cart)[index]
+                                Object.keys(props.cart)[index],
+                                props.userId
                               )
                         }
                       >
@@ -61,7 +81,10 @@ export default props => {
                       <button
                         className="btn btn-info"
                         onClick={() =>
-                          props.handleIncrement(Object.keys(props.cart)[index])
+                          props.handleIncrement(
+                            Object.keys(props.cart)[index],
+                            props.userId
+                          )
                         }
                       >
                         +
@@ -77,17 +100,19 @@ export default props => {
             <button href="#0" className={"btn btn-danger " + styles.block}>
               Vaciar
             </button>
-            <button href="#0" className={"btn btn-success " + styles.block}>
+            <button
+              href="#0"
+              className={"btn btn-success " + styles.block}
+              onClick={() =>
+                props.handleClick(
+                  props.calculateTotal(arrayBook),
+                  props.history
+                )
+              }
+            >
               Checkout -
               <span className="total-price">
-                $
-                {parseFloat(
-                  arrayBook.reduce(
-                    (total, book, index, cart) =>
-                      total + Number(book[1] * cart[index][0]),
-                    0
-                  )
-                ).toFixed(2)}
+                {props.calculateTotal(arrayBook)}
               </span>
             </button>
           </div>

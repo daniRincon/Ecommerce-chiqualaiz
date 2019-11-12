@@ -42,12 +42,14 @@ class SingleBookContainer extends React.Component {
 const mapStateToProps = ({ books, user, cart }) => ({
   book: books.selected,
   authorized: user.loggedName.permisos,
-  cart: cart
+  cart: cart,
+  userId: user.loggedName.id
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchBook: book => dispatch(fetchBook(book)),
-  addBookCart: book => dispatch(addCart(book))
+
+  addBookCart: (book, userId) => dispatch(addCart(book, userId))
 });
 
 export default connect(

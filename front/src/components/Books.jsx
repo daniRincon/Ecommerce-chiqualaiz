@@ -108,7 +108,6 @@ export default class Books extends React.Component {
   }
   render() {
     const { currentPage, todosPerPage } = this.state;
-    console.log(this.props.filtered, this.props.emptySearch);
 
     let renderTodos;
     // Logic for displaying todos
@@ -121,7 +120,6 @@ export default class Books extends React.Component {
         ? this.props.filtered
         : this.props.books;
     const max = Math.ceil(renderedBooks.length / todosPerPage);
-    console.log(max);
     const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
     for (let i = 1; i <= max; i++) {
@@ -141,7 +139,6 @@ export default class Books extends React.Component {
         </li>
       );
     });
-
     return (
       <div className="container">
         <div className="row">
@@ -185,11 +182,14 @@ export default class Books extends React.Component {
                   <Button
                     disabled={this.state.disabled}
                     onClick={() => {
-                      this.props.addBook({
-                        id: book.id,
-                        precio: book.precio,
-                        titulo: book.titulo
-                      });
+                      this.props.addBook(
+                        {
+                          id: book.id,
+                          precio: book.precio,
+                          titulo: book.titulo
+                        },
+                        this.props.userId
+                      );
                     }}
                   >
                     {this.state.disabled ? (
@@ -236,10 +236,12 @@ export default class Books extends React.Component {
                 </li>
               </ul>
             </nav>
-          ) : (
+          ) : this.props.emptySearch ? (
             <div className="container text-center">
               <h1>No se encontraron resultados</h1>
             </div>
+          ) : (
+            ""
           )}
         </div>
       </div>
