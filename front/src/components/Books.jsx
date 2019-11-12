@@ -20,14 +20,16 @@ export default class Books extends React.Component {
     this.state = {
       currentPage: 1,
       todosPerPage: 8,
-      maxPage: 1,
-      disabled: false,
-      id: 0
+      maxPage: 1
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
+  }
+
+  handleId(id) {
+    this.state.id.push(id);
   }
 
   handleClick(event) {
@@ -181,37 +183,21 @@ export default class Books extends React.Component {
                       </Box>
                     </div>
                   </Link>
-                  <Button
-                    id={this.state.id}
-                    disabled={this.state.disabled}
-                    onClick={() => {
-                      this.props.addBook(
-                        {
-                          id: book.id,
-                          precio: book.precio,
-                          titulo: book.titulo
-                        },
-                        this.props.userId
-                      );
 
-                      this.setState({
-                        id: book.id
-                      });
-                      if (
-                        this.props.cart[book.id] &&
-                        this.state.id == book.id
-                      ) {
-                        this.setState({
-                          disabled: true
-                        });
-                      } else {
-                        this.setState({
-                          disabled: false
-                        });
-                      }
-                    }}
-                  >
-                    {this.state.disabled ? (
+                  {this.props.cart[book.id] ? (
+                    <Button
+                      disabled={true}
+                      onClick={() => {
+                        this.props.addBook(
+                          {
+                            id: book.id,
+                            precio: book.precio,
+                            titulo: book.titulo
+                          },
+                          this.props.userId
+                        );
+                      }}
+                    >
                       <FontAwesomeIcon
                         style={{
                           color: "#5588a3"
@@ -220,18 +206,31 @@ export default class Books extends React.Component {
                         variant="contained"
                         icon={faMinusCircle}
                       ></FontAwesomeIcon>
-                    ) : (
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={false}
+                      onClick={() => {
+                        this.props.addBook(
+                          {
+                            id: book.id,
+                            precio: book.precio,
+                            titulo: book.titulo
+                          },
+                          this.props.userId
+                        );
+                      }}
+                    >
                       <FontAwesomeIcon
                         style={{
-                          margin: "10%",
                           color: "#5588a3"
                         }}
                         size="2x"
                         variant="contained"
                         icon={faCartPlus}
                       ></FontAwesomeIcon>
-                    )}
-                  </Button>
+                    </Button>
+                  )}
                 </div>
               );
             }))
