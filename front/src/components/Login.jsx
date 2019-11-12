@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "../css-modules/register.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 export default props => {
   return (
@@ -76,8 +78,17 @@ export default props => {
               </button>
             </p>
             <div className={styles.networks}>
-            <a href="/api/sessions/auth/google/"><button href="#" className={"fa fa-google " + styles.fa + " " + styles.google}></button></a>
-              <a href="/api/sessions/auth/facebook/"><button href="#" className={"fa fa-facebook " + styles.fa + " " + styles.facebook}></button></a>
+              <a href="/api/sessions/auth/google/">
+                <button href="#" className={styles.fa + " " + styles.google}>
+                  <FontAwesomeIcon size="lg" icon={faGoogle} />
+                </button>
+              </a>
+
+              <a href="/api/sessions/auth/facebook/">
+                <button href="#" className={styles.fa + " " + styles.facebook}>
+                  <FontAwesomeIcon size="lg" icon={faFacebookF} />
+                </button>
+              </a>
             </div>
           </div>
         </div>

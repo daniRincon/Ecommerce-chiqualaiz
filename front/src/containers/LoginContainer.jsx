@@ -15,7 +15,7 @@ class LoginContainer extends Component{
         this.handleUserInput = this.handleUserInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
-    }
+        }
 
     handleSubmit(event){
       event.preventDefault();

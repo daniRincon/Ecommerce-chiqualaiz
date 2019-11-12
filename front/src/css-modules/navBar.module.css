@@ -5,3 +5,7 @@
 .navbar{
     background-color: #145374;
 }
+
+.greeting{
+    float: right;
+}

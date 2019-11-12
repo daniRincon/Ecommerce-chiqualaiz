@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
 import NavBarComponent from "../components/NavBar";
 import { userLogOut } from "../store/actions/users";
+
 import { fetchGenre, filterBooks, filteredGenres } from '../store/actions/books'
+
 
 
 const mapStateToProps = ({ user, books, genres }) => {
@@ -12,7 +14,6 @@ const mapStateToProps = ({ user, books, genres }) => {
     genres: genres.AllGenres,
 
     filtered: books.filtered
-
   };
 };
 

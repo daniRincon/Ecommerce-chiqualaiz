@@ -6,8 +6,12 @@ import styles from "../css-modules/Books.module.css";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import { filterBooks } from "../store/actions/books";
 import zIndex from "@material-ui/core/styles/zIndex";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+
 const queryString = require("query-string");
 
 export default class Books extends React.Component {
@@ -152,11 +156,13 @@ export default class Books extends React.Component {
 
                       <span className={styles.descriptions}>{book.titulo}</span>
                       <Box
+                        id="box"
                         component="fieldset"
                         mb={3}
                         borderColor="transparent"
                       >
                         <Rating
+                          className="rating"
                           name="half-rating"
                           value={book.estrellas / 2}
                           max={5}
@@ -170,7 +176,7 @@ export default class Books extends React.Component {
                       </Box>
                     </div>
                   </Link>
-                  <button
+                  <Button
                     onClick={() => {
                       this.props.addBook({
                         id: book.id,
@@ -178,10 +184,18 @@ export default class Books extends React.Component {
                         titulo: book.titulo
                       }, this.props.userId);
                     }}
-                    className="btn btn-info"
                   >
-                    Add to cart
-                  </button>
+
+                    <FontAwesomeIcon
+                      style={{
+                        color: "#5588a3"
+                      }}
+                      size="2x"
+                      variant="contained"
+                      icon={faCartPlus}
+                    ></FontAwesomeIcon>
+                  </Button>
+
                 </div>
               );
             }))

@@ -17,12 +17,14 @@ class addBookContainer extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if(!this.props.selected.titulo){
+      let categorias=  e.target[5].value.length > 1 ? e.target[5].value.split('-') : ["otros"];
       this.props.addBookDb({
         title: e.target[0].value,
         author: e.target[1].value,
         imgUrl: e.target[2].value,
         descripcion: e.target[3].value,
-        precio: e.target[4].value
+        precio: e.target[4].value,
+        categorias
       })
       .then(() =>{
         this.setState({success: 'Book created and added to the database!', warning: ""})
@@ -31,6 +33,7 @@ class addBookContainer extends React.Component {
         this.setState({warning : 'There was a problem. Book not added.', success: ''})
       });
     }else{
+      let categorias=  e.target[5].value.length > 1 ? e.target[5].value.split('-') : ["otros"];
       this.props.updateBookDb({
         id: this.state.selected.id, 
         authorId: this.state.selected.authorId,
@@ -38,7 +41,8 @@ class addBookContainer extends React.Component {
         author: e.target[1].value,
         imgUrl: e.target[2].value,
         descripcion: e.target[3].value,
-        precio: e.target[4].value
+        precio: e.target[4].value,
+        categorias,
       })
       .then((book) =>{
         this.props.history.push('/books/' + this.state.selected.id)
