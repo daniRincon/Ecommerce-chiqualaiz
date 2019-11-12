@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("../config/passport");
-const { User, Kart } = require("../models/");
+const { User } = require("../models/");
 
 router.post("/", function(req, res) {
-  Promise.all([User.create(req.body), Kart.create()])
-    .then(([user, kart]) => kart.setUser(user))
+  User.create(req.body)
     .then(user => {
       res.status(201).send(user);
     })
@@ -13,4 +12,3 @@ router.post("/", function(req, res) {
 });
 
 module.exports = router;
-

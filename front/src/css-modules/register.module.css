@@ -1,11 +1,12 @@
 .fa {
-  padding: 20px;
-  font-size: 30px !important;
-  width: 60px;
-  height: 40;
+  padding: 8px;
+  width: 45px;
+  height: 45px;
+  vertical-align: middle;
   text-align: center;
   text-decoration: none;
   border-radius: 50%;
+  margin-right: 5px;
 }
 
 .facebook {

@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 
-import { shadows } from "@material-ui/system";
-
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Reviews from "./Reviews";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
-import Reviews from "./Reviews";
 
 export default ({
   book,
@@ -121,6 +119,7 @@ export default ({
 
               <Button
                 disabled={disabled}
+                id="addButton"
                 onClick={() => {
                   addBook(
                     {

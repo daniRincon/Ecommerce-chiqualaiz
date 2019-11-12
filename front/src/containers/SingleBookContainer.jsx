@@ -28,6 +28,7 @@ class SingleBookContainer extends React.Component {
   render() {
     return (
       <SingleBook
+        userId={this.props.userId}
         addBook={this.props.addBookCart}
         deleteBook={this.delBook}
         book={this.props.book}

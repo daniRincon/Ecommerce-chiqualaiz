@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
 import store from "../store";
@@ -21,7 +21,8 @@ export default class Books extends React.Component {
       currentPage: 1,
       todosPerPage: 8,
       maxPage: 1,
-      disabled: false
+      disabled: false,
+      id: 0
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -106,6 +107,7 @@ export default class Books extends React.Component {
       this.setState({ maxPage: max });
     }
   }
+
   render() {
     const { currentPage, todosPerPage } = this.state;
 
@@ -180,6 +182,7 @@ export default class Books extends React.Component {
                     </div>
                   </Link>
                   <Button
+                    id={this.state.id}
                     disabled={this.state.disabled}
                     onClick={() => {
                       this.props.addBook(
@@ -190,6 +193,22 @@ export default class Books extends React.Component {
                         },
                         this.props.userId
                       );
+
+                      this.setState({
+                        id: book.id
+                      });
+                      if (
+                        this.props.cart[book.id] &&
+                        this.state.id == book.id
+                      ) {
+                        this.setState({
+                          disabled: true
+                        });
+                      } else {
+                        this.setState({
+                          disabled: false
+                        });
+                      }
                     }}
                   >
                     {this.state.disabled ? (

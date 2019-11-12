@@ -1,13 +1,10 @@
 import styles from "../css-modules/kart.module.css";
 
-import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCartPlus,
-  faMinusCircle,
-  faShoppingCart
-} from "@fortawesome/free-solid-svg-icons";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+
+import React, { useEffect } from "react";
 
 export default props => {
   const arrayBook = [];
