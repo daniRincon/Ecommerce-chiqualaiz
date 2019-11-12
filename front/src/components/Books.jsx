@@ -184,7 +184,7 @@ export default class Books extends React.Component {
                     </div>
                   </Link>
 
-                  {this.props.cart[book.id] ? (
+                  {this.props.cart[book.id] || !book.stock ? (
                     <Button
                       disabled={true}
                       onClick={() => {
