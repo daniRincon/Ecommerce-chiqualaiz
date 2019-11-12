@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
 import store from "../store";
@@ -22,10 +22,16 @@ export default class Books extends React.Component {
       todosPerPage: 8,
       maxPage: 1
     };
+
     this.handleClick = this.handleClick.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
   }
+
+  handleId(id) {
+    this.state.id.push(id);
+  }
+
   handleClick(event) {
     this.setState(
       {
@@ -103,6 +109,7 @@ export default class Books extends React.Component {
       this.setState({ maxPage: max });
     }
   }
+
   render() {
     const { currentPage, todosPerPage } = this.state;
 
@@ -176,26 +183,54 @@ export default class Books extends React.Component {
                       </Box>
                     </div>
                   </Link>
-                  <Button
-                    onClick={() => {
-                      this.props.addBook({
-                        id: book.id,
-                        precio: book.precio,
-                        titulo: book.titulo
-                      }, this.props.userId);
-                    }}
-                  >
 
-                    <FontAwesomeIcon
-                      style={{
-                        color: "#5588a3"
+                  {this.props.cart[book.id] ? (
+                    <Button
+                      disabled={true}
+                      onClick={() => {
+                        this.props.addBook(
+                          {
+                            id: book.id,
+                            precio: book.precio,
+                            titulo: book.titulo
+                          },
+                          this.props.userId
+                        );
                       }}
-                      size="2x"
-                      variant="contained"
-                      icon={faCartPlus}
-                    ></FontAwesomeIcon>
-                  </Button>
-
+                    >
+                      <FontAwesomeIcon
+                        style={{
+                          color: "#5588a3"
+                        }}
+                        size="2x"
+                        variant="contained"
+                        icon={faMinusCircle}
+                      ></FontAwesomeIcon>
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={false}
+                      onClick={() => {
+                        this.props.addBook(
+                          {
+                            id: book.id,
+                            precio: book.precio,
+                            titulo: book.titulo
+                          },
+                          this.props.userId
+                        );
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        style={{
+                          color: "#5588a3"
+                        }}
+                        size="2x"
+                        variant="contained"
+                        icon={faCartPlus}
+                      ></FontAwesomeIcon>
+                    </Button>
+                  )}
                 </div>
               );
             }))
@@ -219,14 +254,15 @@ export default class Books extends React.Component {
                 </li>
               </ul>
             </nav>
-          ) : this.props.emptySearch?(
+          ) : this.props.emptySearch ? (
             <div className="container text-center">
               <h1>No se encontraron resultados</h1>
             </div>
-          ): ""}
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );
   }
 }
-
