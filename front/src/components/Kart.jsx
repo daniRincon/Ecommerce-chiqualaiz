@@ -32,13 +32,18 @@ export default props => {
         id="slide-button"
         className={styles.fixedbtn + " btn  btn-info"}
         onClick={() => {
-          $("#history-button").removeClass("moved");
+          if(!($('#slider').hasClass('open')) && !($('#slider-history').hasClass('open'))){
+            console.log('hola hola hola')
+            $("#history-button").toggleClass("moved");
+            $("#slide-button").toggleClass("moved");
+          }
+          else if(($('#slider').hasClass('open'))){
+            console.log('chau chau chau')
+            $("#history-button").toggleClass("moved");
+            $("#slide-button").toggleClass("moved");
+          }
           $("#slider-history").removeClass("open");
-          $("#slide-button").toggleClass("moved");
           $("#slider").toggleClass("open");
-          
-
-          
         }}
       >
         <FontAwesomeIcon size="2x" icon={faShoppingCart} />
@@ -49,7 +54,7 @@ export default props => {
           <div className="shopping-cart-head"></div>
           <ul className="shopping-cart-list">
             {arrayBook.map((book, index) => {
-              props.bookStocks[arrayIds[index]] <= book[0]? enoughStockToBuy[arrayIds[index]] = true
+              props.bookStocks[arrayIds[index]] >= book[0]? enoughStockToBuy[arrayIds[index]] = true
                                                           : enoughStockToBuy[arrayIds[index]] = false
               return (
                 <div key={index}>

@@ -8,10 +8,18 @@ const Historial = (props) => {
         id="history-button"
         className={styles.fixedbtn + " btn  btn-info"}
         onClick={() => {
-          $("#history-button").toggleClass("moved");
+          if(!($('#slider').hasClass('open')) && !($('#slider-history').hasClass('open'))){
+            console.log('hola hola hola')
+            $("#history-button").toggleClass("moved");
+            $("#slide-button").toggleClass("moved");
+          }
+          else if(($('#slider-history').hasClass('open'))){
+            console.log('chau chau chau')
+            $("#history-button").toggleClass("moved");
+            $("#slide-button").toggleClass("moved");
+          }
           $("#slider-history").toggleClass("open");
           $("#slider").removeClass("open");
-          $("#slide-button").removeClass("moved");
 
         }}
       >
