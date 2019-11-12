@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Kart from "../components/Kart";
-import { delCart, incCart, decCart, getCart } from "../store/actions/cart";
+import { delCart, incCart, decCart, getCart, emptyCart } from "../store/actions/cart";
 import { firstTime } from "../store/actions/books"
 
 const calculateTotal = arrayBook => {
@@ -28,6 +28,7 @@ const mapDispatchToProps = dispatch => ({
   handleIncrement: (id, userId) => dispatch(incCart(id, userId)),
   fetchCart : (id, cart) => dispatch(getCart(id, cart)),
   refresh: () => dispatch(firstTime()),
+  handleEmpty: () => dispatch(emptyCart()),
   calculateTotal,
   handleClick,
 });

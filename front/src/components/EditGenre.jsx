@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "../css-modules/addGenre.module.css";
 import store from "../store";
-import { fetchGenres } from "../store/actions/books";
+import { fetchGenre } from "../store/actions/books";
 
 export default ({
   genres,
@@ -12,7 +12,7 @@ export default ({
   handleGenreChange
 }) => {
   useEffect(() => {
-    store.dispatch(fetchGenres());
+    store.dispatch(fetchGenre());
   }, []);
 
   return genres.length ? (
@@ -24,7 +24,6 @@ export default ({
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      {console.log("funcion:", handleSubmit)}
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {GET_USER, LOG_USER} from '../constants/index'
-import { getCart, emptyCart, syncCart} from './cart'
+import { getCart, emptyCart,  syncCart} from './cart'
 
 const getUser = user => ({
     type: GET_USER,
@@ -38,14 +38,11 @@ export const loginUser = (username, password) => dispatch =>{
         })
 };
 
-export const userLogOut =  (id) => dispatch => {
-    axios.delete(`/api/carts/${id}`)
-    .then(res => {
-        dispatch(emptyCart())
-    })
-    .then(() => axios.delete('/api/sessions'))
+export const userLogOut =  () => dispatch => {
+    axios.delete('/api/sessions')
     .then(() => {
         dispatch(getUser({}))
     })
+    .then(() => dispatch(emptyCart(true)))
     .catch(error => console.error(error))
   }

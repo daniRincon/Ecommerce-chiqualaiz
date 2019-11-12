@@ -94,7 +94,10 @@ export default props => {
             })}
           </ul>
           <div className="cart-buttons">
-            <button href="#0" className={"btn btn-danger " + styles.block}>
+            <button onClick={() =>{ 
+                  if(confirm('¿Está seguro de que desea borrar su carrito?')){
+                      props.handleEmpty()
+                  }}} href="#0" className={"btn btn-danger " + styles.block}>
               Vaciar
             </button>
             <button

@@ -29,6 +29,8 @@ export default ({ cart, calculateTotal, user }) => {
       <form onSubmit={(e) => {return handleSubmit(e) }}> 
         <h1>Checkout</h1>
         <div className="form-group">
+          {/^(f|g)\d\d\d\d\d\d+/.test(user.username)?false
+          :<div>
           <label>Contraseña</label>
           <input
             type="password"
@@ -37,7 +39,7 @@ export default ({ cart, calculateTotal, user }) => {
             className="form-control"
             placeholder="Confirmar Contraseña"
             required
-          />
+          /></div> }
         </div>
         <div className="form-group">
           <label>Billing Email Adress</label>
