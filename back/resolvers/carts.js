@@ -52,8 +52,6 @@ const fetchCart = function(req, res){
         res.send({})
     } else {
         Cart.findAll({
-            attributes: ['prodId', 'cantidad']
-        },{
             where: {
                 userId: req.params.id
             }
@@ -87,7 +85,8 @@ const emptyCart = function(req, res){
                 userId: req.user.id
             }
         })
-        .then(res.sendStatus(200))
+        .then((data) => {
+            res.sendStatus(200)})
         .catch(err => res.status(404).send(err))
     }
 }

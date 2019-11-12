@@ -107,6 +107,17 @@ export default (props) => {
                     defaultValue={props.selected.genres? props.selected.genres.join("-"): ''}>
                 </input>
               </p>
+              <p className="mb-0">
+                <strong>Stock: </strong>
+                <input 
+                    required
+                    type="text"
+                    name="precio"
+                    className="form-control"
+                    placeholder="Ingresar categorias"
+                    defaultValue={props.selected.stock || 0}>
+                </input>
+              </p>
               <button type="submit" className="btn btn-primary btn-block">
                   {props.selected.titulo? "edit book": "create book"}
                 </button>

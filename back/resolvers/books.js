@@ -114,13 +114,15 @@ const addBook = function(req, res) {
 };
 
 const updateBook = function(req, res) {
+  console.log(req.body.stock)
   Promise.all([
     Book.update(
       {
         titulo: req.body.title,
         precio: req.body.precio,
         url: req.body.imgUrl.length ? req.body.imgUrl : undefined,
-        descripcion: req.body.descripcion
+        descripcion: req.body.descripcion,
+        stock: req.body.stock
       },
       {
         returning: true,
