@@ -63,7 +63,6 @@
 // });
 
 // export default props => {
-//   console.log(props);
 
 //   const classes = useStyles();
 //   const [open, setOpen] = React.useState(false);
@@ -211,7 +210,6 @@ export default props => {
           onChange={e => {
             setCategories(e.target.value);
             props.filteredGenres(props.genres, e.target.value);
-            console.log(categories);
           }}
           input={<Input />}
           MenuProps={MenuProps}

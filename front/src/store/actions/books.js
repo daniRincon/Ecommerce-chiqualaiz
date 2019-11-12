@@ -1,5 +1,12 @@
 import axios from "axios";
-import { GET_BOOKS, GET_BOOK, FILTER_BOOKS, FILTER_GENRE, FRESH_PAGE } from "../constants";
+import {
+  GET_BOOKS,
+  GET_BOOK,
+  FILTER_BOOKS,
+  GET_GENRES,
+  FILTER_GENRE,
+  FRESH_PAGE
+} from "../constants";
 
 const receiveBooks = books => ({
   type: GET_BOOKS,
@@ -17,6 +24,11 @@ const filteredBooks = (books, emptySearch) => ({
   emptySearch
 });
 
+const receiveGenres = genres => ({
+  type: GET_GENRES,
+  genres
+});
+
 const filterGenre = genres => ({
   type: FILTER_GENRE,
   genres
@@ -24,8 +36,7 @@ const filterGenre = genres => ({
 
 const firstTimes = () => ({
   type: FRESH_PAGE
-})
-
+});
 
 export const fetchBooks = () => dispatch =>
   axios
@@ -44,6 +55,12 @@ export const fetchGenre = () => dispatch =>
     .get("/api/books/genres")
     .then(res => res.data)
     .then(genres => dispatch(filterGenre(genres)));
+
+export const fetchGenres = () => dispatch =>
+  axios
+    .get("api/books/genres")
+    .then(res => res.data)
+    .then(genres => dispatch(receiveGenres(genres)));
 
 function flattenDeep(arr1) {
   return arr1.reduce(
@@ -68,10 +85,10 @@ function eliminarObjetosDuplicados(arr, prop) {
 
 export const filteredGenres = (books, genres) => dispatch => {
   let sGenres = [];
-  for (var i = 0; i < genres.length; i++){
-    for (var j = 0; j < books.length; j++){
-      if(books[j].id == genres[i]) {
-        sGenres.push(books[j].books)
+  for (var i = 0; i < genres.length; i++) {
+    for (var j = 0; j < books.length; j++) {
+      if (books[j].id == genres[i]) {
+        sGenres.push(books[j].books);
       }
     }
   }
@@ -97,7 +114,6 @@ export const addBook = book => dispatch => {
     });
 };
 
-
 export const updateBook = book => dispatch => {
   return axios
     .put(`/api/books/${book.id}`, book)
@@ -108,5 +124,5 @@ export const updateBook = book => dispatch => {
 };
 
 export const firstTime = () => dispatch => {
-  return dispatch(firstTimes())
-}
+  return dispatch(firstTimes());
+};

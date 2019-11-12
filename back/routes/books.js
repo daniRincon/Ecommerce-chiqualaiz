@@ -9,13 +9,15 @@ const {
   deleteBook,
   fetchGenre,
   filterGenre,
-  addGenre
+  addGenre,
+  changeGenre
 } = require("../resolvers/books");
 
 router.get("/", fetchBooks);
 router.get("/genre", fetchGenre);
 router.get("/genres", filterGenre);
 router.post("/genres", addGenre);
+router.patch(`/genres/:oldGenre`, changeGenre);
 
 router.get("/:id", fetchBook);
 router.post("/", addBook);
