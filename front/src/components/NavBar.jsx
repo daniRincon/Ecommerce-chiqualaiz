@@ -47,7 +47,7 @@ export default props => {
             className="btn btn-danger"
             onClick={() => {
               props.history.push("/");
-              props.handleLogOut();
+              props.handleLogOut(props.loggedName.id);
             }}
           >
             Logout
