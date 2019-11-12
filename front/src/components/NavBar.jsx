@@ -29,8 +29,7 @@ export default props => {
           filteredGenres={props.filteredGenres}
         />
       </div>
-
-      {props.loggedName ? (
+      {props.loggedName.permisos ? (
         <div className={"col-lg-4 " + styles.login}>
           {props.loggedName.permisos > 1 ? (
             <button

@@ -6,9 +6,21 @@ export default ({ cart, calculateTotal }) => {
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
+
+  const checkOut = ()  => {
+    return axios
+    .post('api/checkOut')
+    .then(data => console.log(data))
+  } 
+
+ const handleSubmit = e => {
+    checkOut()
+    console.log(e.target)
+  };
+
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
-      <form action="/login" method="POST">
+      <form action="/checkOut" method="POST" onSubmit={handleSubmit}> 
         <h1>Checkout</h1>
         <div className="form-group">
           <label>Contraseña</label>

@@ -27,7 +27,6 @@ const firstTimes = () => ({
 })
 
 
-
 export const fetchBooks = () => dispatch =>
   axios
     .get("/api/books")
@@ -68,11 +67,11 @@ function eliminarObjetosDuplicados(arr, prop) {
 }
 
 export const filteredGenres = (books, genres) => dispatch => {
-  const sGenres = [];
-  for (var i = 0; i < books.length; i++) {
-    for (var j = 0; j < genres.length; j++) {
-      if (books[i].id == genres[j]) {
-        sGenres.push(books[i].books);
+  let sGenres = [];
+  for (var i = 0; i < genres.length; i++){
+    for (var j = 0; j < books.length; j++){
+      if(books[j].id == genres[i]) {
+        sGenres.push(books[j].books)
       }
     }
   }
@@ -97,6 +96,7 @@ export const addBook = book => dispatch => {
       throw err;
     });
 };
+
 
 export const updateBook = book => dispatch => {
   return axios

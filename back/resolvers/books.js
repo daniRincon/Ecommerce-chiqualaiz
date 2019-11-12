@@ -21,7 +21,9 @@ const fetchBook = function(req, res) {
   })
     .then(async book => {
       const author = await book.getAuthor();
-      res.json({ ...book.dataValues, author: author.nombre });
+      const genresObj = await book.getGenres();
+      const genres = genresObj.map(obj => obj.nombre);
+      res.json({ ...book.dataValues, author: author.nombre, genres });
     })
     .catch(err => res.status(404).send(err));
 };
@@ -42,6 +44,12 @@ const filterGenre = function(req, res) {
   }).then(book => res.send(book));
 };
 
+const addGenre = function(req, res) {
+  Genre.findOrCreate({ where: { nombre: Object.keys(req.body)[0] } }).then(
+    genre => res.send(genre)
+  );
+};
+
 const addBook = function(req, res) {
   Promise.all([
     Book.create({
@@ -52,9 +60,14 @@ const addBook = function(req, res) {
       visible: true,
       stock: 1
     }),
-    Author.findOrCreate({ where: { nombre: req.body.author } })
+    Author.findOrCreate({ where: { nombre: req.body.author } }),
+    ...req.body.categorias.map(async genre => {
+      return await Genre.findOrCreate({ where: { nombre: genre } });
+    })
   ])
-    .then(([newBook, author]) => {
+    .then(([newBook, author, ...genres]) => {
+      let genreInstances = genres.map(genre => genre[0]);
+      newBook.setGenres(genreInstances);
       newBook.setAuthor(author[0]);
       res.send(newBook);
     })
@@ -78,9 +91,14 @@ const updateBook = function(req, res) {
         }
       }
     ),
-    Author.findOrCreate({ where: { nombre: req.body.author } })
+    Author.findOrCreate({ where: { nombre: req.body.author } }),
+    ...req.body.categorias.map(async genre => {
+      return await Genre.findOrCreate({ where: { nombre: genre } });
+    })
   ])
-    .then(([newBook, author]) => {
+    .then(([newBook, author, ...genres]) => {
+      let genreInstances = genres.map(genre => genre[0]);
+      newBook[1].setGenres(genreInstances);
       newBook[1].setAuthor(author[0]);
       res.send(newBook[1]);
     })
@@ -109,5 +127,6 @@ module.exports = {
   updateBook,
   deleteBook,
   fetchGenre,
-  filterGenre
+  filterGenre,
+  addGenre
 };
