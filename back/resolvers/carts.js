@@ -68,10 +68,7 @@ const fetchCart = function(req, res) {
       },
       {
         where: {
-
-
-            userId: req.params.id
-
+          userId: req.params.id
         }
       }
     )
@@ -102,7 +99,7 @@ const fetchCart = function(req, res) {
 const emptyCart = function(req, res) {
   Cart.destroy({
     where: {
-      userId: req.user.loggedName.id
+      userId: req.user.id
     }
   })
     .then(res.sendStatus(200))
