@@ -1,5 +1,12 @@
 import axios from "axios";
-import { GET_BOOKS, GET_BOOK, FILTER_BOOKS, FILTER_GENRE, FRESH_PAGE } from "../constants";
+import {
+  GET_BOOKS,
+  GET_BOOK,
+  FILTER_BOOKS,
+  GET_GENRES,
+  FILTER_GENRE,
+  FRESH_PAGE
+} from "../constants";
 
 const receiveBooks = books => ({
   type: GET_BOOKS,
@@ -17,6 +24,11 @@ const filteredBooks = (books, emptySearch) => ({
   emptySearch
 });
 
+const receiveGenres = genres => ({
+  type: GET_GENRES,
+  genres
+});
+
 const filterGenre = genres => ({
   type: FILTER_GENRE,
   genres
@@ -24,8 +36,7 @@ const filterGenre = genres => ({
 
 const firstTimes = () => ({
   type: FRESH_PAGE
-})
-
+});
 
 export const fetchBooks = () => dispatch =>
   axios
@@ -61,6 +72,7 @@ export const filteredGenres = (books, genres) => dispatch => {
   dispatch(filteredBooks(total));
 };
 
+
 function flattenDeep(arr1) {
   return arr1.reduce(
     (acc, val) =>
@@ -84,8 +96,6 @@ function eliminarObjetosDuplicados(arr, prop) {
   return nuevoArray;
 }
 
-
-
 export const filterBooks = (searchValue, books) => dispatch => {
   const filtBooks = books.filter(book =>
     book.titulo.toLowerCase().match(searchValue.toLowerCase())
@@ -103,7 +113,6 @@ export const addBook = book => dispatch => {
     });
 };
 
-
 export const updateBook = book => dispatch => {
   return axios
     .put(`/api/books/${book.id}`, book)
@@ -114,5 +123,5 @@ export const updateBook = book => dispatch => {
 };
 
 export const firstTime = () => dispatch => {
-  return dispatch(firstTimes())
-}
+  return dispatch(firstTimes());
+};

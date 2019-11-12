@@ -20,10 +20,12 @@ export default ({ cart, calculateTotal, user }) => {
  const handleSubmit = e => {
     e.preventDefault()
     checkOut()
+
   };
 
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
+
       <form onSubmit={(e) => {return handleSubmit(e) }}> 
         <h1>Checkout</h1>
         <div className="form-group">
