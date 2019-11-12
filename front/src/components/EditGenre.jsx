@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "../css-modules/addGenre.module.css";
 import store from "../store";
-import { fetchGenres } from "../store/actions/books";
+import { fetchGenre } from "../store/actions/books";
 
 export default ({
   genres,
@@ -15,7 +15,7 @@ export default ({
   handleDelete
 }) => {
   useEffect(() => {
-    store.dispatch(fetchGenres());
+    store.dispatch(fetchGenre());
   }, []);
 
   return genres.length ? (

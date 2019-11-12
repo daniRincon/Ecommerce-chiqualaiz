@@ -1,25 +1,36 @@
 import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
-export default ({ cart, calculateTotal }) => {
+export default ({ cart, calculateTotal, user }) => {
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
 
-  const checkOut = () => {
-    return axios.post("api/checkOut").then(data => console.log(data));
-  };
+  const checkOut = ()  => {
+    if(user.id){
+      return axios
+    .post('api/checkOut')
+    .then(data => console.log(data))
+    }else{
+      return alert('Login required to purchase')
+    }
+  } 
 
-  const handleSubmit = e => {
-    checkOut();
+ const handleSubmit = e => {
+    e.preventDefault()
+    checkOut()
+
   };
 
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
-      <form action="/checkOut" method="POST" onSubmit={handleSubmit}>
+
+      <form onSubmit={(e) => {return handleSubmit(e) }}> 
         <h1>Checkout</h1>
         <div className="form-group">
+          {/^(f|g)\d\d\d\d\d\d+/.test(user.username)?false
+          :<div>
           <label>Contraseña</label>
           <input
             type="password"
@@ -28,7 +39,7 @@ export default ({ cart, calculateTotal }) => {
             className="form-control"
             placeholder="Confirmar Contraseña"
             required
-          />
+          /></div> }
         </div>
         <div className="form-group">
           <label>Billing Email Adress</label>
