@@ -11,7 +11,7 @@ const cartRouter = require("./carts")
 router.use("/users", userRouter);
 router.use("/books", bookRouter);
 router.use("/sessions", sessionRouter);
-router.use('/checkOut', checkOut )
+// router.use('/checkOut', checkOut )
 
 router.use("/carts", cartRouter);
 

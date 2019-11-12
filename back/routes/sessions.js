@@ -12,6 +12,7 @@ function isLogedIn(req, res, next) {
   } else {
     res.send(false);
   }
+}
 
   
 router.post("/", passport.authenticate("local"), (req, res) => {
