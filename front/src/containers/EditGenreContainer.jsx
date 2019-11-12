@@ -9,24 +9,35 @@ class EditGenreContainer extends React.Component {
     super(props);
     this.state = {
       inputValue: "",
-      selectedGenre: ""
+      selectedGenre: "",
+      updateMsg: "",
+      deleteMsg: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleGenreChange = this.handleGenreChange.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleSubmit(e, oldGenre, newGenre) {
     e.preventDefault();
-    console.log("AXIOS", oldGenre, newGenre);
     axios
       .patch(`/api/books/genres/${oldGenre}`, { newGenre })
       .then(res => res.data)
       .then(genre => {
-        genre[0]
-          ? $("#modalGenreEdit").modal("hide") &&
-            $("#msgEditGenre").removeClass(styles.msgHide)
-          : $("#msgEditGenre").addClass(styles.msgHide);
+        if (genre[0]) {
+          $("#modalGenreEdit").modal("hide") &&
+            this.setState({
+              updateMsg: ""
+            });
+          this.setState({
+            inputValue: ""
+          });
+        } else {
+          this.setState({
+            updateMsg: "No se pudo modificar el género"
+          });
+        }
       })
       .catch(err => {
         throw err;
@@ -51,15 +62,43 @@ class EditGenreContainer extends React.Component {
     });
   }
 
+  handleDelete(e, genre) {
+    const value = e.target.value;
+    axios
+      .delete(`/api/books/genres/${genre}`)
+      .then(res => res.data)
+      .then(genre => {
+        if (genre) {
+          $("#modalGenreEdit").modal("hide");
+          this.setState({
+            deleteMsg: ""
+          });
+          this.setState({
+            inputValue: ""
+          });
+        } else {
+          this.setState({
+            deleteMsg: "No puede eliminarse, el género tiene libros"
+          });
+        }
+      })
+
+      .catch(err => {
+        throw err;
+      });
+  }
+
   render() {
     return (
       <EditGenre
         genres={this.props.genres}
         inputValue={this.state.inputValue}
         selectedGenre={this.state.selectedGenre}
+        deleteMsg={this.state.deleteMsg}
         handleSubmit={this.handleSubmit}
         handleChange={this.handleChange}
         handleGenreChange={this.handleGenreChange}
+        handleDelete={this.handleDelete}
       />
     );
   }

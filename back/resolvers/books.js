@@ -65,6 +65,30 @@ const changeGenre = function(req, res) {
     .catch(err => console.log(err));
 };
 
+const deleteGenre = function(req, res) {
+  Book.findAll({
+    include: [
+      {
+        model: Genre,
+
+        where: {
+          nombre: req.params.genre
+        }
+      }
+    ]
+  }).then(books => {
+    books.length === 0
+      ? Genre.destroy({
+          where: {
+            nombre: req.params.genre
+          }
+        })
+          .then(genre => res.send("OK"))
+          .catch(err => console.log(err))
+      : res.send(false);
+  });
+};
+
 const addBook = function(req, res) {
   Promise.all([
     Book.create({
@@ -144,5 +168,6 @@ module.exports = {
   fetchGenre,
   filterGenre,
   addGenre,
-  changeGenre
+  changeGenre,
+  deleteGenre
 };
