@@ -10,6 +10,7 @@ import LoginContainer from "../containers/LoginContainer";
 import RegisterContainer from "../containers/RegisterContainer";
 import DashboardContainer from "../containers/DashboardContainer";
 import AddBookContainer from "../containers/AddBookContainer";
+import AddGenreContainer from "../containers/AddGenreContainer";
 import KartContainer from "../containers/KartContainer";
 import CheckoutContainer from "../containers/CheckoutContainer";
 
@@ -30,6 +31,7 @@ export default () => {
       <Route path="/" component={RegisterContainer} />
       <Route exact path="/dashboard" component={DashboardContainer} />
       <Route exact path="/dashboard/add" component={AddBookContainer} />
+      <Route exact path="/dashboard" component={AddGenreContainer} />
       <Route exact path="/books/:id/edit" component={AddBookContainer} />
       <Route exact path="/checkout" component={CheckoutContainer} />
     </div>
