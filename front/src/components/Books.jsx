@@ -6,8 +6,12 @@ import styles from "../css-modules/Books.module.css";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import { filterBooks } from "../store/actions/books";
 import zIndex from "@material-ui/core/styles/zIndex";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
+
 const queryString = require("query-string");
 
 export default class Books extends React.Component {
@@ -100,9 +104,7 @@ export default class Books extends React.Component {
     }
   }
   render() {
-    console.log(this.props)
     const { currentPage, todosPerPage } = this.state;
-    console.log(this.props.filtered, this.props.emptySearch);
 
     let renderTodos;
     // Logic for displaying todos
@@ -115,7 +117,6 @@ export default class Books extends React.Component {
         ? this.props.filtered
         : this.props.books;
     const max = Math.ceil(renderedBooks.length / todosPerPage);
-    console.log(max);
     const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
     for (let i = 1; i <= max; i++) {
@@ -135,7 +136,6 @@ export default class Books extends React.Component {
         </li>
       );
     });
-
     return (
       <div className="container">
         <div className="row">
@@ -156,11 +156,13 @@ export default class Books extends React.Component {
 
                       <span className={styles.descriptions}>{book.titulo}</span>
                       <Box
+                        id="box"
                         component="fieldset"
                         mb={3}
                         borderColor="transparent"
                       >
                         <Rating
+                          className="rating"
                           name="half-rating"
                           value={book.estrellas / 2}
                           max={5}
@@ -174,18 +176,26 @@ export default class Books extends React.Component {
                       </Box>
                     </div>
                   </Link>
-                  <button
+                  <Button
                     onClick={() => {
                       this.props.addBook({
                         id: book.id,
                         precio: book.precio,
                         titulo: book.titulo
-                      });
+                      }, this.props.userId);
                     }}
-                    className="btn btn-info"
                   >
-                    +
-                  </button>
+
+                    <FontAwesomeIcon
+                      style={{
+                        color: "#5588a3"
+                      }}
+                      size="2x"
+                      variant="contained"
+                      icon={faCartPlus}
+                    ></FontAwesomeIcon>
+                  </Button>
+
                 </div>
               );
             }))
@@ -209,11 +219,11 @@ export default class Books extends React.Component {
                 </li>
               </ul>
             </nav>
-          ) : (
+          ) : this.props.emptySearch?(
             <div className="container text-center">
               <h1>No se encontraron resultados</h1>
             </div>
-          )}
+          ): ""}
         </div>
       </div>
     );

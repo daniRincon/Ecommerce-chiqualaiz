@@ -12,23 +12,20 @@ function isLogedIn(req, res, next) {
   } else {
     res.send(false);
   }
-}
 
+  
 router.post("/", passport.authenticate("local"), (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json(req.user);
-  } else {
-    res.status(401).res.json({});
-  }
+    if (req.isAuthenticated()) {
+      res.json(req.user);
+    } else {
+      res.status(401).res.json({});
+    }
 });
 
-router.get("/auth/facebook", passport.authenticate("facebook"));
+router.get('/auth/facebook', passport.authenticate('facebook'));
 
-router.get(
-  "/auth/facebook/callback",
-  passport.authenticate("facebook"),
-  function(req, res) {
-    res.redirect("/");
+router.get('/auth/facebook/callback', passport.authenticate('facebook'),function(req, res) {
+    res.redirect('/')
   }
 );
 

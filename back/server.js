@@ -1,21 +1,23 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
-const path = require("path")
+const path = require("path");
 const indexRouter = require("./routes/index");
-const cookieParser = require('cookie-parser')
+const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("../back/config/passport");
 const db = require("./config/db");
 
-const { Author, Genre, Book } = require("./models"); //NO BORRAR: Necesario para generar las relaciones y tablas al correr por primera vez
+
+const { Author, Genre, Book  } = require("./models"); //NO BORRAR: Necesario para generar las relaciones y tablas al correr por primera vez
+
 
 require("dotenv").config();
 
 const app = express();
 
 //Allow CORS
-app.all('/*', function(req, res, next) {
+app.all("/*", function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   next();
 });
@@ -48,11 +50,13 @@ app.use(passport.session());
 
 //Router
 app.use("/api", indexRouter);
-app.get('/*', (req,res)=>{
+app.get("/*", (req, res) => {
   res.sendFile(path.join(__dirname, "./public", "index.html"));
+
 })
 Book
 db.sync({force: false})
+
   .then(function() {
     app.listen(PORT, function() {
       console.log("Chiqualize listening on " + PORT);
@@ -61,5 +65,3 @@ db.sync({force: false})
   .catch(err => console.error(err));
 
 module.exports = app;
- 
-

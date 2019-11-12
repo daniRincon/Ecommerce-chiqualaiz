@@ -196,6 +196,7 @@ function getStyles(name, personName, theme) {
 }
 
 export default props => {
+
   const classes = useStyles();
   const theme = useTheme();
 

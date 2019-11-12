@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import Kart from "../components/Kart";
-import { delCart, incCart, decCart } from "../store/actions/cart";
+import { delCart, incCart, decCart, getCart } from "../store/actions/cart";
+import { firstTime } from "../store/actions/books"
 
 const calculateTotal = arrayBook => {
   return parseFloat(
@@ -16,15 +17,19 @@ const handleClick = (total, history) => {
 };
 
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  userId : state.user.loggedName.id,
+  firstTime: state.books.firstTime
 });
 
 const mapDispatchToProps = dispatch => ({
-  delFromCart: id => dispatch(delCart(id)),
-  handleDecrement: id => dispatch(decCart(id)),
-  handleIncrement: id => dispatch(incCart(id)),
+  delFromCart: (id, userId) => dispatch(delCart(id, userId)),
+  handleDecrement: (id, userId) => dispatch(decCart(id, userId)),
+  handleIncrement: (id, userId) => dispatch(incCart(id, userId)),
+  fetchCart : (id, cart) => dispatch(getCart(id, cart)),
+  refresh: () => dispatch(firstTime()),
   calculateTotal,
-  handleClick
+  handleClick,
 });
 
 export default connect(

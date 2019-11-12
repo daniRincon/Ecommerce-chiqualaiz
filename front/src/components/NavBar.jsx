@@ -4,8 +4,7 @@ import Greeting from "./Greeting";
 import { Link } from "react-router-dom";
 import logo from "../../../back/public/images/logo_transparent.png";
 import styles from "../css-modules/navBar.module.css";
-import Genres from './Genres'
-
+import Genres from "./Genres";
 
 export default props => {
   return (
@@ -22,21 +21,28 @@ export default props => {
           filtered={props.filtered}
           history={props.history}
         />
-
       </div>
       <div className="bar col-lg-1">
-        <Genres fetchGenre={props.fetchGenre} genres={props.genres} filteredGenres={props.filteredGenres}/>
+        <Genres
+          fetchGenre={props.fetchGenre}
+          genres={props.genres}
+          filteredGenres={props.filteredGenres}
+        />
       </div>
-      {props.loggedName ? (
+      {props.loggedName.permisos ? (
         <div className={"col-lg-4 " + styles.login}>
-          <button
-            className="btn btn-info"
-            onClick={() => {
-              props.history.push("/dashboard");
-            }}
-          >
-            Dashboard
-          </button>
+          {props.loggedName.permisos > 1 ? (
+            <button
+              className="btn btn-info"
+              onClick={() => {
+                props.history.push("/dashboard");
+              }}
+            >
+              Dashboard
+            </button>
+          ) : (
+            false
+          )}
           <button
             className="btn btn-danger"
             onClick={() => {
@@ -46,7 +52,7 @@ export default props => {
           >
             Logout
           </button>
-          <Greeting name={props.loggedName} />
+          <Greeting name={props.loggedName.name} />
         </div>
       ) : (
         <div className={"col-lg-4 " + styles.login}>

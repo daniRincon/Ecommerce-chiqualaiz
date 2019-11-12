@@ -4,10 +4,7 @@
   "description": "ecommerce back",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "db-init": "createdb chiqualaiz",
-    "postinstall": "npm run db-init && npm run seed",
-    "seed": "node seed"
+    "start": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",

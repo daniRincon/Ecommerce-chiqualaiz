@@ -15,16 +15,17 @@ class LoginContainer extends Component{
         this.handleUserInput = this.handleUserInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePasswordInput = this.handlePasswordInput.bind(this);
-    }
+        }
 
     handleSubmit(event){
       event.preventDefault();
       this.props.loginUser(this.state.username, this.state.password)
       .then((user) => {
-        user.logUser.permisos > 1 && this.props.history.push('/dashboard')
         $('#exampleModal').modal('hide')
+        localStorage.clear()
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err)
         this.setState({ warning: "Wrong username or password" });
       });
   }

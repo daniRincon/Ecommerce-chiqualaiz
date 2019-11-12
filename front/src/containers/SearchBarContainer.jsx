@@ -35,7 +35,7 @@ class SearchBarContainer extends React.Component {
     evt.preventDefault();
     store.dispatch(filterBooks(this.state.inputValue, this.props.books));
     const url = this.setParams({ search: this.state.inputValue });
-    this.props.history.push(`?${url}`);
+    this.props.history.push(`/?${url}`);
   }
 
   setParams({ search = "" }) {

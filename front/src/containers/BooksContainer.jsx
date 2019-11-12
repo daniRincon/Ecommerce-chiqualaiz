@@ -3,16 +3,19 @@ import Books from "../components/Books";
 import { fetchBooks, fetchBook } from "../store/actions/books";
 import { addCart } from "../store/actions/cart";
 
-const mapStateToProps = ({ books }) => ({
+const mapStateToProps = ({ books, user }) => ({
   books: books.list,
   filtered: books.filtered,
-  emptySearch: books.emptySearch
+  emptySearch: books.emptySearch,
+  userId : user.loggedName.id
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
   fetchBook: id => dispatch(fetchBook(id)),
-  addBook: book => dispatch(addCart(book))
+  addBook: (book, userId) => {
+    dispatch(addCart(book, userId))
+  }
 });
 
 export default connect(

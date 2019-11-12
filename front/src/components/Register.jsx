@@ -23,6 +23,7 @@ export default class Register extends React.Component {
                 className="close"
                 data-dismiss="modal"
                 aria-label="Close"
+                onClick={(e) => $('#exampleModal').modal('hide')}
               >
                 <span aria-hidden="true">×</span>
               </button>

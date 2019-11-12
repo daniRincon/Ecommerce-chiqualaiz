@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_BOOKS, GET_BOOK, FILTER_BOOKS, FILTER_GENRE } from "../constants";
+import { GET_BOOKS, GET_BOOK, FILTER_BOOKS, FILTER_GENRE, FRESH_PAGE } from "../constants";
 
 const receiveBooks = books => ({
   type: GET_BOOKS,
@@ -21,6 +21,10 @@ const filterGenre = genres => ({
   type: FILTER_GENRE,
   genres
 });
+
+const firstTimes = () => ({
+  type: FRESH_PAGE
+})
 
 
 export const fetchBooks = () => dispatch =>
@@ -71,13 +75,6 @@ export const filteredGenres = (books, genres) => dispatch => {
       }
     }
   }
-  // for (var i = 0; i < books.length; i++) {
-  //   for (var j = 0; j < genres.length; j++) {
-  //     if (books[i].id == genres[j]) {
-  //       sGenres.push(books[i].books);
-  //     }
-  //   }
-  // }
   const flat = flattenDeep(sGenres);
   const total = eliminarObjetosDuplicados(flat, "id");
   dispatch(filteredBooks(total));
@@ -100,11 +97,6 @@ export const addBook = book => dispatch => {
     });
 };
 
-// export const checkOut = ()  => {
-//   return axios
-//   .post('api/checkOut')
-//   .then(data => console.log(data))
-// } 
 
 export const updateBook = book => dispatch => {
   return axios
@@ -114,3 +106,7 @@ export const updateBook = book => dispatch => {
       throw err;
     });
 };
+
+export const firstTime = () => dispatch => {
+  return dispatch(firstTimes())
+}

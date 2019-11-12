@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("../config/passport");
-const User = require ('../models/User')
+
+const { User } = require("../models/");
+
 
 router.post("/", function(req, res) {
   User.create(req.body)
@@ -10,6 +12,5 @@ router.post("/", function(req, res) {
     })
     .catch(err => res.status(400).send(console.log(err)));
 });
-
 
 module.exports = router;
