@@ -1,4 +1,5 @@
 .greeting {
   margin-top: 0.5rem;
   color: white;
+  display: inline-block;
 }
