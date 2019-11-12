@@ -39,7 +39,7 @@ export const loginUser = (username, password) => dispatch =>{
 };
 
 export const userLogOut =  (id) => dispatch => {
-    axios.delete(`/api/carts/`)
+    axios.delete(`/api/carts/${id}`)
     .then(res => {
         dispatch(emptyCart())
     })

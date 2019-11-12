@@ -68,7 +68,10 @@ const fetchCart = function(req, res) {
       },
       {
         where: {
-          userId: req.params.id
+
+
+            userId: req.params.id
+
         }
       }
     )

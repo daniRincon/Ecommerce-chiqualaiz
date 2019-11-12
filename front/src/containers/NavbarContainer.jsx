@@ -17,7 +17,7 @@ const mapStateToProps = ({ user, books, genres }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleLogOut: () => dispatch(userLogOut()),
+  handleLogOut: (id) => dispatch(userLogOut(id)),
   fetchGenre: () => dispatch(fetchGenre()),
   filterBooks: () => dispatch(filterBooks()),
   filteredGenres: (genres, books) => dispatch(filteredGenres(genres, books))
