@@ -7,9 +7,12 @@ export default ({
   genres,
   inputValue,
   selectedGenre,
+  updateMsg,
+  deleteMsg,
   handleSubmit,
   handleChange,
-  handleGenreChange
+  handleGenreChange,
+  handleDelete
 }) => {
   useEffect(() => {
     store.dispatch(fetchGenre());
@@ -82,6 +85,7 @@ export default ({
                   value={inputValue}
                   onChange={e => handleChange(e)}
                 />
+
                 <button
                   type="button"
                   className="btn btn-secondary"
@@ -89,15 +93,15 @@ export default ({
                 >
                   Modificar
                 </button>
-                <button type="button" className="btn btn-secondary">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={e => handleDelete(e, selectedGenre)}
+                >
                   Eliminar
                 </button>
-                <p id="msgModifyGenre" className={styles.msgHide}>
-                  No se puedo modificar el género
-                </p>
-                <p id="msgDeleteGenre" className={styles.msgHide}>
-                  No puede eliminarse, el género tiene libros
-                </p>
+                <p>{updateMsg}</p>
+                <p>{deleteMsg}</p>
               </div>
             </form>
           </div>
