@@ -46,6 +46,6 @@ export default props => {
       </div>
     );
   } else {
-    return <h3 className="text-danger"> ACCESS DENIED</h3>;
+    return <h3 className="text-danger"> ACCESO DENEGADO</h3>;
   }
 };

@@ -80,6 +80,6 @@ export const emptyCart = (justState = false) => dispatch => {
 export const syncCart = () => dispatch => {
     const cart = store.getState();
     return axios.put('/api/carts', cart.cart)
-    .then((cart) => dispatch(getCart(cart)))
+    .then((userCart) => dispatch(getCart(0, userCart.data)))
 
 }

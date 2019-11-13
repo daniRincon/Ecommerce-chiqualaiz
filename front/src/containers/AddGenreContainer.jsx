@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
       .then(res => res.data)
       .then(genre => {
         genre[1]
-          ? $("#modalGenre").modal("hide") &&
+          ? $("#modalGenreAdd").modal("hide") &&
             $("#msgAddGenre").addClass(styles.msgHide)
           : $("#msgAddGenre").removeClass(styles.msgHide);
       })

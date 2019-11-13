@@ -8,21 +8,13 @@ export default ({
   user,
   warning,
   handlePasswordInput
-}) => {
-  const arrayBook = [];
+}) => { 
+const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
-  }
+}
 
-  const checkOut = () => {
-    if (user.id) {
-      return axios.post("api/checkOut").then(data => console.log(data));
-    } else {
-      return alert("Login required to purchase");
-    }
-  };
-
-  return (
+return (
     <div className="container text-center" id={styles.checkoutContainer}>
       <form action="/confirm" method="POST" onSubmit={handleSubmit}>
         <h1>Checkout</h1>
@@ -44,35 +36,36 @@ export default ({
                 />
               </div>
               <h5 className="text-danger">{warning}</h5>
+
             </div>
           )}
         </div>
         <div className="form-group">
-          <label>Email Address</label>
+          <label>Correo</label>
           <input
             type="email"
             id="email"
             name="email"
             defaultValue={user.email || ""}
             className="form-control"
-            placeholder="Billing Email Adress"
+            placeholder="Correo"
             required
           />
         </div>
         <div className="form-group">
-          <label>Billing Adress</label>
+          <label>Dirección de facturación</label>
           <input
             type="text"
             id="shipping"
             name="shipping"
             defaultValue={user.address || ""}
             className="form-control"
-            placeholder="Billing Address"
+            placeholder="dirección de facturación"
             required
           />
         </div>
         <div className="form-group">
-          <label>Shipping Address</label>
+          <label>Dirección de envío</label>
           <input
             type="text"
             id="shipping"

@@ -1,6 +1,5 @@
 import React from "react";
-import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -36,39 +35,49 @@ const MenuProps = {
   }
 };
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium
-  };
-}
 
 export default props => {
   const classes = useStyles();
-  const theme = useTheme();
 
   React.useEffect(() => {
     props.fetchGenre();
   }, []);
 
+  
+
   const [categories, setCategories] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel style={{ color: "white" }} id="demo-mutiple-name-label">
+        <InputLabel style={{ color: "white" }} id="demo-controlled-open-select-label">
           Categorias
         </InputLabel>
         <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
-          value={categories}
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
+          value={categories.length > 0? categories : ''}
           onChange={e => {
-            setCategories(e.target.value);
-            props.filteredGenres(props.genres, e.target.value);
+            if(categories == e.target.value.toString()){
+              setCategories('')
+              props.filteredGenres(0)
+            }
+            else{ 
+              setCategories(e.target.value.toString())
+              props.filteredGenres(e.target.value.toString()) }
+           
           }}
           input={<Input />}
           MenuProps={MenuProps}

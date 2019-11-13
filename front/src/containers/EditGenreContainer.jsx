@@ -1,8 +1,10 @@
 import React from "react";
 import axios from "axios";
+import store from "../store/index"
 import EditGenre from "../components/EditGenre";
 import { connect } from "react-redux";
 import styles from "../css-modules/editGenre.module.css";
+import { fetchGenre } from "../store/actions/books"
 
 class EditGenreContainer extends React.Component {
   constructor(props) {
@@ -31,7 +33,8 @@ class EditGenreContainer extends React.Component {
               updateMsg: ""
             });
           this.setState({
-            inputValue: ""
+            inputValue: "",
+            selectedGenre: null
           });
         } else {
           this.setState({
@@ -39,6 +42,9 @@ class EditGenreContainer extends React.Component {
           });
         }
       })
+      .then(() => {
+        return store.dispatch(fetchGenre())})
+      
       .catch(err => {
         throw err;
       });

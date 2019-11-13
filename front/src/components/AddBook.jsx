@@ -31,7 +31,7 @@ export default (props) => {
                     type="text"
                     name="title"
                     className="form-control"
-                    placeholder="Ingresar title"
+                    placeholder="Ingresar titulo"
                     defaultValue={props.selected.titulo || ''}>
                 </input>
                 <input  
@@ -119,7 +119,7 @@ export default (props) => {
                 </input>
               </p>
               <button type="submit" className="btn btn-primary btn-block">
-                  {props.selected.titulo? "edit book": "create book"}
+                  {props.selected.titulo? "editar libro": "crear libro"}
                 </button>
               <h5 className="text-danger">{props.warning}</h5>
               <h5 className="text-success">{props.success}</h5>
@@ -132,7 +132,7 @@ export default (props) => {
     );
   } else {
     return (
-      <h3 className="text-danger"> ACCESS DENIED</h3>
+      <h3 className="text-danger"> ACCESO DENEGADO</h3>
   )
   }
 };
