@@ -5,7 +5,7 @@ export default ({ addGenre }) => {
   return (
     <div
       className="modal fade"
-      id="modalGenre"
+      id="modalGenreAdd"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"
@@ -40,19 +40,25 @@ export default ({ addGenre }) => {
                   className="form-control"
                   placeholder="Ingrese un nuevo género"
                 />
-                <p id="msgAddGenre" className={styles.msgHide}>
-                  "El género ya existe
-                </p>
+                <strong id="msgAddGenre" className={styles.msgHide}>
+                  ¡Este género ya existe!
+                </strong>
               </div>
             </form>
           </div>
           <div className="modal-footer">
+          <button
+              className="btn btn-secondary"
+              type="submit"
+            >
+              Submit
+            </button>
             <button
               type="button"
               className="btn btn-secondary"
               data-dismiss="modal"
             >
-              Close
+              Cerrar
             </button>
           </div>
         </div>

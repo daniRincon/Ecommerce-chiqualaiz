@@ -38,69 +38,69 @@ export default class Register extends React.Component {
                 >
 
                   <div className="form-group">
-                    <label>Name</label>
+                    <label>Nombre</label>
                     <input
                       type="name"
-                      id="name"
+                      id="name-register"
                       name="name"
                       className="form-control"
-                      placeholder="Enter name"
+                      placeholder="Nombre"
                       onChange={this.props.handleChange}
                     />
                   </div>{" "}
                   <div className="form-group">
-                    <label>Lastname</label>
+                    <label>Apellido</label>
                     <input
                       type="lastname"
-                      id="lastname"
+                      id="lastname-register"
                       name="lastname"
                       className="form-control"
-                      placeholder="Enter lastname"
+                      placeholder="Apellido"
                       onChange={this.props.handleChange}
                     />
                   </div>
                   <div className="form-group">
-                    <label>Username</label>
+                    <label>Nombre de usuario</label>
                     <input
                       type="text"
                       id="username"
                       name="username"
                       className="form-control"
-                      placeholder="Enter username"
+                      placeholder="Nombre de usuario"
                       onChange={this.props.handleChange}
                     />
                   </div>
                   <div className="form-group">
-                    <label>Password</label>
+                    <label>Contraseña</label>
                     <input
                       type="password"
                       id="password"
                       name="password"
                       className="form-control"
-                      placeholder="Enter Password"
+                      placeholder="Contraseña"
                       required
                       onChange={this.props.handleChange}
                     />
                   </div>
                   <div className="form-group">
-                    <label>Email</label>
+                    <label>Correo</label>
                     <input
                       type="email"
                       id="email"
                       name="email"
                       className="form-control"
-                      placeholder="Enter email"
+                      placeholder="Correo"
                       onChange={this.props.handleChange}
                     />
                   </div>
                   <div className="form-group">
-                    <label>Address</label>
+                    <label>Dirección</label>
                     <input
                       type="address"
                       id="address"
                       name="address"
                       className="form-control"
-                      placeholder="Enter address"
+                      placeholder="Dirección"
                       onChange={this.props.handleChange}
                     />
                   </div>

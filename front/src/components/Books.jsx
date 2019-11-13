@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pagination from "react-paginating";
 import { Link } from "react-router-dom";
 import store from "../store";
@@ -22,10 +22,16 @@ export default class Books extends React.Component {
       todosPerPage: 8,
       maxPage: 1
     };
+
     this.handleClick = this.handleClick.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handlePrevious = this.handlePrevious.bind(this);
   }
+
+  handleId(id) {
+    this.state.id.push(id);
+  }
+
   handleClick(event) {
     this.setState(
       {
@@ -103,8 +109,9 @@ export default class Books extends React.Component {
       this.setState({ maxPage: max });
     }
   }
+
   render() {
-    const { currentPage, todosPerPage } = this.state;
+    const { currentPage, todosPerPage, maxPage } = this.state;
 
     let renderTodos;
     // Logic for displaying todos
@@ -119,20 +126,59 @@ export default class Books extends React.Component {
     const max = Math.ceil(renderedBooks.length / todosPerPage);
     const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
-    for (let i = 1; i <= max; i++) {
-      pageNumbers.push(i);
+    let current = currentPage,
+      last = max,
+      delta = 2,
+      left = current - delta,
+      right = current + delta + 1,
+      range = [],
+      rangeWithDots = [],
+      l;
+
+    range.push(1);
+
+    if (max <= 1) {
+      rangeWithDots = range;
+    } else {
+      for (let i = currentPage - delta; i <= currentPage + delta; i++) {
+        if (i < max && i > 1) {
+          range.push(i);
+        }
+      }
+      range.push(max);
+
+      for (let i of range) {
+        if (l) {
+          if (i - l === 2) {
+            rangeWithDots.push(l + 1);
+          } else if (i - l !== 1) {
+            rangeWithDots.push("...");
+          }
+        }
+        rangeWithDots.push(i);
+        l = i;
+      }
     }
-    const renderPageNumbers = pageNumbers.map(number => {
+    /*for (let i = 1; i <= max; i++) {
+      pageNumbers.push(i);
+    }*/
+    const renderPageNumbers = rangeWithDots.map((number, index) => {
       return (
         <li
           className={`page-item ${
             number === this.state.currentPage ? "active" : ""
           }`}
-          key={number}
+          key={index}
         >
-          <a className="page-link" id={number} onClick={this.handleClick}>
-            {number}
-          </a>
+          {!isNaN(number) ? (
+            <a className="page-link" id={number} onClick={this.handleClick}>
+              {number}
+            </a>
+          ) : (
+            <span className="page-link" id={number}>
+              {number}
+            </span>
+          )}
         </li>
       );
     });
@@ -176,26 +222,54 @@ export default class Books extends React.Component {
                       </Box>
                     </div>
                   </Link>
-                  <Button
-                    onClick={() => {
-                      this.props.addBook({
-                        id: book.id,
-                        precio: book.precio,
-                        titulo: book.titulo
-                      }, this.props.userId);
-                    }}
-                  >
 
-                    <FontAwesomeIcon
-                      style={{
-                        color: "#5588a3"
+                  {this.props.cart[book.id] || !book.stock ? (
+                    <Button
+                      disabled={true}
+                      onClick={() => {
+                        this.props.addBook(
+                          {
+                            id: book.id,
+                            precio: book.precio,
+                            titulo: book.titulo
+                          },
+                          this.props.userId
+                        );
                       }}
-                      size="2x"
-                      variant="contained"
-                      icon={faCartPlus}
-                    ></FontAwesomeIcon>
-                  </Button>
-
+                    >
+                      <FontAwesomeIcon
+                        style={{
+                          color: "#5588a3"
+                        }}
+                        size="2x"
+                        variant="contained"
+                        icon={faMinusCircle}
+                      ></FontAwesomeIcon>
+                    </Button>
+                  ) : (
+                    <Button
+                      disabled={false}
+                      onClick={() => {
+                        this.props.addBook(
+                          {
+                            id: book.id,
+                            precio: book.precio,
+                            titulo: book.titulo
+                          },
+                          this.props.userId
+                        );
+                      }}
+                    >
+                      <FontAwesomeIcon
+                        style={{
+                          color: "#5588a3"
+                        }}
+                        size="2x"
+                        variant="contained"
+                        icon={faCartPlus}
+                      ></FontAwesomeIcon>
+                    </Button>
+                  )}
                 </div>
               );
             }))
@@ -208,25 +282,26 @@ export default class Books extends React.Component {
               >
                 <li className="page-item">
                   <a className="page-link" onClick={this.handlePrevious}>
-                    Previous
+                    Anterior
                   </a>
                 </li>
                 {renderPageNumbers}
                 <li className="page-item">
                   <a className="page-link" onClick={this.handleNext}>
-                    Next
+                    Siguiente
                   </a>
                 </li>
               </ul>
             </nav>
-          ) : this.props.emptySearch?(
+          ) : this.props.emptySearch ? (
             <div className="container text-center">
               <h1>No se encontraron resultados</h1>
             </div>
-          ): ""}
+          ) : (
+            ""
+          )}
         </div>
       </div>
     );
   }
 }
-

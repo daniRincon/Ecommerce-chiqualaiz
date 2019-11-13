@@ -63,18 +63,19 @@ export default props => {
                 />
               </div>
               <h5 className="text-danger">{props.warning}</h5>
-              <button type="submit" className="btn btn-primary btn-block">
+              <button type="submit" className={"btn btn-block " + styles.submit}>
                 Login
               </button>
             </form>
             <p className="lead mt-4">
-              No Account?
+              No tienes cuenta?
               <button
+                onClick={props.handleRegister}
                 className="btn btn-link"
                 data-toggle="modal"
                 data-target="#register"
               >
-                Register
+                Crear cuenta
               </button>
             </p>
             <div className={styles.networks}>

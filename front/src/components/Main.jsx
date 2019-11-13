@@ -11,9 +11,11 @@ import RegisterContainer from "../containers/RegisterContainer";
 import DashboardContainer from "../containers/DashboardContainer";
 import AddBookContainer from "../containers/AddBookContainer";
 import AddGenreContainer from "../containers/AddGenreContainer";
+import EditGenreContainer from "../containers/EditGenreContainer";
 import KartContainer from "../containers/KartContainer";
 import CheckoutContainer from "../containers/CheckoutContainer";
 import PermissionsContainer from "../containers/PermissionsContainer";
+import HistorialContainer from "../containers/HistorialContainer";
 
 import { fetchUser } from "../store/actions/users";
 
@@ -26,6 +28,7 @@ export default () => {
     <div id="main">
       <Route path="/" component={NavBarContainer} />
       <Route path="/" component={KartContainer} />
+      <Route path="/" component={HistorialContainer} />
       <Route exact path="/books/:id" component={SingleBookContainer} />
       <Route exact path="/" component={BooksContainer} />
       <Route path="/" component={LoginContainer} />
@@ -38,8 +41,10 @@ export default () => {
         path="/dashboard/permisos"
         component={PermissionsContainer}
       />
+      <Route exact path="/dashboard" component={EditGenreContainer} />
       <Route exact path="/books/:id/edit" component={AddBookContainer} />
       <Route exact path="/checkout" component={CheckoutContainer} />
+      
     </div>
   );
 };

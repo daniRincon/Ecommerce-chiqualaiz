@@ -7,13 +7,12 @@ export default ({ inputValue, handleChange, handleSubmit, handleKeyPress }) => {
         size="30"
         className="form-control"
         type="search"
-        placeholder="Search"
+        placeholder="Buscar..."
         name="search"
         value={inputValue}
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       ></input>
-      
     </form>
   );
 };

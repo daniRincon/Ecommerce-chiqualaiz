@@ -17,12 +17,15 @@ export default ({
   deleteBook,
   addBook,
   userId,
-  cart
+  cart,
+  reviews,
+  compras,
+  handleSubmit
 }) => {
   const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
-    if (cart[book.id]) {
+    if (cart[book.id] || !book.stock) {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -115,10 +118,12 @@ export default ({
               >
                 <strong>Precio: $ </strong>
                 {book.precio}
+                <strong> Stock:  </strong>
+                {book.stock}
               </div>
 
               <Button
-                disabled={disabled}
+                disabled={disabled }
                 id="addButton"
                 onClick={() => {
                   addBook(
@@ -132,7 +137,7 @@ export default ({
                   $("#slider").addClass("open");
                 }}
               >
-                {disabled ? (
+                {disabled || !book.stock? (
                   <FontAwesomeIcon
                     style={{
                       margin: "10%",
@@ -202,7 +207,7 @@ export default ({
         p={1}
         className={classes.reviews}
       >
-        <Reviews />
+        <Reviews handleSubmit={handleSubmit} reviews ={reviews} user={userId} compras={compras} prodId={book.id} />
       </Box>
     </div>
   );

@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
   handleLogOut: (id) => dispatch(userLogOut(id)),
   fetchGenre: () => dispatch(fetchGenre()),
   filterBooks: () => dispatch(filterBooks()),
-  filteredGenres: (genres, books) => dispatch(filteredGenres(genres, books))
+  filteredGenres: (genres) => dispatch(filteredGenres(genres))
 });
 
 const NavbarContainer = connect(

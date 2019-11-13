@@ -1,17 +1,18 @@
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
-const { Book, Author, Genre } = require("../models/");
+const { Book, Author, Genre, Review } = require("../models/");
 
 const fetchBooks = function(req, res) {
     Book.findAll({
-      where: {
-        visible: true
-      }
+      where: {visible:true},
+     include: {
+       model: Genre,
+     }
     })
       .then(books => res.send(books))
-      .catch(err => res.status(404).send(err));
-};
+      .catch(err => res.status(404).send(err))
+  };
 
 const fetchBook = function(req, res) {
   Book.findOne({
@@ -22,32 +23,86 @@ const fetchBook = function(req, res) {
     .then(async book => {
       const author = await book.getAuthor();
       const genresObj = await book.getGenres();
+      const reviews = await book.getReviews();
       const genres = genresObj.map(obj => obj.nombre);
-      res.json({ ...book.dataValues, author: author.nombre, genres });
+      res.json({ ...book.dataValues, author: author.nombre, genres, reviews });
     })
-    .catch(err => res.status(404).send(err));
+    .catch(err => {
+      return res.status(404).send(err)});
 };
+
 
 const fetchGenre = function(req, res) {
-  Genre.findAll()
-    .then(data => res.send(data))
-    .catch(err => res.status(404).send(err));
-};
-
-const filterGenre = function(req, res) {
   Genre.findAll({
     include: [
       {
-        model: Book,
+        model: Book
       }
     ]
   }).then(book => res.send(book));
 };
 
+const filteredGenres = function (req, res) {
+  Book.findAll({
+    include: [
+      {
+        model: Genre,
+        where: {
+          id : req.params.id,
+        }
+      }
+    ],
+    where:{
+      visible:true
+    }
+  })
+  .then(data => res.send(data))
+  .catch(err => res.status(404).send(err));
+}
+
 const addGenre = function(req, res) {
-  Genre.findOrCreate({ where: { nombre: Object.keys(req.body)[0] } }).then(
-    genre => res.send(genre)
-  );
+  Genre.findOrCreate({
+    where: { nombre: Object.keys(req.body)[0] }
+  }).then(genre => res.send(genre));
+};
+
+const changeGenre = function(req, res) {
+  Genre.update(
+    {
+      nombre: req.body.newGenre
+    },
+    {
+      where: {
+        nombre: req.params.oldGenre
+      }
+    }
+  )
+    .then(genre => res.send(genre))
+    .catch(err => console.log(err));
+};
+
+const deleteGenre = function(req, res) {
+  Book.findAll({
+    include: [
+      {
+        model: Genre,
+
+        where: {
+          nombre: req.params.genre
+        }
+      }
+    ]
+  }).then(books => {
+    books.length === 0
+      ? Genre.destroy({
+          where: {
+            nombre: req.params.genre
+          }
+        })
+          .then(genre => res.send("OK"))
+          .catch(err => console.log(err))
+      : res.send(false);
+  });
 };
 
 const addBook = function(req, res) {
@@ -81,7 +136,8 @@ const updateBook = function(req, res) {
         titulo: req.body.title,
         precio: req.body.precio,
         url: req.body.imgUrl.length ? req.body.imgUrl : undefined,
-        descripcion: req.body.descripcion
+        descripcion: req.body.descripcion,
+        stock: req.body.stock
       },
       {
         returning: true,
@@ -120,6 +176,23 @@ const deleteBook = function(req, res) {
     .catch(err => res.status(404).send(err));
 };
 
+const review = function(req, res){
+  Review.create({
+    title: req.body.titulo,
+    content: req.body.content,
+    estrellas: 1,
+    autor: req.body.autor
+  })
+  .then((review) => {
+    let userId = req.user.dataValues? req.user.dataValues.id : req.user.id;
+    review.setUser(userId)
+    review.setBook(req.body.id)
+  })
+  .then(() => res.sendStatus(201))
+  .catch((err) => { res.send(err)})
+}
+
+
 module.exports = {
   fetchBooks,
   fetchBook,
@@ -127,6 +200,9 @@ module.exports = {
   updateBook,
   deleteBook,
   fetchGenre,
-  filterGenre,
-  addGenre
+   addGenre,
+   filteredGenres,
+  changeGenre,
+  deleteGenre,
+  review
 };

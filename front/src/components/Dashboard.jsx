@@ -26,12 +26,19 @@ export default props => {
         <button
           className={"btn btn-info " + styles.btn}
           data-toggle="modal"
-          data-target="#modalGenre"
+          data-target="#modalGenreAdd"
         >
           Agregar género
         </button>
 
-        <button className={"btn btn-info " + styles.btn}>Editar género</button>
+        <button
+          className={"btn btn-info " + styles.btn}
+          data-toggle="modal"
+          data-target="#modalGenreEdit"
+        >
+          Editar género
+        </button>
+
         <button className={"btn btn-info " + styles.btn}>Órdenes</button>
         <Link to="/dashboard/permisos">
           <button className={"btn btn-info " + styles.btn}>
@@ -41,6 +48,6 @@ export default props => {
       </div>
     );
   } else {
-    return <h3 className="text-danger"> ACCESS DENIED</h3>;
+    return <h3 className="text-danger"> ACCESO DENEGADO</h3>;
   }
 };

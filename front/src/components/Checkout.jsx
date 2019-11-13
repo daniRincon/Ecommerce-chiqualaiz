@@ -1,59 +1,76 @@
 import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
-export default ({ cart, calculateTotal, user }) => {
-  const arrayBook = [];
+export default ({
+  cart,
+  calculateTotal,
+  handleSubmit,
+  user,
+  warning,
+  handlePasswordInput
+}) => { 
+const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
-  }
+}
 
-  const checkOut = ()  => {
-    if(user.id){
-      return axios
-    .post('api/checkOut')
-    .then(data => console.log(data))
-    }else{
-      return alert('Login required to purchase')
-    }
-  } 
-
- const handleSubmit = e => {
-    e.preventDefault()
-    checkOut()
-  };
-
-  return (
+return (
     <div className="container text-center" id={styles.checkoutContainer}>
-      <form onSubmit={(e) => {return handleSubmit(e) }}> 
+      <form action="/confirm" method="POST" onSubmit={handleSubmit}>
         <h1>Checkout</h1>
         <div className="form-group">
-          <label>Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="form-control"
-            placeholder="Confirmar Contraseña"
-            required
-          />
+          {/^(f|g)\d\d\d\d\d\d+/.test(user.username) ? (
+            false
+          ) : (
+            <div>
+              <div>
+                <label>Contraseña</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Confirmar Contraseña"
+                  onChange={event => handlePasswordInput(event.target.value)}
+                  required
+                />
+              </div>
+              <h5 className="text-danger">{warning}</h5>
+
+            </div>
+          )}
         </div>
         <div className="form-group">
-          <label>Billing Email Adress</label>
+          <label>Correo</label>
           <input
             type="email"
             id="email"
             name="email"
+            defaultValue={user.email || ""}
             className="form-control"
-            placeholder="Billing Email Adress"
+            placeholder="Correo"
             required
           />
         </div>
         <div className="form-group">
-          <label>Shipping Email Adress</label>
+          <label>Dirección de facturación</label>
           <input
             type="text"
             id="shipping"
             name="shipping"
+            defaultValue={user.address || ""}
+            className="form-control"
+            placeholder="dirección de facturación"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Dirección de envío</label>
+          <input
+            type="text"
+            id="shipping"
+            name="shipping"
+            defaultValue={user.address || ""}
             className="form-control"
             placeholder="Shipping Email Adress"
             required
@@ -83,7 +100,9 @@ export default ({ cart, calculateTotal, user }) => {
                 })}
               </tbody>
             </table>
-            <div className="pull-right">Total: {calculateTotal(arrayBook)}</div>
+            <div className="pull-right">
+              Total: ${calculateTotal(arrayBook)}{" "}
+            </div>
           </div>
         ) : (
           ""
@@ -91,7 +110,6 @@ export default ({ cart, calculateTotal, user }) => {
         <button type="submit" className="btn btn-primary btn-block">
           Confirmar
         </button>
-        <div></div>
       </form>
     </div>
   );

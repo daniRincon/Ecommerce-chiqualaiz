@@ -1,5 +1,7 @@
 import axios from "axios";
-import { GET_USER, LOG_USER, GET_USERS } from "../constants/index";
+
+import { GET_USER, LOG_USER, SET_HISTORIAL, GET_USERS } from "../constants/index";
+
 import { getCart, emptyCart, syncCart } from "./cart";
 
 const getUser = user => ({
@@ -7,15 +9,23 @@ const getUser = user => ({
   user
 });
 
+
 const getUsers = users => ({
   type: GET_USERS,
   users
 });
 
+
 const logUser = logUser => ({
   type: LOG_USER,
   logUser
 });
+
+export const setHistorial = historial => ({
+  type: SET_HISTORIAL,
+  historial
+});
+
 
 export const signUpUser = user => dispatch => {
   if (!user.password.length) throw Error("No password");
@@ -53,27 +63,38 @@ export const delUsers = arrId => dispatch => {
     .then(users => dispatch(getUsers(users.data)));
 };
 
+
+
+
+
 export const loginUser = (username, password) => dispatch => {
   if (!password.length) throw Error("No password");
   return axios
     .post("/api/sessions", { username, password })
     .then(res => dispatch(logUser(res.data)))
     .then(() => dispatch(syncCart()))
+    .then(() => dispatch(userHistorial()))
     .catch(err => {
-      console.log(err);
       throw err;
     });
 };
 
-export const userLogOut = id => dispatch => {
+export const userHistorial = () => dispatch => {
+  axios.get("/api/checkout/historial").then(res => {
+    dispatch(setHistorial(res.data));
+  });
+};
+
+export const userLogOut = () => dispatch => {
   axios
-    .delete(`/api/carts/${id}`)
-    .then(res => {
-      dispatch(emptyCart());
-    })
-    .then(() => axios.delete("/api/sessions"))
+    .delete("/api/sessions")
     .then(() => {
       dispatch(getUser({}));
+    })
+    .then(() => {
+      dispatch(setHistorial({}));
+      dispatch(emptyCart(true));
+
     })
     .catch(error => console.error(error));
 };

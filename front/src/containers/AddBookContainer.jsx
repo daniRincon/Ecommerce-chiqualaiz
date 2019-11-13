@@ -26,6 +26,7 @@ class addBookContainer extends React.Component {
           imgUrl: e.target[2].value,
           descripcion: e.target[3].value,
           precio: e.target[4].value,
+          stock: e.target[6].value,
           categorias
         })
         .then(() => {
@@ -52,6 +53,7 @@ class addBookContainer extends React.Component {
           imgUrl: e.target[2].value,
           descripcion: e.target[3].value,
           precio: e.target[4].value,
+          stock: e.target[6].value,
           categorias
         })
         .then(book => {

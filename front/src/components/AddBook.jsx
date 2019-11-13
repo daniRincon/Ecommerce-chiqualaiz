@@ -18,22 +18,24 @@ export default props => {
                   textAlign: "center"
                 }}
               >
-                <input
-                  required
-                  type="text"
-                  name="title"
-                  className="form-control"
-                  placeholder="Ingresar title"
-                  defaultValue={props.selected.titulo || ""}
-                ></input>
-                <input
-                  required
-                  type="text"
-                  name="author"
-                  className="form-control"
-                  placeholder="Ingresar autor"
-                  defaultValue={props.selected.author || ""}
-                ></input>
+
+                <input  
+                    required
+                    type="text"
+                    name="title"
+                    className="form-control"
+                    placeholder="Ingresar titulo"
+                    defaultValue={props.selected.titulo || ''}>
+                </input>
+                <input  
+                    required
+                    type="text"
+                    name="author"
+                    className="form-control"
+                    placeholder="Ingresar autor"
+                    defaultValue={props.selected.author || ''}>
+                </input>
+
               </h1>
             </div>
           </div>
@@ -101,9 +103,22 @@ export default props => {
                   }
                 ></input>
               </p>
+              <p className="mb-0">
+                <strong>Stock: </strong>
+                <input 
+                    required
+                    type="text"
+                    name="precio"
+                    className="form-control"
+                    placeholder="Ingresar categorias"
+                    defaultValue={props.selected.stock || 0}>
+                </input>
+              </p>
               <button type="submit" className="btn btn-primary btn-block">
-                {props.selected.titulo ? "edit book" : "create book"}
-              </button>
+
+                  {props.selected.titulo? "editar libro": "crear libro"}
+                </button>
+
               <h5 className="text-danger">{props.warning}</h5>
               <h5 className="text-success">{props.success}</h5>
             </div>
@@ -113,6 +128,10 @@ export default props => {
       </form>
     );
   } else {
-    return <h3 className="text-danger"> ACCESS DENIED</h3>;
+
+    return (
+      <h3 className="text-danger"> ACCESO DENEGADO</h3>
+  )
+
   }
 };
