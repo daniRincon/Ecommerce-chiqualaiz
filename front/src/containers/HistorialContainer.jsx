@@ -9,7 +9,8 @@ class HistorialContainer extends Component {
 
         return (
             <div>
-                <Historial historial={this.props.user.historial}/>
+                {this.props.user.loggedName? <Historial historial={this.props.user.historial}/>: ""}
+                
             </div>
         );
     }

@@ -4,15 +4,25 @@ const Op = Sequelize.Op;
 const { Book, Author, Genre, Review } = require("../models/");
 
 const fetchBooks = function(req, res) {
+
     Book.findAll({
-      where: {
-        visible: true
-      }
+     include: {
+       model: Genre,
+     }
     })
       .then(books => res.send(books))
       .catch(err => res.status(404).send(err));
-};
+/**
+  Book.findAll({
+    where: {
+      visible: true
+    }
+  })
+    .then(books => res.send(books))
+    .catch(err => res.status(404).send(err));
 
+};
+**/
 const fetchBook = function(req, res) {
   Book.findOne({
     where: {
@@ -30,21 +40,32 @@ const fetchBook = function(req, res) {
       return res.status(404).send(err)});
 };
 
-const fetchGenre = function(req, res) {
-  Genre.findAll()
-    .then(data => res.send(data))
-    .catch(err => res.status(404).send(err));
-};
 
-const filterGenre = function(req, res) {
+const fetchGenre = function(req, res) {
   Genre.findAll({
     include: [
       {
-        model: Book,
+        model: Book
       }
     ]
   }).then(book => res.send(book));
 };
+
+const filteredGenres = function (req, res) {
+  console.log(req)
+  Book.findAll({
+    include: [
+      {
+        model: Genre,
+        where: {
+          id : req.params.id
+        }
+      }
+    ]
+  })
+  .then(data => res.send(data))
+  .catch(err => res.status(404).send(err));
+}
 
 const addGenre = function(req, res) {
   Genre.findOrCreate({
@@ -186,8 +207,8 @@ module.exports = {
   updateBook,
   deleteBook,
   fetchGenre,
-  filterGenre,
-  addGenre,
+   addGenre,
+   filteredGenres,
   changeGenre,
   deleteGenre,
   review

@@ -24,15 +24,11 @@ const filteredBooks = (books, emptySearch) => ({
   emptySearch
 });
 
-const receiveGenres = genres => ({
+const filterGenre = genres => ({
   type: GET_GENRES,
   genres
 });
 
-const filterGenre = genres => ({
-  type: FILTER_GENRE,
-  genres
-});
 
 const firstTimes = () => ({
   type: FRESH_PAGE
@@ -58,42 +54,16 @@ export const fetchGenre = () => dispatch =>
 
 // FILTRADO POR GÉNEROS
 
-export const filteredGenres = (books, genres) => dispatch => {
-  let sGenres = [];
-  for (let i = 0; i < genres.length; i++) {
-    for (let j = 0; j < books.length; j++) {
-      if (books[j].id == genres[i]) {
-        sGenres.push(books[j].books);
-      }
-    }
-  }
-  const flat = flattenDeep(sGenres);
-  const total = eliminarObjetosDuplicados(flat, "id");
-  dispatch(filteredBooks(total));
-};
-
-function flattenDeep(arr1) {
-  return arr1.reduce(
-    (acc, val) =>
-      Array.isArray(val) ? acc.concat(flattenDeep(val)) : acc.concat(val),
-    []
-  );
+export const filteredGenres = id => dispatch => {
+  axios
+  .post(`api/books/genres/${id}`)
+  .then(res=> res.data)
+  .then(books => dispatch(filteredBooks(books))
+   
+    )   
+   //.then(books=> books.length ? emptySearch = false : true)
 }
 
-function eliminarObjetosDuplicados(arr, prop) {
-  let nuevoArray = [];
-  let lookup = {};
-
-  for (let i in arr) {
-    lookup[arr[i][prop]] = arr[i];
-  }
-  for (let i in lookup) {
-    if (lookup[i].visible) {
-      nuevoArray.push(lookup[i]);
-    }
-  }
-  return nuevoArray;
-}
 
 export const filterBooks = (searchValue, books) => dispatch => {
   const filtBooks = books.filter(book =>
