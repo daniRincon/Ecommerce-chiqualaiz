@@ -21,14 +21,18 @@ class CheckoutContainer extends Component {
     super(props)
     this.handleSubmit=this.handleSubmit.bind(this)
   }
+
   handleSubmit(e){
   e.preventDefault()
-  this.props.placeOrder()
-  }
+  this.props.placeOrder(this.props.user.loggedName)
+ 
+}
+
   render() {
+    console.log(this.props)
     return (
       <div>
-        <CheckoutComponent cart={this.props.cart} calculateTotal={calculateTotal} handleSubmit={this.handleSubmit}/>
+        <CheckoutComponent user={this.props.user} cart={this.props.cart} calculateTotal={calculateTotal} handleSubmit={this.handleSubmit}/>
       </div>
     );
   }
