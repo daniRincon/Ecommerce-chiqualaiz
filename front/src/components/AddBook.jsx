@@ -1,22 +1,14 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-export default (props) => {
-  const useStyles = makeStyles(theme => ({
-    button: {
-      margin: theme.spacing(1)
-    },
-    input: {
-      display: "none"
-    }
-  }));
-  
-  const classes = useStyles();
-  if(props.authorized > 1){
+export default props => {
+  if (props.authorized > 1) {
     return (
-      <form onSubmit={e => {
-        props.handleSubmit(e)
-      }}>
+      <form
+        onSubmit={e => {
+          props.handleSubmit(e);
+        }}
+      >
         <div className="container">
           <div className="row">
             <div className="col">
@@ -26,6 +18,7 @@ export default (props) => {
                   textAlign: "center"
                 }}
               >
+
                 <input  
                     required
                     type="text"
@@ -42,6 +35,7 @@ export default (props) => {
                     placeholder="Ingresar autor"
                     defaultValue={props.selected.author || ''}>
                 </input>
+
               </h1>
             </div>
           </div>
@@ -55,12 +49,13 @@ export default (props) => {
                   borderRadius: "1%"
                 }}
               />
-              <input  type="text"
-                    name="imagen"
-                    className="form-control"
-                    placeholder="Ingresar URL imagen"
-                    defaultValue={props.selected.url || ''}>
-                </input>
+              <input
+                type="text"
+                name="imagen"
+                className="form-control"
+                placeholder="Ingresar URL imagen"
+                defaultValue={props.selected.url || ""}
+              ></input>
             </div>
             <div
               className="col p-3 mb-2 bg-dark text-white rounded-lg"
@@ -73,39 +68,40 @@ export default (props) => {
               >
                 <strong>Sinopsis: </strong>
               </h3>
-              <input  
-                    required
-                    type="text"
-                    name="description"
-                    className="form-control"
-                    placeholder="Ingresar descripcion"
-                    defaultValue={props.selected.descripcion || ''}>
-              </input>
+              <input
+                required
+                type="text"
+                name="description"
+                className="form-control"
+                placeholder="Ingresar descripcion"
+                defaultValue={props.selected.descripcion || ""}
+              ></input>
 
-              <div>
-              </div>
+              <div></div>
 
               <p className="mb-0">
                 <strong>Precio: $ </strong>
-                <input 
-                    required
-                    type="text"
-                    name="precio"
-                    className="form-control"
-                    placeholder="Ingresar precio"
-                    defaultValue={props.selected.precio || ''}>
-                </input>
+                <input
+                  required
+                  type="text"
+                  name="precio"
+                  className="form-control"
+                  placeholder="Ingresar precio"
+                  defaultValue={props.selected.precio || ""}
+                ></input>
               </p>
               <p className="mb-0">
                 <strong>Categorias (Separadas con guión): </strong>
-                <input 
-                    required
-                    type="text"
-                    name="precio"
-                    className="form-control"
-                    placeholder="Ingresar categorias"
-                    defaultValue={props.selected.genres? props.selected.genres.join("-"): ''}>
-                </input>
+                <input
+                  required
+                  type="text"
+                  name="precio"
+                  className="form-control"
+                  placeholder="Ingresar categorias"
+                  defaultValue={
+                    props.selected.genres ? props.selected.genres.join("-") : ""
+                  }
+                ></input>
               </p>
               <p className="mb-0">
                 <strong>Stock: </strong>
@@ -119,20 +115,23 @@ export default (props) => {
                 </input>
               </p>
               <button type="submit" className="btn btn-primary btn-block">
+
                   {props.selected.titulo? "editar libro": "crear libro"}
                 </button>
+
               <h5 className="text-danger">{props.warning}</h5>
               <h5 className="text-success">{props.success}</h5>
             </div>
           </div>
           <div className="media-body"></div>
-          
         </div>
       </form>
     );
   } else {
+
     return (
       <h3 className="text-danger"> ACCESO DENEGADO</h3>
   )
+
   }
 };

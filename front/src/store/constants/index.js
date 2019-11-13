@@ -1,7 +1,9 @@
 // User
 export const LOG_USER = "LOG_USER";
 export const GET_USER = "GET_USER";
+export const GET_USERS = "GET_USERS";
 export const SET_HISTORIAL = "SET_HISTORIAL";
+
 // Books
 export const GET_BOOKS = "GET_BOOKS";
 export const GET_BOOK = "GET_BOOK";

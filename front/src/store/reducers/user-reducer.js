@@ -1,8 +1,11 @@
-import { LOG_USER, GET_USER, SET_HISTORIAL } from "../constants/index";
+
+import { LOG_USER, GET_USER, SET_HISTORIAL, GET_USERS } from "../constants/index";
 
 const initialState = {
   loggedName: "",
-  historial: []
+  historial: [],
+   list: []
+
 };
 
 export default function(state = initialState, action) {
@@ -11,6 +14,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loggedName: action.user
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        list: action.users
       };
     case LOG_USER:
       return {

@@ -1,5 +1,7 @@
 import axios from "axios";
-import { GET_USER, LOG_USER, SET_HISTORIAL } from "../constants/index";
+
+import { GET_USER, LOG_USER, SET_HISTORIAL, GET_USERS } from "../constants/index";
+
 import { getCart, emptyCart, syncCart } from "./cart";
 
 const getUser = user => ({
@@ -7,14 +9,23 @@ const getUser = user => ({
   user
 });
 
+
+const getUsers = users => ({
+  type: GET_USERS,
+  users
+});
+
+
 const logUser = logUser => ({
   type: LOG_USER,
   logUser
 });
+
 export const setHistorial = historial => ({
   type: SET_HISTORIAL,
   historial
 });
+
 
 export const signUpUser = user => dispatch => {
   if (!user.password.length) throw Error("No password");
@@ -31,6 +42,30 @@ export const fetchUser = () => dispatch =>
     dispatch(getUser(user.data));
     user.data.id && dispatch(getCart(user.data.id));
   });
+
+export const fetchUsers = () => dispatch => {
+  axios
+    .get("/api/users/permisos")
+    .then(users => {
+      dispatch(getUsers(users.data));
+    })
+    .catch(err => console.log(err));
+};
+export const changePermission = ([value, id]) => dispatch => {
+  axios
+    .put(`/api/users/permisos`, { data: [value, id] })
+    .then(users => dispatch(getUsers(users.data)));
+};
+
+export const delUsers = arrId => dispatch => {
+  axios
+    .delete(`/api/users/permisos`, { data: arrId })
+    .then(users => dispatch(getUsers(users.data)));
+};
+
+
+
+
 
 export const loginUser = (username, password) => dispatch => {
   if (!password.length) throw Error("No password");
@@ -59,6 +94,7 @@ export const userLogOut = () => dispatch => {
     .then(() => {
       dispatch(setHistorial({}));
       dispatch(emptyCart(true));
+
     })
     .catch(error => console.error(error));
 };
