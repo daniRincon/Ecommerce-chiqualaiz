@@ -2,26 +2,9 @@ const express = require("express");
 const router = express.Router();
 const passport = require("../config/passport");
 
-function isLogedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    req.user
-      ? req.user[0]
-        ? res.send(req.user[0])
-        : res.send(req.user)
-      : res.send({});
-  } else {
-    res.send(false);
-  }
-}
-
+const { isLogedIn } = require("../resolvers/sessions");
   
-router.post("/", passport.authenticate("local"), (req, res) => {
-    if (req.isAuthenticated()) {
-      res.json(req.user);
-    } else {
-      res.status(401).res.json({});
-    }
-});
+router.post("/", passport.authenticate("local"), isLogedIn)
 
 router.get('/auth/facebook', passport.authenticate('facebook'));
 
@@ -57,6 +40,5 @@ router.post("/", passport.authenticate("local"), (req, res) => {
   }
 });
 
-router.get("/", isLogedIn);
 
 module.exports = router;

@@ -2,19 +2,10 @@ import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
 export default ({ cart, calculateTotal, handleSubmit, user }) => {
-  console.log(user);
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
-
-  const checkOut = () => {
-    if (user.id) {
-      return axios.post("api/checkOut").then(data => console.log(data));
-    } else {
-      return alert("Login required to purchase");
-    }
-  };
 
   return (
     <div className="container text-center" id={styles.checkoutContainer}>

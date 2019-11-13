@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
-const { Book, Author, Genre } = require("../models/");
+const { Book, Author, Genre, Review } = require("../models/");
 
 const fetchBooks = function(req, res) {
     Book.findAll({
@@ -22,10 +22,12 @@ const fetchBook = function(req, res) {
     .then(async book => {
       const author = await book.getAuthor();
       const genresObj = await book.getGenres();
+      const reviews = await book.getReviews();
       const genres = genresObj.map(obj => obj.nombre);
-      res.json({ ...book.dataValues, author: author.nombre, genres });
+      res.json({ ...book.dataValues, author: author.nombre, genres, reviews });
     })
-    .catch(err => res.status(404).send(err));
+    .catch(err => {
+      return res.status(404).send(err)});
 };
 
 const fetchGenre = function(req, res) {
@@ -114,7 +116,6 @@ const addBook = function(req, res) {
 };
 
 const updateBook = function(req, res) {
-  console.log(req.body.stock)
   Promise.all([
     Book.update(
       {
@@ -161,6 +162,23 @@ const deleteBook = function(req, res) {
     .catch(err => res.status(404).send(err));
 };
 
+const review = function(req, res){
+  Review.create({
+    title: req.body.titulo,
+    content: req.body.content,
+    estrellas: 1,
+    autor: req.body.autor
+  })
+  .then((review) => {
+    let userId = req.user.dataValues? req.user.dataValues.id : req.user.id;
+    review.setUser(userId)
+    review.setBook(req.body.id)
+  })
+  .then(() => res.sendStatus(201))
+  .catch((err) => { res.send(err)})
+}
+
+
 module.exports = {
   fetchBooks,
   fetchBook,
@@ -171,5 +189,6 @@ module.exports = {
   filterGenre,
   addGenre,
   changeGenre,
-  deleteGenre
+  deleteGenre,
+  review
 };

@@ -124,3 +124,7 @@ export const updateBook = book => dispatch => {
 export const firstTime = () => dispatch => {
   return dispatch(firstTimes());
 };
+
+export const review = (alias, titulo, content, id) => dispatch => {
+  return axios.post('/api/books/review', {alias, titulo, content, id} )
+}

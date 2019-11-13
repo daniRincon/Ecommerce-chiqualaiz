@@ -11,7 +11,8 @@ const {
   filterGenre,
   addGenre,
   changeGenre,
-  deleteGenre
+  deleteGenre,
+  review
 } = require("../resolvers/books");
 
 router.get("/", fetchBooks);
@@ -25,4 +26,5 @@ router.get("/:id", fetchBook);
 router.post("/", addBook);
 router.put("/:id", updateBook);
 router.delete("/:id", deleteBook);
+router.post('/review', review)
 module.exports = router;

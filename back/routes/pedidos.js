@@ -3,6 +3,7 @@ const router = express.Router();
 const Pedido = require("../models/Pedido");
 const Cart = require("../models/Cart");
 const OrderItem = require("../models/OrderItem");
+
 router.post("/", function(req, res) {
   Pedido.create({ userId: req.user.id })
     .then(pedido => {
@@ -26,6 +27,8 @@ router.post("/", function(req, res) {
       return res.sendStatus(500);
     });
 });
+
+
 router.get("/historial", function(req, res) {
   Pedido.findAll({
     where: { userId: req.user.id }

@@ -20,7 +20,11 @@ class CheckoutContainer extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.placeOrder();
+    if (this.props.user.loggedName.id) {
+      this.props.placeOrder();
+    } else {
+      return alert("Login required to purchase");
+    }
   }
   render() {
     return (
