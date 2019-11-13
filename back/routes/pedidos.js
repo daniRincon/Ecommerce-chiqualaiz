@@ -33,7 +33,6 @@ router.post("/", function(req, res) {
     html: req.body.messageHtml 
   };
 
-
   Pedido.create({ userId: req.user.id })
     .then(pedido => {
       Cart.findAll({ where: { userId: req.user.id } })
@@ -67,8 +66,6 @@ router.post("/", function(req, res) {
       return res.sendStatus(500);
     });
 });
-
-
 
 router.get("/historial", function(req, res) {
   Pedido.findAll({

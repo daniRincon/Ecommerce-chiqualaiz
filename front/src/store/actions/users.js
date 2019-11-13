@@ -40,7 +40,6 @@ export const loginUser = (username, password) => dispatch => {
     .then(() => dispatch(syncCart()))
     .then(() => dispatch(userHistorial()))
     .catch(err => {
-      console.log(err);
       throw err;
     });
 };
