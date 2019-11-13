@@ -57,6 +57,9 @@ export const userLogOut = () => dispatch => {
     .then(() => {
       dispatch(getUser({}));
     })
-    .then(() => dispatch(emptyCart(true)))
+    .then(() => {
+      dispatch(setHistorial({}));
+      dispatch(emptyCart(true));
+    })
     .catch(error => console.error(error));
 };
