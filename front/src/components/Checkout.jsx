@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
+
 export default ({
   cart,
   calculateTotal,
@@ -10,19 +11,11 @@ export default ({
   handlePasswordInput
 }) => {
   console.log(user);
+
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
-
-  const checkOut = () => {
-    if (user.id) {
-      return axios.post("api/checkOut").then(data => console.log(data));
-    } else {
-      return alert("Login required to purchase");
-    }
-  } 
-
 
 
   return (
@@ -47,6 +40,7 @@ export default ({
                 />
               </div>
               <h5 className="text-danger">{warning}</h5>
+
             </div>
           )}
         </div>
