@@ -47,7 +47,6 @@ class CheckoutContainer extends Component {
   }
 
   validPassword(password) {
-    console.log("pass", password);
     axios
       .post("/api/sessions/validation", { password })
       .then(res => res.data)

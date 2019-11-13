@@ -7,6 +7,7 @@ const {
   addBook,
   updateBook,
   deleteBook,
+  updateStock,
   fetchGenre,
   addGenre,
   changeGenre,

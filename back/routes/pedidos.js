@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Pedido = require("../models/Pedido");
 const Cart = require("../models/Cart");
+const Book = require("../models/Book");
 const OrderItem = require("../models/OrderItem");
+const S = require("sequelize");
 const nodemailer = require('nodemailer');
 const creds = require('../mail');
 
@@ -48,18 +50,40 @@ router.post("/", function(req, res) {
             })
           );
         })
-        .then(pedido => res.sendStatus(201))
-        .then(res => transporter.sendMail(mailOptions, (err, data) => {
-          if (err) {
-            res.json({
-              msg: 'fail'
-            })
-          } else {
-            res.json({
+        .then(pedido => {
+          //Chequeo para ver si puede comprar
+          let puedoComprar = true;
+          pedido.map(async item => {
+            book = await Book.findByPk(item.prodId);
+            if (book.stock >= item.cantidad) {
+              puedoComprar = false;
+            }
+          });
+          //Update del stock de los libros
+          if (puedoComprar) {
+            pedido.map(async item => {
+              book = await Book.findByPk(item.prodId);
+              if (book.stock >= item.cantidad) {
+                book.update({
+                  stock: S.literal(`stock - ${item.cantidad}`)
+                });
+              }
+            });
+            res.sendStatus(201);
+            transporter.sendMail(mailOptions, (err, data) => {
+              if (err) {
+                res.json({
+                msg: 'fail'
+              })
+             } else {
+              res.json({
               msg: 'success'
-            })
+             })
           }
-        }))
+          } else {
+            throw error;
+          }
+        })
     })
     .catch(err => {
       console.log(err);

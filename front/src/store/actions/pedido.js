@@ -7,8 +7,6 @@ import MyEmail from "../../components/Mail";
 
 
 export const placeOrder = user => dispatch => {
-
-
   axios
     .post("/api/checkout", {
       messageHtml: renderEmail(<MyEmail name={user.name} />),
