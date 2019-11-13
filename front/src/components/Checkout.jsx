@@ -1,19 +1,18 @@
 import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
-export default ({ cart, calculateTotal, handleSubmit }) => {
+export default ({ cart, calculateTotal, handleSubmit, user }) => {
+  console.log(user);
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
 
-  const checkOut = ()  => {
-    if(user.id){
-      return axios
-    .post('api/checkOut')
-    .then(data => console.log(data))
-    }else{
-      return alert('Login required to purchase')
+  const checkOut = () => {
+    if (user.id) {
+      return axios.post("api/checkOut").then(data => console.log(data));
+    } else {
+      return alert("Login required to purchase");
     }
   } 
 
@@ -21,23 +20,28 @@ export default ({ cart, calculateTotal, handleSubmit }) => {
 //     e.preventDefault()
 //     checkOut()
 //   };
+  };
 
   return (
-    <div className="container text-center" id={styles.checkoutContainer} >
+    <div className="container text-center" id={styles.checkoutContainer}>
       <form action="/confirm" method="POST" onSubmit={handleSubmit}>
         <h1>Checkout</h1>
         <div className="form-group">
-          {/^(f|g)\d\d\d\d\d\d+/.test(user.username)?false
-          :<div>
-          <label>Contraseña</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="form-control"
-            placeholder="Confirmar Contraseña"
-            required
-          /></div> }
+          {/^(f|g)\d\d\d\d\d\d+/.test(user.username) ? (
+            false
+          ) : (
+            <div>
+              <label>Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                className="form-control"
+                placeholder="Confirmar Contraseña"
+                required
+              />
+            </div>
+          )}
         </div>
         <div className="form-group">
           <label>Email Address</label>
@@ -96,12 +100,14 @@ export default ({ cart, calculateTotal, handleSubmit }) => {
                 })}
               </tbody>
             </table>
-            <div className="pull-right">Total:  ${calculateTotal(arrayBook)} </div>
+            <div className="pull-right">
+              Total: ${calculateTotal(arrayBook)}{" "}
+            </div>
           </div>
         ) : (
           ""
         )}
-        <button type="submit" className="btn btn-primary btn-block" >
+        <button type="submit" className="btn btn-primary btn-block">
           Confirmar
         </button>
       </form>
