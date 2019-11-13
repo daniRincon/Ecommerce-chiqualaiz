@@ -9,7 +9,6 @@ export default ({
   warning,
   handlePasswordInput
 }) => {
-  console.log(user);
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);

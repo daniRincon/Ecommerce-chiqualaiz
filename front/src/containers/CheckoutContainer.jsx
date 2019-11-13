@@ -27,12 +27,10 @@ class CheckoutContainer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log("PAAAAASSS", this.state.password);
     this.validPassword(this.state.password);
   }
 
   validPassword(password) {
-    console.log("pass", password);
     axios
       .post("/api/sessions/validation", { password })
       .then(res => res.data)
