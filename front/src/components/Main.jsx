@@ -14,7 +14,7 @@ import AddGenreContainer from "../containers/AddGenreContainer";
 import EditGenreContainer from "../containers/EditGenreContainer";
 import KartContainer from "../containers/KartContainer";
 import CheckoutContainer from "../containers/CheckoutContainer";
-import HistorialContainer from "../containers/HistorialContainer"
+import HistorialContainer from "../containers/HistorialContainer";
 import { fetchUser } from "../store/actions/users";
 
 export default () => {
@@ -26,7 +26,7 @@ export default () => {
     <div id="main">
       <Route path="/" component={NavBarContainer} />
       <Route path="/" component={KartContainer} />
-      <Route path="/" component={HistorialContainer}/>
+      <Route path="/" component={HistorialContainer} />
       <Route exact path="/books/:id" component={SingleBookContainer} />
       <Route exact path="/" component={BooksContainer} />
       <Route path="/" component={LoginContainer} />

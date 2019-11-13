@@ -33,9 +33,17 @@ export default props => {
         id="slide-button"
         className={styles.fixedbtn + " btn  btn-info"}
         onClick={() => {
-          $("#history-button").removeClass("moved");
+          if (
+            !$("#slider").hasClass("open") &&
+            !$("#slider-history").hasClass("open")
+          ) {
+            $("#history-button").toggleClass("moved");
+            $("#slide-button").toggleClass("moved");
+          } else if ($("#slider").hasClass("open")) {
+            $("#history-button").toggleClass("moved");
+            $("#slide-button").toggleClass("moved");
+          }
           $("#slider-history").removeClass("open");
-          $("#slide-button").toggleClass("moved");
           $("#slider").toggleClass("open");
         }}
       >
@@ -47,7 +55,7 @@ export default props => {
           <div className="shopping-cart-head"></div>
           <ul className="shopping-cart-list">
             {arrayBook.map((book, index) => {
-              props.bookStocks[arrayIds[index]] <= book[0]
+              props.bookStocks[arrayIds[index]] >= book[0]
                 ? (enoughStockToBuy[arrayIds[index]] = true)
                 : (enoughStockToBuy[arrayIds[index]] = false);
               return (

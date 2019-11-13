@@ -90,7 +90,7 @@ const libros = [
     With dazzling illustrations from Jim Kay, this new fully illustrated edition of the complete and unabridged text of Harry Potter and the Goblet of Fire is sure to delight fans and first-time readers alike.`,
     visible: true,
     stock: 34,
-    autor: "J. K. Rowling",
+    autor: "J.K. Rowling",
     genre1: "Adventure",
     genre2: "Fantasy"
   }),
@@ -350,6 +350,37 @@ const libros = [
     genre1: "Mystery",
     genre2: "Fiction",
     genre3: "Thriller"
+  }),
+  (libro18 = {
+    titulo: "Harry Potter and the Sorcerer's Stone",
+    precio: 11.99,
+    url: "https://images-na.ssl-images-amazon.com/images/I/41lnLrvBnML.jpg",
+    estrellas: 9,
+    descripcion: `Turning the envelope over, his hand trembling, Harry saw a purple wax seal bearing a coat of arms; a lion, an eagle, a badger and a snake surrounding a large letter 'H'.
+
+    Harry Potter has never even heard of Hogwarts when the letters start dropping on the doormat at number four, Privet Drive. Addressed in green ink on yellowish parchment with a purple seal, they are swiftly confiscated by his grisly aunt and uncle. Then, on Harry's eleventh birthday, a great beetle-eyed giant of a man called Rubeus Hagrid bursts in with some astonishing news: Harry Potter is a wizard, and he has a place at Hogwarts School of Witchcraft and Wizardry. An incredible adventure is about to begin!`,
+    visible: true,
+    stock: 54,
+    autor: "J.K. Rowling",
+    genre1: "Adventure",
+    genre2: "Fantasy"
+  }),
+  (libro19 = {
+    titulo:
+      "The Heretic's Apprentice (The Chronicles of Brother Cadfael Book 16)",
+    precio: 15.06,
+    url: "https://images-na.ssl-images-amazon.com/images/I/613auPLFNuL.jpg",
+    estrellas: 9,
+    descripcion: `Charges of heresy and murder are complicated by the contents of a mysterious treasure chest
+
+    In the summer of 1143, William of Lythwood arrives at the Benedictine Abbey of St. Peter and St. Paul, but it is not a joyous occasion—he’s come back from his pilgrimage in a coffin. William’s body is accompanied by his young attendant Elave, whose mission is to secure a burial place for his master on the abbey grounds, despite William’s having once been reprimanded for heretical views.
+     
+    An already difficult task is complicated when Elave drunkenly expresses his own heretical opinions, and capital charges are filed. When a violent death follows, Sheriff Hugh Beringar taps his friend Brother Cadfael for help. The mystery that unfolds grows deeper thanks to a mysterious and marvelous treasure chest in Elave’s care. `,
+    visible: true,
+    stock: 13,
+    autor: "Ellis Peters",
+    genre1: "Mystery",
+    genre2: "History"
   })
 ];
 
@@ -370,6 +401,8 @@ addBooks(libro14);
 addBooks(libro15);
 addBooks(libro16);
 addBooks(libro17);
+addBooks(libro18);
+addBooks(libro19);
 
 User.create({
   name: "superadmin",
