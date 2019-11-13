@@ -36,14 +36,6 @@ const MenuProps = {
   }
 };
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium
-  };
-}
 
 export default props => {
   const classes = useStyles();
@@ -53,22 +45,34 @@ export default props => {
     props.fetchGenre();
   }, []);
 
+  
+
   const [categories, setCategories] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
 
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel style={{ color: "white" }} id="demo-mutiple-name-label">
+        <InputLabel style={{ color: "white" }} id="demo-controlled-open-select-label">
           Categorias
         </InputLabel>
         <Select
-          labelId="demo-mutiple-name-label"
-          id="demo-mutiple-name"
-          multiple
+          labelId="demo-controlled-open-select-label"
+          id="demo-controlled-open-select"
+          open={open}
+          onClose={handleClose}
+          onOpen={handleOpen}
           value={categories}
           onChange={e => {
-            setCategories(e.target.value);
-            props.filteredGenres(props.genres, e.target.value);
+            props.filteredGenres(e.target.value.toString())
           }}
           input={<Input />}
           MenuProps={MenuProps}

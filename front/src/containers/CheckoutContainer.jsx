@@ -31,6 +31,7 @@ class CheckoutContainer extends Component {
 
   }
 
+
   handleClickHome(){
     this.props.history.push("/")
     
@@ -40,6 +41,7 @@ class CheckoutContainer extends Component {
     e.preventDefault();
     console.log("PAAAAASSS", this.state.password);
     this.validPassword(this.state.password);
+      this.props.placeOrder(this.props.user.loggedName)
   }
 
   validPassword(password) {
@@ -62,6 +64,7 @@ class CheckoutContainer extends Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         {this.state.orderPlaced? <OrderPlaced  name={this.props.user.loggedName.username} handleClickHome={this.handleClickHome}/>  :   <CheckoutComponent
@@ -71,10 +74,8 @@ class CheckoutContainer extends Component {
           calculateTotal={calculateTotal}
           handleSubmit={this.handleSubmit}
           handlePasswordInput={this.handlePasswordInput}
-        />}
-        
-  
-       
+        />}       
+
       </div>
     );
   }
