@@ -4,6 +4,7 @@ const Op = Sequelize.Op;
 const { Book, Author, Genre } = require("../models/");
 
 const fetchBooks = function(req, res) {
+
     Book.findAll({
      include: {
        model: Genre,
@@ -11,8 +12,17 @@ const fetchBooks = function(req, res) {
     })
       .then(books => res.send(books))
       .catch(err => res.status(404).send(err));
-};
+/**
+  Book.findAll({
+    where: {
+      visible: true
+    }
+  })
+    .then(books => res.send(books))
+    .catch(err => res.status(404).send(err));
 
+};
+**/
 const fetchBook = function(req, res) {
   Book.findOne({
     where: {
@@ -33,7 +43,7 @@ const fetchGenre = function(req, res) {
   Genre.findAll({
     include: [
       {
-        model: Book,
+        model: Book
       }
     ]
   }).then(book => res.send(book));
@@ -125,7 +135,6 @@ const addBook = function(req, res) {
 };
 
 const updateBook = function(req, res) {
-  console.log(req.body.stock)
   Promise.all([
     Book.update(
       {

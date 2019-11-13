@@ -1,10 +1,11 @@
 import { connect } from "react-redux";
 import CheckoutComponent from "../components/Checkout";
-import React, { Component } from 'react';
-import * as actions from '../store/actions/pedido'
+import React, { Component } from "react";
+import * as actions from "../store/actions/pedido";
 import { bindActionCreators } from "redux";
+import OrderPlaced from "../components/OrderPlaced"
 
-
+import axios from "axios";
 
 const calculateTotal = arrayBook => {
   return parseFloat(
@@ -15,41 +16,77 @@ const calculateTotal = arrayBook => {
   ).toFixed(2);
 };
 
-
 class CheckoutContainer extends Component {
   constructor(props){
     super(props)
-    this.handleSubmit=this.handleSubmit.bind(this)
+    this.state = {
+      password: "",
+      warning: "",
+      orderPlaced: false
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePasswordInput = this.handlePasswordInput.bind(this);
+    this.handleClickHome=this.handleClickHome.bind(this)
+
+
   }
 
-  handleSubmit(e){
-  e.preventDefault()
-  this.props.placeOrder(this.props.user.loggedName)
- 
-}
+
+  handleClickHome(){
+    this.props.history.push("/")
+    
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    console.log("PAAAAASSS", this.state.password);
+    this.validPassword(this.state.password);
+      this.props.placeOrder(this.props.user.loggedName)
+  }
+
+  validPassword(password) {
+    console.log("pass", password);
+    axios
+      .post("/api/sessions/validation", { password })
+      .then(res => res.data)
+      .then(result => {
+        if (result) {
+          this.props.placeOrder();
+          this.setState({ warning: "" , orderPlaced: true});
+        } else {
+          this.setState({ warning: "La contraseña ingresada no es correcta" });
+        }
+      });
+  }
+
+  handlePasswordInput(password) {
+    this.setState({ password });
+  }
 
   render() {
     console.log(this.props)
     return (
       <div>
-        <CheckoutComponent user={this.props.user} cart={this.props.cart} calculateTotal={calculateTotal} handleSubmit={this.handleSubmit}/>
+        {this.state.orderPlaced? <OrderPlaced  name={this.props.user.loggedName.username} handleClickHome={this.handleClickHome}/>  :   <CheckoutComponent
+          user={this.props.user.loggedName}
+          cart={this.props.cart}
+          warning={this.state.warning}
+          calculateTotal={calculateTotal}
+          handleSubmit={this.handleSubmit}
+          handlePasswordInput={this.handlePasswordInput}
+        />}       
+
       </div>
     );
   }
 }
 
-
-
-
-const mapStateToProps = ( state ) => {
-  return state
+const mapStateToProps = state => {
+  return state;
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(actions, dispatch)
-}
+  return bindActionCreators(actions, dispatch);
+};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CheckoutContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(CheckoutContainer);

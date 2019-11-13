@@ -1,11 +1,22 @@
 import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
-export default ({ cart, calculateTotal, handleSubmit, user }) => {
+
+export default ({
+  cart,
+  calculateTotal,
+  handleSubmit,
+  user,
+  warning,
+  handlePasswordInput
+}) => {
+  console.log(user);
+
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
+
 
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
@@ -16,15 +27,20 @@ export default ({ cart, calculateTotal, handleSubmit, user }) => {
             false
           ) : (
             <div>
-              <label>Contraseña</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className="form-control"
-                placeholder="Confirmar Contraseña"
-                required
-              />
+              <div>
+                <label>Contraseña</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Confirmar Contraseña"
+                  onChange={event => handlePasswordInput(event.target.value)}
+                  required
+                />
+              </div>
+              <h5 className="text-danger">{warning}</h5>
+
             </div>
           )}
         </div>
@@ -34,6 +50,7 @@ export default ({ cart, calculateTotal, handleSubmit, user }) => {
             type="email"
             id="email"
             name="email"
+            defaultValue={user.email || ""}
             className="form-control"
             placeholder="Billing Email Adress"
             required
@@ -45,6 +62,7 @@ export default ({ cart, calculateTotal, handleSubmit, user }) => {
             type="text"
             id="shipping"
             name="shipping"
+            defaultValue={user.address || ""}
             className="form-control"
             placeholder="Billing Address"
             required
@@ -56,6 +74,7 @@ export default ({ cart, calculateTotal, handleSubmit, user }) => {
             type="text"
             id="shipping"
             name="shipping"
+            defaultValue={user.address || ""}
             className="form-control"
             placeholder="Shipping Email Adress"
             required
