@@ -37,6 +37,7 @@ export default () => {
       <Route exact path="/dashboard" component={EditGenreContainer} />
       <Route exact path="/books/:id/edit" component={AddBookContainer} />
       <Route exact path="/checkout" component={CheckoutContainer} />
+      
     </div>
   );
 };

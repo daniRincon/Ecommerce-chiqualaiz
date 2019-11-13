@@ -3,7 +3,7 @@ import CheckoutComponent from "../components/Checkout";
 import React, { Component } from 'react';
 import * as actions from '../store/actions/pedido'
 import { bindActionCreators } from "redux";
-
+import OrderPlaced from "../components/OrderPlaced"
 
 
 const calculateTotal = arrayBook => {
@@ -19,16 +19,19 @@ const calculateTotal = arrayBook => {
 class CheckoutContainer extends Component {
   constructor(props){
     super(props)
+    this.state ={orderPlaced: false}
     this.handleSubmit=this.handleSubmit.bind(this)
   }
   handleSubmit(e){
   e.preventDefault()
   this.props.placeOrder()
+  this.setState({orderPlaced: true})
   }
   render() {
     return (
       <div>
-        <CheckoutComponent cart={this.props.cart} calculateTotal={calculateTotal} handleSubmit={this.handleSubmit}/>
+        {this.state.orderPlaced? <OrderPlaced/>  :  <CheckoutComponent cart={this.props.cart} calculateTotal={calculateTotal} handleSubmit={this.handleSubmit}/>}
+        
       </div>
     );
   }
