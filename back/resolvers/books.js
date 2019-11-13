@@ -4,23 +4,16 @@ const Op = Sequelize.Op;
 const { Book, Author, Genre } = require("../models/");
 
 const fetchBooks = function(req, res) {
-<<<<<<< HEAD
-    Book.findAll({
-     include: {
-       model: Genre,
-     }
-    })
-      .then(books => res.send(books))
-      .catch(err => res.status(404).send(err));
-=======
   Book.findAll({
-    where: {
-      visible: true
+    include: {
+      model: Genre,
+      where: {
+        visible: true
+      }
     }
   })
     .then(books => res.send(books))
     .catch(err => res.status(404).send(err));
->>>>>>> def725b7358670542c121ecfe6f7f6126b1d9a88
 };
 
 const fetchBook = function(req, res) {
@@ -38,7 +31,6 @@ const fetchBook = function(req, res) {
     .catch(err => res.status(404).send(err));
 };
 
-
 const fetchGenre = function(req, res) {
   Genre.findAll({
     include: [
@@ -49,21 +41,21 @@ const fetchGenre = function(req, res) {
   }).then(book => res.send(book));
 };
 
-const filteredGenres = function (req, res) {
-  console.log(req)
+const filteredGenres = function(req, res) {
+  console.log(req);
   Book.findAll({
     include: [
       {
         model: Genre,
         where: {
-          id : req.params.id
+          id: req.params.id
         }
       }
     ]
   })
-  .then(data => res.send(data))
-  .catch(err => res.status(404).send(err));
-}
+    .then(data => res.send(data))
+    .catch(err => res.status(404).send(err));
+};
 
 const addGenre = function(req, res) {
   Genre.findOrCreate({
@@ -188,8 +180,8 @@ module.exports = {
   updateBook,
   deleteBook,
   fetchGenre,
-   addGenre,
-   filteredGenres,
+  addGenre,
+  filteredGenres,
   changeGenre,
   deleteGenre
 };
