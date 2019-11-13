@@ -13,7 +13,6 @@ export default ({ inputValue, handleChange, handleSubmit, handleKeyPress }) => {
         onChange={handleChange}
         onKeyPress={handleKeyPress}
       ></input>
-      
     </form>
   );
 };

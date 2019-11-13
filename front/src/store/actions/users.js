@@ -51,15 +51,12 @@ export const userHistorial = () => dispatch => {
   });
 };
 
-export const userLogOut = id => dispatch => {
+export const userLogOut = () => dispatch => {
   axios
-    .delete(`/api/carts/${id}`)
-    .then(res => {
-      dispatch(emptyCart());
-    })
-    .then(() => axios.delete("/api/sessions"))
+    .delete("/api/sessions")
     .then(() => {
       dispatch(getUser({}));
     })
+    .then(() => dispatch(emptyCart(true)))
     .catch(error => console.error(error));
 };

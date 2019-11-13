@@ -26,12 +26,19 @@ export default props => {
         <button
           className={"btn btn-info " + styles.btn}
           data-toggle="modal"
-          data-target="#modalGenre"
+          data-target="#modalGenreAdd"
         >
           Agregar género
         </button>
 
-        <button className={"btn btn-info " + styles.btn}>Editar género</button>
+        <button
+          className={"btn btn-info " + styles.btn}
+          data-toggle="modal"
+          data-target="#modalGenreEdit"
+        >
+          Editar género
+        </button>
+
         <button className={"btn btn-info " + styles.btn}>Órdenes</button>
         <button className={"btn btn-info " + styles.btn}>
           Editar usuarios

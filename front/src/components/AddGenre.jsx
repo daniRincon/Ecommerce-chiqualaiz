@@ -5,7 +5,7 @@ export default ({ addGenre }) => {
   return (
     <div
       className="modal fade"
-      id="modalGenre"
+      id="modalGenreAdd"
       tabIndex="-1"
       role="dialog"
       aria-labelledby="exampleModalLabel"

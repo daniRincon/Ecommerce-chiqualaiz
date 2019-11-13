@@ -7,6 +7,6 @@ const { addCart, updateCart, fetchCart, emptyCart, syncCart} = require("../resol
 router.get('/:id', fetchCart);
 router.post('/', addCart);
 router.patch('/',updateCart);
-router.delete('/:id', emptyCart);
+router.delete('/', emptyCart);
 router.put('/', syncCart);
 module.exports = router;

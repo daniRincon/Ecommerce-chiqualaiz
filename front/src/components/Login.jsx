@@ -70,6 +70,7 @@ export default props => {
             <p className="lead mt-4">
               No Account?
               <button
+                onClick={props.handleRegister}
                 className="btn btn-link"
                 data-toggle="modal"
                 data-target="#register"

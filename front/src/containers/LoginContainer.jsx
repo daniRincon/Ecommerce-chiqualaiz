@@ -1,31 +1,32 @@
-import {connect} from "react-redux"
-import Login from '../components/Login';
-import React, { Component } from 'react';
-import { fetchUser, loginUser } from '../store/actions/users';
+import { connect } from "react-redux";
+import Login from "../components/Login";
+import React, { Component } from "react";
+import { fetchUser, loginUser } from "../store/actions/users";
 
+class LoginContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+      warning: ""
+    };
+    this.handleUserInput = this.handleUserInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePasswordInput = this.handlePasswordInput.bind(this);
+    this.handleRegister = this.handleRegister.bind(this);
+  }
 
-class LoginContainer extends Component{
-    constructor(props){
-        super(props);
-        this.state={
-            username: '',
-            password: '',
-            warning: ''
-        }
-        this.handleUserInput = this.handleUserInput.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handlePasswordInput = this.handlePasswordInput.bind(this);
-        }
-
-    handleSubmit(event){
-      event.preventDefault();
-      this.props.loginUser(this.state.username, this.state.password)
-      .then((user) => {
-        $('#exampleModal').modal('hide')
-        localStorage.clear()
+  handleSubmit(event) {
+    event.preventDefault();
+    this.props
+      .loginUser(this.state.username, this.state.password)
+      .then(user => {
+        $("#exampleModal").modal("hide");
+        localStorage.clear();
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(err => {
+        console.log(err);
         this.setState({ warning: "Wrong username or password" });
       });
   }
@@ -38,6 +39,10 @@ class LoginContainer extends Component{
     this.setState({ password });
   }
 
+  handleRegister() {
+    $("#exampleModal").modal("hide");
+  }
+
   render() {
     return (
       <div>
@@ -45,6 +50,7 @@ class LoginContainer extends Component{
           handleSubmit={this.handleSubmit}
           handleUserInput={this.handleUserInput}
           handlePasswordInput={this.handlePasswordInput}
+          handleRegister={this.handleRegister}
           warning={this.state.warning}
         />
       </div>
@@ -59,7 +65,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(LoginContainer);
+export default connect(null, mapDispatchToProps)(LoginContainer);
