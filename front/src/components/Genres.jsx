@@ -1,6 +1,5 @@
 import React from "react";
-import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import Input from "@material-ui/core/Input";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -39,7 +38,6 @@ const MenuProps = {
 
 export default props => {
   const classes = useStyles();
-  const theme = useTheme();
 
   React.useEffect(() => {
     props.fetchGenre();
@@ -70,9 +68,16 @@ export default props => {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={categories}
+          value={categories.length > 0? categories : ''}
           onChange={e => {
-            props.filteredGenres(e.target.value.toString())
+            if(categories == e.target.value.toString()){
+              setCategories('')
+              props.filteredGenres(0)
+            }
+            else{ 
+              setCategories(e.target.value.toString())
+              props.filteredGenres(e.target.value.toString()) }
+           
           }}
           input={<Input />}
           MenuProps={MenuProps}
