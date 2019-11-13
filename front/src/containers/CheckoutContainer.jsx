@@ -20,16 +20,23 @@ class CheckoutContainer extends Component {
     super(props)
     this.state ={orderPlaced: false}
     this.handleSubmit=this.handleSubmit.bind(this)
+    this.handleClickHome=this.handleClickHome.bind(this)
+
+
   }
   handleSubmit(e){
   e.preventDefault()
   this.props.placeOrder()
   this.setState({orderPlaced: true})
   }
+  handleClickHome(){
+    this.props.history.push("/")
+  }
+
   render() {
     return (
       <div>
-        {this.state.orderPlaced? <OrderPlaced/>  :  <CheckoutComponent  user={this.props.user.loggedName} cart={this.props.cart} calculateTotal={calculateTotal} handleSubmit={this.handleSubmit}/>}
+        {this.state.orderPlaced? <OrderPlaced  name={this.props.user.loggedName.username} handleClickHome={this.handleClickHome}/>  :  <CheckoutComponent  user={this.props.user.loggedName} cart={this.props.cart} calculateTotal={calculateTotal} handleSubmit={this.handleSubmit}/>}
         
   
       </div>

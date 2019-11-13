@@ -16,11 +16,7 @@ export default ({ cart, calculateTotal, handleSubmit, user }) => {
     }
   } 
 
-//  const handleSubmit = e => {
-//     e.preventDefault()
-//     checkOut()
-//   };
-  };
+
 
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
