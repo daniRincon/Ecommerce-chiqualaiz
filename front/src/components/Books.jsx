@@ -111,7 +111,7 @@ export default class Books extends React.Component {
   }
 
   render() {
-    const { currentPage, todosPerPage } = this.state;
+    const { currentPage, todosPerPage, maxPage } = this.state;
 
     let renderTodos;
     // Logic for displaying todos
@@ -126,10 +126,43 @@ export default class Books extends React.Component {
     const max = Math.ceil(renderedBooks.length / todosPerPage);
     const currentTodos = renderedBooks.slice(indexOfFirstTodo, indexOfLastTodo);
     const pageNumbers = [];
-    for (let i = 1; i <= max; i++) {
-      pageNumbers.push(i);
+    let current = currentPage,
+      last = max,
+      delta = 2,
+      left = current - delta,
+      right = current + delta + 1,
+      range = [],
+      rangeWithDots = [],
+      l;
+
+    range.push(1);
+
+    if (max <= 1) {
+      rangeWithDots = range;
+    } else {
+      for (let i = currentPage - delta; i <= currentPage + delta; i++) {
+        if (i < max && i > 1) {
+          range.push(i);
+        }
+      }
+      range.push(max);
+
+      for (let i of range) {
+        if (l) {
+          if (i - l === 2) {
+            rangeWithDots.push(l + 1);
+          } else if (i - l !== 1) {
+            rangeWithDots.push("...");
+          }
+        }
+        rangeWithDots.push(i);
+        l = i;
+      }
     }
-    const renderPageNumbers = pageNumbers.map(number => {
+    /*for (let i = 1; i <= max; i++) {
+      pageNumbers.push(i);
+    }*/
+    const renderPageNumbers = rangeWithDots.map(number => {
       return (
         <li
           className={`page-item ${
@@ -137,9 +170,15 @@ export default class Books extends React.Component {
           }`}
           key={number}
         >
-          <a className="page-link" id={number} onClick={this.handleClick}>
-            {number}
-          </a>
+          {!isNaN(number) ? (
+            <a className="page-link" id={number} onClick={this.handleClick}>
+              {number}
+            </a>
+          ) : (
+            <span className="page-link" id={number}>
+              {number}
+            </span>
+          )}
         </li>
       );
     });

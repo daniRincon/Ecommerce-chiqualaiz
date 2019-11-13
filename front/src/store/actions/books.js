@@ -60,10 +60,10 @@ export const fetchGenre = () => dispatch =>
 
 export const filteredGenres = (books, genres) => dispatch => {
   let sGenres = [];
-  for (let i = 0; i < genres.length; i++){
-    for (let j = 0; j < books.length; j++){
-      if(books[j].id == genres[i]) {
-        sGenres.push(books[j].books)
+  for (let i = 0; i < genres.length; i++) {
+    for (let j = 0; j < books.length; j++) {
+      if (books[j].id == genres[i]) {
+        sGenres.push(books[j].books);
       }
     }
   }
@@ -71,7 +71,6 @@ export const filteredGenres = (books, genres) => dispatch => {
   const total = eliminarObjetosDuplicados(flat, "id");
   dispatch(filteredBooks(total));
 };
-
 
 function flattenDeep(arr1) {
   return arr1.reduce(
@@ -89,7 +88,7 @@ function eliminarObjetosDuplicados(arr, prop) {
     lookup[arr[i][prop]] = arr[i];
   }
   for (let i in lookup) {
-    if(lookup[i].visible){
+    if (lookup[i].visible) {
       nuevoArray.push(lookup[i]);
     }
   }

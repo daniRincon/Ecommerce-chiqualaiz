@@ -1,6 +1,6 @@
 import React from "react";
 
-class OrderPlaced extends React.Component {
+export default class OrderPlaced extends React.Component {
     render() {
         return (
             <div>
