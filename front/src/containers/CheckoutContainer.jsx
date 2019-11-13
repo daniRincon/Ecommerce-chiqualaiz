@@ -63,12 +63,6 @@ class CheckoutContainer extends Component {
     console.log(this.props);
     return (
       <div>
-        <CheckoutComponent
-          user={this.props.user}
-          cart={this.props.cart}
-          calculateTotal={calculateTotal}
-          handleSubmit={this.handleSubmit}
-        />
         {this.state.orderPlaced ? (
           <OrderPlaced
             name={this.props.user.loggedName.username}
@@ -78,7 +72,6 @@ class CheckoutContainer extends Component {
           <CheckoutComponent
             user={this.props.user.loggedName}
             cart={this.props.cart}
-            warning={this.state.warning}
             calculateTotal={calculateTotal}
             handleSubmit={this.handleSubmit}
             handlePasswordInput={this.handlePasswordInput}

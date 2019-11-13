@@ -15,16 +15,6 @@ export default ({
     arrayBook.push(book);
   }
 
-  const checkOut = () => {
-    if (user.id) {
-      return axios.post("api/checkOut").then(data => console.log(data));
-    } else {
-      return alert("Login required to purchase");
-    }
-  } 
-
-
-
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
       <form action="/confirm" method="POST" onSubmit={handleSubmit}>
@@ -47,6 +37,7 @@ export default ({
                 />
               </div>
               <h5 className="text-danger">{warning}</h5>
+
             </div>
           )}
         </div>

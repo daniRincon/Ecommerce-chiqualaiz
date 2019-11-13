@@ -4,6 +4,15 @@ const Op = Sequelize.Op;
 const { Book, Author, Genre } = require("../models/");
 
 const fetchBooks = function(req, res) {
+
+    Book.findAll({
+     include: {
+       model: Genre,
+     }
+    })
+      .then(books => res.send(books))
+      .catch(err => res.status(404).send(err));
+/**
   Book.findAll({
     include: {
       model: Genre,
@@ -16,6 +25,8 @@ const fetchBooks = function(req, res) {
     .catch(err => res.status(404).send(err));
 };
 
+};
+**/
 const fetchBook = function(req, res) {
   Book.findOne({
     where: {
@@ -184,4 +195,4 @@ module.exports = {
   filteredGenres,
   changeGenre,
   deleteGenre
-};
+}}
