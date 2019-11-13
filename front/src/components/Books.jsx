@@ -282,13 +282,13 @@ export default class Books extends React.Component {
               >
                 <li className="page-item">
                   <a className="page-link" onClick={this.handlePrevious}>
-                    Previous
+                    Anterior
                   </a>
                 </li>
                 {renderPageNumbers}
                 <li className="page-item">
                   <a className="page-link" onClick={this.handleNext}>
-                    Next
+                    Siguiente
                   </a>
                 </li>
               </ul>

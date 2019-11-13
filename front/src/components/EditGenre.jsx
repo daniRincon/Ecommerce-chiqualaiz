@@ -111,7 +111,7 @@ export default ({
               className="btn btn-secondary"
               data-dismiss="modal"
             >
-              Close
+              Cerrar
             </button>
           </div>
         </div>
