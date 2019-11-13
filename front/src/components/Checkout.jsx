@@ -6,7 +6,7 @@ export default ({ cart, calculateTotal, handleSubmit, user }) => {
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
-
+console.log(user)
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
       <form action="/confirm" method="POST" onSubmit={handleSubmit}>

@@ -33,6 +33,7 @@ router.post("/", function(req, res) {
     html: req.body.messageHtml 
   };
 
+  console.log(req.user)
 
   Pedido.create({ userId: req.user.id })
     .then(pedido => {

@@ -60,3 +60,11 @@ router.post("/", passport.authenticate("local"), (req, res) => {
 router.get("/", isLogedIn);
 
 module.exports = router;
+
+
+
+
+// passport.authenticate("google", { scope: 
+//   ['https://www.googleapis.com/auth/userinfo.profile',
+// 'https://www.googleapis.com/auth/userinfo.email'] })
+// );
