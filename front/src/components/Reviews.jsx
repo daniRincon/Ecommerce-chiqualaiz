@@ -35,7 +35,7 @@ export default function Reviews() {
           className={classes.font}
           color="textPrimary"
         >
-          Reviews{" "}
+          Reseñas{" "}
         </Typography>
 
       </ListItem>

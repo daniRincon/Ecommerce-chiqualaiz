@@ -51,31 +51,31 @@ export default ({
           )}
         </div>
         <div className="form-group">
-          <label>Email Address</label>
+          <label>Correo</label>
           <input
             type="email"
             id="email"
             name="email"
             defaultValue={user.email || ""}
             className="form-control"
-            placeholder="Billing Email Adress"
+            placeholder="Correo"
             required
           />
         </div>
         <div className="form-group">
-          <label>Billing Adress</label>
+          <label>Dirección de facturación</label>
           <input
             type="text"
             id="shipping"
             name="shipping"
             defaultValue={user.address || ""}
             className="form-control"
-            placeholder="Billing Address"
+            placeholder="dirección de facturación"
             required
           />
         </div>
         <div className="form-group">
-          <label>Shipping Address</label>
+          <label>Dirección de envío</label>
           <input
             type="text"
             id="shipping"
