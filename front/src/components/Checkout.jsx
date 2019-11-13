@@ -1,12 +1,38 @@
 import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
+<<<<<<< HEAD
 export default ({ cart, calculateTotal, handleSubmit, user }) => {
+=======
+export default ({
+  cart,
+  calculateTotal,
+  handleSubmit,
+  user,
+  warning,
+  handlePasswordInput
+}) => {
+  console.log(user);
+>>>>>>> def725b7358670542c121ecfe6f7f6126b1d9a88
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
+<<<<<<< HEAD
 console.log(user)
+=======
+
+  const checkOut = () => {
+    if (user.id) {
+      return axios.post("api/checkOut").then(data => console.log(data));
+    } else {
+      return alert("Login required to purchase");
+    }
+  } 
+
+
+
+>>>>>>> def725b7358670542c121ecfe6f7f6126b1d9a88
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
       <form action="/confirm" method="POST" onSubmit={handleSubmit}>
@@ -16,6 +42,7 @@ console.log(user)
             false
           ) : (
             <div>
+<<<<<<< HEAD
               <label>Contraseña</label>
               <input
                 type="password"
@@ -25,6 +52,21 @@ console.log(user)
                 placeholder="Confirmar Contraseña"
                 required
               />
+=======
+              <div>
+                <label>Contraseña</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  placeholder="Confirmar Contraseña"
+                  onChange={event => handlePasswordInput(event.target.value)}
+                  required
+                />
+              </div>
+              <h5 className="text-danger">{warning}</h5>
+>>>>>>> def725b7358670542c121ecfe6f7f6126b1d9a88
             </div>
           )}
         </div>
@@ -34,6 +76,7 @@ console.log(user)
             type="email"
             id="email"
             name="email"
+            defaultValue={user.email || ""}
             className="form-control"
             placeholder="Billing Email Adress"
             required
@@ -45,6 +88,7 @@ console.log(user)
             type="text"
             id="shipping"
             name="shipping"
+            defaultValue={user.address || ""}
             className="form-control"
             placeholder="Billing Address"
             required
@@ -56,6 +100,7 @@ console.log(user)
             type="text"
             id="shipping"
             name="shipping"
+            defaultValue={user.address || ""}
             className="form-control"
             placeholder="Shipping Email Adress"
             required
