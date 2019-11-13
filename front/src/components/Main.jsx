@@ -13,6 +13,7 @@ import AddBookContainer from "../containers/AddBookContainer";
 import AddGenreContainer from "../containers/AddGenreContainer";
 import KartContainer from "../containers/KartContainer";
 import CheckoutContainer from "../containers/CheckoutContainer";
+import PermissionsContainer from "../containers/PermissionsContainer";
 
 import { fetchUser } from "../store/actions/users";
 
@@ -32,6 +33,11 @@ export default () => {
       <Route exact path="/dashboard" component={DashboardContainer} />
       <Route exact path="/dashboard/add" component={AddBookContainer} />
       <Route exact path="/dashboard" component={AddGenreContainer} />
+      <Route
+        exact
+        path="/dashboard/permisos"
+        component={PermissionsContainer}
+      />
       <Route exact path="/books/:id/edit" component={AddBookContainer} />
       <Route exact path="/checkout" component={CheckoutContainer} />
     </div>

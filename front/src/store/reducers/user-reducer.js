@@ -1,7 +1,8 @@
-import { LOG_USER, GET_USER } from "../constants/index";
+import { LOG_USER, GET_USER, GET_USERS, REF_USERS } from "../constants/index";
 
 const initialState = {
-  loggedName: ""
+  loggedName: "",
+  list: []
 };
 
 export default function(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loggedName: action.user
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        list: action.users
       };
     case LOG_USER:
       return {
