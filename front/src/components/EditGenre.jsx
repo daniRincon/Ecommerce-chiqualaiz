@@ -27,7 +27,7 @@ export default ({
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div className="modal-dialog" role="document">
+      <div className="modal-dialog "  role="document">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">
@@ -45,10 +45,10 @@ export default ({
           <div className="modal-body">
             <form
               onSubmit={e => {
-                handleSubmit(e, selectedGenre, inputValue);
+                handleSubmit(e, selectedGenre, inputValue)
               }}
             >
-              <div className="dropdown">
+              <div className="dropdown ">
                 <button
                   className="btn btn-secondary dropdown-toggle"
                   type="button"
@@ -59,7 +59,9 @@ export default ({
                 >
                   {selectedGenre ? selectedGenre : genres[0].nombre}
                 </button>
-                <div className="dropdown-menu">
+
+                <div  className="dropdown-menu">
+
                   {genres.map((genre, index) => (
                     <button
                       key={index}
@@ -87,18 +89,10 @@ export default ({
                 />
 
                 <button
-                  type="button"
+                  type="submit"
                   className="btn btn-secondary"
-                  onClick={e => handleSubmit(e, selectedGenre, inputValue)}
                 >
                   Modificar
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  onClick={e => handleDelete(e, selectedGenre)}
-                >
-                  Eliminar
                 </button>
                 <p>{updateMsg}</p>
                 <p>{deleteMsg}</p>
@@ -106,6 +100,12 @@ export default ({
             </form>
           </div>
           <div className="modal-footer">
+                <button
+                  className="btn btn-secondary"
+                  onClick={e => handleDelete(e, selectedGenre)}
+                >
+                  Eliminar
+                </button>
             <button
               type="button"
               className="btn btn-secondary"

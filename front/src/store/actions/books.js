@@ -4,7 +4,6 @@ import {
   GET_BOOK,
   FILTER_BOOKS,
   GET_GENRES,
-  FILTER_GENRE,
   FRESH_PAGE
 } from "../constants";
 
@@ -58,12 +57,10 @@ export const filteredGenres = id => dispatch => {
   axios
   .post(`api/books/genres/${id}`)
   .then(res=> res.data)
-  .then(books => dispatch(filteredBooks(books))
-   
-    )   
-   //.then(books=> books.length ? emptySearch = false : true)
+  .then(books => {
+    dispatch(filteredBooks(books))})   
+  .catch((err) => console.log(err))
 }
-
 
 export const filterBooks = (searchValue, books) => dispatch => {
   const filtBooks = books.filter(book =>

@@ -4,25 +4,16 @@ const Op = Sequelize.Op;
 const { Book, Author, Genre, Review } = require("../models/");
 
 const fetchBooks = function(req, res) {
-
     Book.findAll({
+      where: {visible:true},
      include: {
        model: Genre,
      }
     })
       .then(books => res.send(books))
-      .catch(err => res.status(404).send(err));
-/**
-  Book.findAll({
-    where: {
-      visible: true
-    }
-  })
-    .then(books => res.send(books))
-    .catch(err => res.status(404).send(err));
+      .catch(err => res.status(404).send(err))
+  };
 
-};
-**/
 const fetchBook = function(req, res) {
   Book.findOne({
     where: {
@@ -52,16 +43,18 @@ const fetchGenre = function(req, res) {
 };
 
 const filteredGenres = function (req, res) {
-  console.log(req)
   Book.findAll({
     include: [
       {
         model: Genre,
         where: {
-          id : req.params.id
+          id : req.params.id,
         }
       }
-    ]
+    ],
+    where:{
+      visible:true
+    }
   })
   .then(data => res.send(data))
   .catch(err => res.status(404).send(err));

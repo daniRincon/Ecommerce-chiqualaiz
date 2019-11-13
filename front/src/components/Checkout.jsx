@@ -8,14 +8,14 @@ export default ({
   user,
   warning,
   handlePasswordInput
-}) 
+}) => { 
     
-  const arrayBook = [];
+const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
-  }
+}
 
-  return (
+return (
     <div className="container text-center" id={styles.checkoutContainer}>
       <form action="/confirm" method="POST" onSubmit={handleSubmit}>
         <h1>Checkout</h1>
