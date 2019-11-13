@@ -162,13 +162,13 @@ export default class Books extends React.Component {
     /*for (let i = 1; i <= max; i++) {
       pageNumbers.push(i);
     }*/
-    const renderPageNumbers = rangeWithDots.map(number => {
+    const renderPageNumbers = rangeWithDots.map((number, index) => {
       return (
         <li
           className={`page-item ${
             number === this.state.currentPage ? "active" : ""
           }`}
-          key={number}
+          key={index}
         >
           {!isNaN(number) ? (
             <a className="page-link" id={number} onClick={this.handleClick}>
