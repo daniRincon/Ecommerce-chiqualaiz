@@ -21,7 +21,9 @@ export default ({
     } else {
       return alert("Login required to purchase");
     }
-  };
+  } 
+
+
 
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
