@@ -17,7 +17,10 @@ export default ({
   deleteBook,
   addBook,
   userId,
-  cart
+  cart,
+  reviews,
+  compras,
+  handleSubmit
 }) => {
   const [disabled, setDisabled] = useState(false);
 
@@ -204,7 +207,7 @@ export default ({
         p={1}
         className={classes.reviews}
       >
-        <Reviews />
+        <Reviews handleSubmit={handleSubmit} reviews ={reviews} user={userId} compras={compras} prodId={book.id} />
       </Box>
     </div>
   );

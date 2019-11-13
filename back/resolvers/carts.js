@@ -114,8 +114,6 @@ const syncCart = function(req, res){
         }
     }))
     .then(() => Cart.findAll({
-        attributes: ['prodId', 'cantidad']
-        },{
         where: {
             userId: req.user.id
         }

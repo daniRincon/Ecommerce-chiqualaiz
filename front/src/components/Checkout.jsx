@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
-
 export default ({
   cart,
   calculateTotal,
@@ -9,14 +8,12 @@ export default ({
   user,
   warning,
   handlePasswordInput
-}) => {
-  console.log(user);
-
+}) 
+    
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
-
 
   return (
     <div className="container text-center" id={styles.checkoutContainer}>

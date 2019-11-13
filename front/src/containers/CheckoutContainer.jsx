@@ -39,9 +39,11 @@ class CheckoutContainer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log("PAAAAASSS", this.state.password);
-    this.validPassword(this.state.password);
-      this.props.placeOrder(this.props.user.loggedName)
+    if (this.props.user.loggedName.id) {
+      this.validPassword(this.state.password);
+    } else {
+      return alert("Login required to purchase");
+    }
   }
 
   validPassword(password) {
