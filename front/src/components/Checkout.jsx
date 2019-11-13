@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../css-modules/Checkout.module.css";
 
-export default ({ cart, calculateTotal, user }) => {
+export default ({ cart, calculateTotal, handleSubmit }) => {
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
@@ -17,16 +17,12 @@ export default ({ cart, calculateTotal, user }) => {
     }
   } 
 
- const handleSubmit = e => {
-    e.preventDefault()
-    checkOut()
 
-  };
 
   return (
-    <div className="container text-center" id={styles.checkoutContainer}>
+    <div className="container text-center" id={styles.checkoutContainer} >
+      <form action="/confirm" method="POST" onSubmit={handleSubmit}>
 
-      <form onSubmit={(e) => {return handleSubmit(e) }}> 
         <h1>Checkout</h1>
         <div className="form-group">
           {/^(f|g)\d\d\d\d\d\d+/.test(user.username)?false
@@ -42,7 +38,7 @@ export default ({ cart, calculateTotal, user }) => {
           /></div> }
         </div>
         <div className="form-group">
-          <label>Billing Email Adress</label>
+          <label>Email Address</label>
           <input
             type="email"
             id="email"
@@ -53,7 +49,18 @@ export default ({ cart, calculateTotal, user }) => {
           />
         </div>
         <div className="form-group">
-          <label>Shipping Email Adress</label>
+          <label>Billing Adress</label>
+          <input
+            type="text"
+            id="shipping"
+            name="shipping"
+            className="form-control"
+            placeholder="Billing Address"
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label>Shipping Address</label>
           <input
             type="text"
             id="shipping"
@@ -87,15 +94,14 @@ export default ({ cart, calculateTotal, user }) => {
                 })}
               </tbody>
             </table>
-            <div className="pull-right">Total: {calculateTotal(arrayBook)}</div>
+            <div className="pull-right">Total:  ${calculateTotal(arrayBook)} </div>
           </div>
         ) : (
           ""
         )}
-        <button type="submit" className="btn btn-primary btn-block">
+        <button type="submit" className="btn btn-primary btn-block" >
           Confirmar
         </button>
-        <div></div>
       </form>
     </div>
   );

@@ -1,7 +1,10 @@
 
-import axios from 'axios';
-import {GET_USER, LOG_USER} from '../constants/index'
-import { getCart, emptyCart,  syncCart} from './cart'
+import axios from "axios";
+import { GET_USER, LOG_USER, SET_HISTORIAL } from "../constants/index";
+import { getCart, emptyCart, syncCart } from "./cart";
+
+
+
 
 const getUser = user => ({
   type: GET_USER,
@@ -12,6 +15,12 @@ const logUser = logUser => ({
   type: LOG_USER,
   logUser
 });
+
+export const setHistorial = historial => ({
+  type: SET_HISTORIAL,
+  historial
+});
+
 
 export const signUpUser = user => dispatch => {
   if (!user.password.length) throw Error("No password");
@@ -35,11 +44,19 @@ export const loginUser = (username, password) => dispatch => {
     .post("/api/sessions", { username, password })
     .then(res => dispatch(logUser(res.data)))
     .then(() => dispatch(syncCart()))
+    .then(() => dispatch(userHistorial()))
     .catch(err => {
       console.log(err);
       throw err;
     });
 };
+
+export const userHistorial = () => dispatch => {
+  axios.get("/api/checkout/historial").then(res => {
+    dispatch(setHistorial(res.data));
+  });
+};
+
 
 
 export const userLogOut =  () => dispatch => {
@@ -50,3 +67,4 @@ export const userLogOut =  () => dispatch => {
     .then(() => dispatch(emptyCart(true)))
     .catch(error => console.error(error))
   }
+

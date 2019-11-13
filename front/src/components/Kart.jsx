@@ -7,9 +7,14 @@ import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect } from "react";
 
 export default props => {
-  const arrayBook = [];
+  const arrayBook = [],
+    arrayIds = [];
+  let enoughStockToBuy = {};
   for (let book of Object.values(props.cart)) {
     arrayBook.push(book);
+  }
+  for (let id of Object.keys(props.cart)) {
+    arrayIds.push(id);
   }
   let refreshedCart,
     userNotLoggedIn = props.userId;
@@ -28,6 +33,8 @@ export default props => {
         id="slide-button"
         className={styles.fixedbtn + " btn  btn-info"}
         onClick={() => {
+          $("#history-button").removeClass("moved");
+          $("#slider-history").removeClass("open");
           $("#slide-button").toggleClass("moved");
           $("#slider").toggleClass("open");
         }}
@@ -40,6 +47,9 @@ export default props => {
           <div className="shopping-cart-head"></div>
           <ul className="shopping-cart-list">
             {arrayBook.map((book, index) => {
+              props.bookStocks[arrayIds[index]] <= book[0]
+                ? (enoughStockToBuy[arrayIds[index]] = true)
+                : (enoughStockToBuy[arrayIds[index]] = false);
               return (
                 <div key={index}>
                   <li className={styles.bookList}>
@@ -75,17 +85,21 @@ export default props => {
                       >
                         -
                       </button>
-                      <button
-                        className="btn btn-info"
-                        onClick={() =>
-                          props.handleIncrement(
-                            Object.keys(props.cart)[index],
-                            props.userId
-                          )
-                        }
-                      >
-                        +
-                      </button>
+                      {props.bookStocks[arrayIds[index]] <= book[0] ? (
+                        <strong>No more Stock</strong>
+                      ) : (
+                        <button
+                          className="btn btn-info"
+                          onClick={() =>
+                            props.handleIncrement(
+                              Object.keys(props.cart)[index],
+                              props.userId
+                            )
+                          }
+                        >
+                          +
+                        </button>
+                      )}
                     </div>
                   </li>
                   <hr></hr>
@@ -98,7 +112,8 @@ export default props => {
             <button
               onClick={() => {
                 if (confirm("¿Está seguro de que desea borrar su carrito?")) {
-                  props.handleEmpty();
+                  let noUser = props.userId === undefined;
+                  props.handleEmpty(noUser);
                 }
               }}
               href="#0"
@@ -106,21 +121,28 @@ export default props => {
             >
               Vaciar
             </button>
-            <button
-              href="#0"
-              className={"btn btn-success " + styles.block}
-              onClick={() =>
-                props.handleClick(
-                  props.calculateTotal(arrayBook),
-                  props.history
-                )
-              }
-            >
-              Checkout -
-              <span className="total-price">
-                {props.calculateTotal(arrayBook)}
-              </span>
-            </button>
+            {Object.values(enoughStockToBuy).reduce((bool, stockavailable) => {
+              return stockavailable && bool ? true : false;
+            }, true) ? (
+              <button
+                href="#0"
+                className={"btn btn-success " + styles.block}
+                onClick={() =>
+                  props.handleClick(
+                    props.calculateTotal(arrayBook),
+                    props.history
+                  )
+                }
+              >
+                Checkout{" "}
+                <span className="total-price">
+                  {" "}
+                  ${props.calculateTotal(arrayBook)}
+                </span>
+              </button>
+            ) : (
+              <strong>Not enough Stock</strong>
+            )}
           </div>
         </div>
       </div>
