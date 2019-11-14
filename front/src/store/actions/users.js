@@ -109,7 +109,6 @@ export const userLogOut = () => dispatch => {
 };
 
 export const placeOrder = (user, mail) => dispatch => {
-  console.log(user);
   return axios
     .post("/api/pedidos", {
       messageHtml: renderEmail(<MyEmail name={user.name} />),
