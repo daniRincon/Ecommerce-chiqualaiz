@@ -45,7 +45,11 @@ router.post("/", passport.authenticate("local"), (req, res) => {
 });
 
 router.post("/validation", (req, res) => {
-  let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
+  
+  // Si el usuario es por Google o Facebook: req.user es un array.
+  let user = req.user.length? req.user[0] : req.user;
+  let userId = user.dataValues ? user.dataValues.id : user.id;
+
   User.findByPk(userId)
     .then(user => {
       return res.send(user.validPassword(req.body.password));

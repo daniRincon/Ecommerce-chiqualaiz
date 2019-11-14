@@ -1,10 +1,16 @@
-
-import { LOG_USER, GET_USER, SET_HISTORIAL, GET_USERS } from "../constants/index";
+import {
+  LOG_USER,
+  GET_USER,
+  SET_HISTORIAL,
+  GET_USERS,
+  SET_ADMINHISTORIAL
+} from "../constants/index";
 
 const initialState = {
   loggedName: "",
   historial: [],
-  list: []
+  list: [],
+  adminHistorial: []
 };
 
 export default function(state = initialState, action) {
@@ -25,6 +31,11 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {
         historial: action.historial
       });
+    case SET_ADMINHISTORIAL:
+      return {
+        ...state,
+        adminHistorial: action.adminHistorial
+      };
     default:
       return state;
   }

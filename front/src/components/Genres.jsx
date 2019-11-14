@@ -82,8 +82,8 @@ export default props => {
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {props.genres.map((genre, i) => (
-            <MenuItem key={i} value={genre.id}>
+          {props.genres.map((genre, i) => ( 
+            <MenuItem key={i} value={genre.id}> 
               {genre.nombre}
             </MenuItem>
           ))}

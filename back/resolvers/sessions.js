@@ -4,7 +4,9 @@ const Op = S.Op;
 
 const isLogedIn = function (req, res, next) {
     if (req.isAuthenticated()) {
-      Pedido.findAll({where:{userId : req.user.id}})
+      let user = req.user.length? req.user[0] : req.user;
+      user = user.dataValues? user.dataValues : user;
+      Pedido.findAll({where:{userId : user.id}})
       .then(async (pedidos) => {
         const idsDePedidos = pedidos.map((pedido) => pedido.id)
         return await OrderItem.findAll({where:{ pedidoId: {[Op.in]: idsDePedidos} }})
@@ -12,14 +14,16 @@ const isLogedIn = function (req, res, next) {
       .then(async (productosComprados) => {
           let comprasIds = productosComprados.map((prd) => prd.prodId)
           let comprasIdsUnicos = new Set(comprasIds);
-          let user = req.user.dataValues? req.user.dataValues : req.user;
           let userInstance = await User.findByPk(user.id);
           let userReviews = await userInstance.getReviews();
           let reviews = userReviews.map((review) => review.id)
 
+          console.log({...user, compras:[...comprasIdsUnicos], reviews })
           res.send({...user, compras: [...comprasIdsUnicos], reviews})
       })
-      .catch((err) => res.status(404).send(err))
+      .catch((err) => {
+        console.error(err)
+        res.status(404).send(err)})
      
     } else {
       res.send(false);

@@ -1,9 +1,15 @@
 import axios from "axios";
 import MyEmail from "../../components/Mail";
 import { renderEmail } from "react-html-email";
-import React  from "react";
+import React from "react";
 
-import { GET_USER, LOG_USER, SET_HISTORIAL, GET_USERS } from "../constants/index";
+import {
+  GET_USER,
+  LOG_USER,
+  SET_HISTORIAL,
+  GET_USERS,
+  SET_ADMINHISTORIAL
+} from "../constants/index";
 
 import { getCart, emptyCart, syncCart } from "./cart";
 
@@ -12,12 +18,10 @@ const getUser = user => ({
   user
 });
 
-
 const getUsers = users => ({
   type: GET_USERS,
   users
 });
-
 
 const logUser = logUser => ({
   type: LOG_USER,
@@ -28,7 +32,6 @@ export const setHistorial = historial => ({
   type: SET_HISTORIAL,
   historial
 });
-
 
 export const signUpUser = user => dispatch => {
   if (!user.password.length) throw Error("No password");
@@ -66,9 +69,10 @@ export const delUsers = arrId => dispatch => {
     .then(users => dispatch(getUsers(users.data)));
 };
 
-
-
-
+export const adminHistorial = adminHistorial => ({
+  type: SET_ADMINHISTORIAL,
+  adminHistorial
+});
 
 export const loginUser = (username, password) => dispatch => {
   if (!password.length) throw Error("No password");
@@ -83,11 +87,12 @@ export const loginUser = (username, password) => dispatch => {
 };
 
 export const userHistorial = () => dispatch => {
-  axios.get("/api/pedidos/historial")
-  .then(res => {
-    return dispatch(setHistorial(res.data));
-  })
-  .catch(err => console.error(err));
+  axios
+    .get("/api/pedidos/historial")
+    .then(res => {
+      return dispatch(setHistorial(res.data));
+    })
+    .catch(err => console.error(err));
 };
 
 export const userLogOut = () => dispatch => {
@@ -103,17 +108,22 @@ export const userLogOut = () => dispatch => {
     .catch(error => console.error(error));
 };
 
-
-export const placeOrder = user => dispatch => {
+export const placeOrder = (user, mail) => dispatch => {
   return axios
     .post("/api/pedidos", {
       messageHtml: renderEmail(<MyEmail name={user.name} />),
       name: user.name,
-      to: user.email
+      to: mail
     })
     .then(() => {
-      dispatch(userHistorial())
+      dispatch(userHistorial());
       dispatch(emptyCart());
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error(err));
 };
+
+export const fetchAdminOrders = () => dispatch =>
+  axios
+    .get("/api/pedidos/adminOrders")
+    .then(res => res.data)
+    .then(historial => dispatch(adminHistorial(historial)));

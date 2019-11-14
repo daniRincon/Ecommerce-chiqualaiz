@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Pedido = require("../models/Pedido");
-const Cart = require("../models/Cart");
-const Book = require("../models/Book");
 const OrderItem = require("../models/OrderItem");
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
+const Sequelize = require("sequelize");
+const Cart = require("../models/Cart")
 
 router.post("/", function(req, res) {
   let transporter = nodemailer.createTransport({
@@ -30,21 +30,48 @@ router.post("/", function(req, res) {
     subject: "GRACIAS POR TU COMPRA",
     html: req.body.messageHtml
   };
+  
+  let userId = req.user.length ? req.user[0].id : req.user.id
 
-  transporter.sendMail(mailOptions, (err, data) => {
-    if (err) {
+  Pedido.create({ userId: userId })
+    .then(pedido => {
+      Cart.findAll({ where: { userId: userId} })
+        .then(cartArray => {
+          return Promise.all(
+            cartArray.map(CartItem => {
+              return OrderItem.create({
+                prodId: CartItem.prodId,
+                userId: CartItem.userId,
+                pedidoId: pedido.id,
+                cantidad: CartItem.cantidad
+              });
+            })
+          );
+        })
+        .then(res => {
+          transporter.sendMail(mailOptions, (err, data) => {
+          if (err) {
+            res.json({
+              msg: 'fail'
+            })
+          } else {
+            res.json({
+              msg: 'success'
+            })
+          }
+        })})
+    })
+    .then(()=> res.status(200).send({}))
+    .catch(err => {
       console.log(err);
-      return res.sendStatus(404);
-    } else {
-      console.log("success");
-      return res.sendStatus(200);
-    }
-  });
-});
+      return res.status(404).send(err);
+    })
+  })
 
 router.get("/historial", function(req, res) {
+  let userId = req.user.length ? req.user[0].id : req.user.id
   Pedido.findAll({
-    where: { userId: req.user.id }
+    where: { userId: userId }
   })
     .then(arr => {
       return Promise.all(

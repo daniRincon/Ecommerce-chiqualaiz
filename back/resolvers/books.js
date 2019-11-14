@@ -41,7 +41,7 @@ const fetchGenre = function(req, res) {
       }
     ]
   }).then(book => res.send(book));
-};
+}
 
 const filteredGenres = function(req, res) {
   Book.findAll({
@@ -178,10 +178,8 @@ const deleteBook = function(req, res) {
 };
 
 const updateStock = async function(req, res) {
-  console.log(req.body);
   const cart = req.body;
   const bookIds = Object.keys(cart);
-  let puedoComprar = true;
 
   //Chequeo para ver si puede comprar
 
@@ -198,10 +196,8 @@ const updateStock = async function(req, res) {
         stock: S.literal(`stock - ${cart[bookId][0]}`)
       });
     });
-    console.log("SIII");
     res.send(true);
   } else {
-    console.log("NOOO");
     res.send(false);
   }
 };

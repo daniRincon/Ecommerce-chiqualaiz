@@ -31,7 +31,9 @@ export default class Register extends React.Component {
 
             <div className="modal-body">
               <form
+              id="registerForm"
                 onSubmit={event => {
+                  document.getElementById("registerForm").reset(); 
                   this.props.handleSubmit(event);
                 }}
               >
