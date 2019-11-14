@@ -36,11 +36,6 @@ export default function Reviews(props) {
           Reseñas{" "}
         </Typography>
       </ListItem>
-      {console.log(props.reviewIds)}
-      {console.log(props.userReviews)}
-
-      {console.log(props.reviewIds.reduce((bool, review) => { return bool? true: props.userReviews.includes(review)}
-                          , false))}
       { props.user && props.compras.includes(props.prodId)
       ? props.reviewIds.reduce((bool, review) => { return bool? true: props.userReviews.includes(review)}
                               , false) 

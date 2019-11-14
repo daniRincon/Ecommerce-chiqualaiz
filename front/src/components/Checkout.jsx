@@ -16,7 +16,7 @@ const arrayBook = [];
 
 return (
     <div className="container text-center" id={styles.checkoutContainer}>
-      <form action="/confirm" method="POST" onSubmit={handleSubmit}>
+      <form  onSubmit={(e) => handleSubmit(e)}>
         <h1>Checkout</h1>
         <div className="form-group">
           {/^(f|g)\d\d\d\d\d\d+/.test(user.username) ? (

@@ -10,5 +10,5 @@ router.use("/users", userRouter);
 router.use("/books", bookRouter);
 router.use("/sessions", sessionRouter);
 router.use("/carts", cartRouter);
-router.use("/checkout", checkoutRouter);
+router.use("/pedidos", checkoutRouter);
 module.exports = router;

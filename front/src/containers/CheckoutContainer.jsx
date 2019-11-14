@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import CheckoutComponent from "../components/Checkout";
 import React, { Component } from "react";
-import * as actions from "../store/actions/pedido";
+import * as actions from "../store/actions/users";
 import { bindActionCreators } from "redux";
 import OrderPlaced from "../components/OrderPlaced"
+import store from "../store/index"
 
 import axios from "axios";
 
@@ -27,8 +28,6 @@ class CheckoutContainer extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
     this.handleClickHome=this.handleClickHome.bind(this)
-
-
   }
 
 
@@ -49,11 +48,12 @@ class CheckoutContainer extends Component {
   validPassword(password) {
     axios
       .post("/api/sessions/validation", { password })
-      .then(res => res.data)
+      .then(res =>{ 
+        return res.data})
       .then(result => {
         if (result) {
-          this.props.placeOrder();
           this.setState({ warning: "" , orderPlaced: true});
+          this.props.placeOrder(this.props.user.loggedName)
         } else {
           this.setState({ warning: "La contraseña ingresada no es correcta" });
         }
@@ -65,7 +65,6 @@ class CheckoutContainer extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
         {this.state.orderPlaced? <OrderPlaced  name={this.props.user.loggedName.username} handleClickHome={this.handleClickHome}/>  :   <CheckoutComponent
