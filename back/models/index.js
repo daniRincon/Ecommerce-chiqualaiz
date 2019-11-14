@@ -15,6 +15,7 @@ OrderItem.belongsTo(Pedido);
 Review.belongsTo(Book);
 Book.hasMany(Review);
 Review.belongsTo(User);
+User.hasMany(Review);
 
 
 module.exports = {

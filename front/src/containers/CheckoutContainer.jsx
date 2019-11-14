@@ -1,9 +1,10 @@
 import { connect } from "react-redux";
 import CheckoutComponent from "../components/Checkout";
 import React, { Component } from "react";
-import * as actions from "../store/actions/pedido";
+import * as actions from "../store/actions/users";
 import { bindActionCreators } from "redux";
-import OrderPlaced from "../components/OrderPlaced"
+import OrderPlaced from "../components/OrderPlaced";
+import store from "../store/index";
 
 import axios from "axios";
 
@@ -17,8 +18,8 @@ const calculateTotal = arrayBook => {
 };
 
 class CheckoutContainer extends Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.state = {
       password: "",
       warning: "",
@@ -26,20 +27,18 @@ class CheckoutContainer extends Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
-    this.handleClickHome=this.handleClickHome.bind(this)
-
-
+    this.handleClickHome = this.handleClickHome.bind(this);
   }
 
-
-  handleClickHome(){
-    this.props.history.push("/")
-    
+  handleClickHome() {
+    this.props.history.push("/");
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log("SUBMITTTT");
     if (this.props.user.loggedName.id) {
+      console.log("VALIDAR");
       this.validPassword(this.state.password);
     } else {
       return alert("Login required to purchase");
@@ -47,14 +46,24 @@ class CheckoutContainer extends Component {
   }
 
   validPassword(password) {
-    console.log("pass", password);
     axios
       .post("/api/sessions/validation", { password })
       .then(res => res.data)
       .then(result => {
         if (result) {
-          this.props.placeOrder();
-          this.setState({ warning: "" , orderPlaced: true});
+          console.log("OKKKKK", result);
+          axios
+            .patch("/api/books/stock", this.props.cart)
+            .then(res => res.data)
+            .then(result => {
+              console.log("VUELVE", result);
+              if (result) {
+                this.setState({ warning: "", orderPlaced: true });
+                //this.props.placeOrder(this.props.user.loggedName);
+              } else {
+                console.log("No hay suficiente stock para confirmar la compra");
+              }
+            });
         } else {
           this.setState({ warning: "La contraseña ingresada no es correcta" });
         }
@@ -66,18 +75,23 @@ class CheckoutContainer extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
-        {this.state.orderPlaced? <OrderPlaced  name={this.props.user.loggedName.username} handleClickHome={this.handleClickHome}/>  :   <CheckoutComponent
-          user={this.props.user.loggedName}
-          cart={this.props.cart}
-          warning={this.state.warning}
-          calculateTotal={calculateTotal}
-          handleSubmit={this.handleSubmit}
-          handlePasswordInput={this.handlePasswordInput}
-        />}       
-
+        {this.state.orderPlaced ? (
+          <OrderPlaced
+            name={this.props.user.loggedName.username}
+            handleClickHome={this.handleClickHome}
+          />
+        ) : (
+          <CheckoutComponent
+            user={this.props.user.loggedName}
+            cart={this.props.cart}
+            warning={this.state.warning}
+            calculateTotal={calculateTotal}
+            handleSubmit={this.handleSubmit}
+            handlePasswordInput={this.handlePasswordInput}
+          />
+        )}
       </div>
     );
   }

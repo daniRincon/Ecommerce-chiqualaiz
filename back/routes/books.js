@@ -7,6 +7,7 @@ const {
   addBook,
   updateBook,
   deleteBook,
+  updateStock,
   fetchGenre,
   addGenre,
   changeGenre,
@@ -25,5 +26,6 @@ router.get("/:id", fetchBook);
 router.post("/", addBook);
 router.put("/:id", updateBook);
 router.delete("/:id", deleteBook);
-router.post('/review', review)
+router.patch("/stock", updateStock);
+router.post("/review", review);
 module.exports = router;

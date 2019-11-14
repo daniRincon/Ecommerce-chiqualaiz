@@ -40,9 +40,11 @@ export default props => {
         </button>
 
         <button className={"btn btn-info " + styles.btn}>Órdenes</button>
-        <button className={"btn btn-info " + styles.btn}>
-          Editar usuarios
-        </button>
+        <Link to="/dashboard/permisos">
+          <button className={"btn btn-info " + styles.btn}>
+            Editar usuarios
+          </button>
+        </Link>
       </div>
     );
   } else {

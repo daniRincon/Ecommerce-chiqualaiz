@@ -4,7 +4,6 @@ import {
   GET_BOOK,
   FILTER_BOOKS,
   GET_GENRES,
-  FILTER_GENRE,
   FRESH_PAGE
 } from "../constants";
 
@@ -28,7 +27,6 @@ const filterGenre = genres => ({
   type: GET_GENRES,
   genres
 });
-
 
 const firstTimes = () => ({
   type: FRESH_PAGE
@@ -56,14 +54,13 @@ export const fetchGenre = () => dispatch =>
 
 export const filteredGenres = id => dispatch => {
   axios
-  .post(`api/books/genres/${id}`)
-  .then(res=> res.data)
-  .then(books => dispatch(filteredBooks(books))
-   
-    )   
-   //.then(books=> books.length ? emptySearch = false : true)
-}
-
+    .post(`api/books/genres/${id}`)
+    .then(res => res.data)
+    .then(books => {
+      dispatch(filteredBooks(books));
+    })
+    .catch(err => console.log(err));
+};
 
 export const filterBooks = (searchValue, books) => dispatch => {
   const filtBooks = books.filter(book =>
@@ -71,6 +68,14 @@ export const filterBooks = (searchValue, books) => dispatch => {
   );
   const emptySearch = filtBooks.length ? false : true;
   dispatch(filteredBooks(filtBooks, emptySearch));
+};
+
+export const sortBooks = (order, filtered, books) => dispatch => {
+  /* const filtBooks = books.filter(book =>
+    book.titulo.toLowerCase().match(searchValue.toLowerCase())
+  );
+  const emptySearch = filtBooks.length ? false : true;
+  dispatch(filteredBooks(filtBooks, emptySearch));*/
 };
 
 export const addBook = book => dispatch => {
@@ -96,5 +101,5 @@ export const firstTime = () => dispatch => {
 };
 
 export const review = (alias, titulo, content, id) => dispatch => {
-  return axios.post('/api/books/review', {alias, titulo, content, id} )
-}
+  return axios.post("/api/books/review", { alias, titulo, content, id });
+};

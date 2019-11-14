@@ -5,6 +5,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import { filteredGenres } from "../store/actions/books";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -35,17 +36,14 @@ const MenuProps = {
   }
 };
 
-
 export default props => {
   const classes = useStyles();
 
   React.useEffect(() => {
-    props.fetchGenre();
+    // props.fetchGenre();
   }, []);
 
-  
-
-  const [categories, setCategories] = React.useState([]);
+  const [orderOption, setOrderOption] = React.useState([]);
   const [open, setOpen] = React.useState(false);
 
   const handleClose = () => {
@@ -59,8 +57,11 @@ export default props => {
   return (
     <div>
       <FormControl className={classes.formControl}>
-        <InputLabel style={{ color: "white" }} id="demo-controlled-open-select-label">
-          Categorias
+        <InputLabel
+          style={{ color: "white" }}
+          id="demo-controlled-open-select-label"
+        >
+          Ordenar
         </InputLabel>
         <Select
           labelId="demo-controlled-open-select-label"
@@ -68,25 +69,25 @@ export default props => {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={categories.length > 0? categories : ''}
+          value={orderOption.length > 0 ? orderOption : ""}
           onChange={e => {
-            if(categories == e.target.value.toString()){
-              setCategories('')
+            console.log(e.target.value);
+            setOrderOption(e.target.value);
+            //filtered.length ? sortBooks(filtered) : sortBooks(books);
+            /*  setCategories('')
               props.filteredGenres(0)
             }
             else{ 
-              setCategories(e.target.value.toString())
+              
               props.filteredGenres(e.target.value.toString()) }
-           
+           */
           }}
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {props.genres.map((genre, i) => (
-            <MenuItem key={i} value={genre.id}>
-              {genre.nombre}
-            </MenuItem>
-          ))}
+          <MenuItem value="titulo">Título</MenuItem>
+          <MenuItem value="precio">Precio</MenuItem>
+          <MenuItem value="rating">Rating</MenuItem>
         </Select>
       </FormControl>
     </div>

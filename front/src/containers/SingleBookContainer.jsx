@@ -46,19 +46,28 @@ class SingleBookContainer extends React.Component {
         reviews={this.props.reviews}
         compras={this.props.userCompras}
         handleSubmit={this.handleSubmit}
+        userReviews={this.props.userReviews}
+        reviewIds={this.props.reviewIds}
       />
     );
   }
 }
 
-const mapStateToProps = ({ books, user, cart }) => ({
+const mapStateToProps = ({ books, user, cart }) =>{ 
+  let reviews = books.selected.reviews || [];
+  let reviewIds = reviews.map((review) => review.id) 
+  reviewIds = reviewIds || [];
+  let userReviews = user.loggedName.reviews || [];
+return ({
   book: books.selected,
   authorized: user.loggedName.permisos,
   cart: cart,
   userId: user.loggedName.id,
-  reviews: books.selected.reviews,
-  userCompras: user.loggedName.compras
-});
+  reviews,
+  userCompras: user.loggedName.compras,
+  userReviews,
+  reviewIds
+})};
 
 const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),

@@ -8,8 +8,7 @@ export default ({
   user,
   warning,
   handlePasswordInput
-}) 
-    
+}) => {
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
@@ -17,7 +16,7 @@ export default ({
 
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
-      <form action="/confirm" method="POST" onSubmit={handleSubmit}>
+      <form onSubmit={e => handleSubmit(e)}>
         <h1>Checkout</h1>
         <div className="form-group">
           {/^(f|g)\d\d\d\d\d\d+/.test(user.username) ? (
@@ -37,7 +36,6 @@ export default ({
                 />
               </div>
               <h5 className="text-danger">{warning}</h5>
-
             </div>
           )}
         </div>
@@ -69,8 +67,8 @@ export default ({
           <label>Dirección de envío</label>
           <input
             type="text"
-            id="shipping"
-            name="shipping"
+            id="shippingEnvio"
+            name="shippingEnvio"
             defaultValue={user.address || ""}
             className="form-control"
             placeholder="Shipping Email Adress"
