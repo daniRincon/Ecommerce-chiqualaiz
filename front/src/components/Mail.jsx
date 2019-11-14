@@ -3,14 +3,7 @@ import { Email, Item, Span, Image, Box } from "react-html-email";
 
 export default ({ name, children }) => {
   return (
-    // <Email title='link'>
-    //   <Item>
-    //      Hello  {name}  Gracias por tu compra!!
-    //   </Item>
-    //   <Item>
-    //     {children}
-    //   </Item>
-    // </Email>
+    
     <Email title="Gracias por tu compra!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!">
       <Item align="center">
         <Span fontSize={20}>

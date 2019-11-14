@@ -1,33 +1,20 @@
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
+const S = require("sequelize");
 
-const { Book, Author, Genre } = require("../models/");
+const { Book, Author, Genre, Review } = require("../models/");
 
 const fetchBooks = function(req, res) {
-
-    Book.findAll({
-     include: {
-       model: Genre,
-     }
-    })
-      .then(books => res.send(books))
-      .catch(err => res.status(404).send(err));
-  }
-/**
   Book.findAll({
+    where: { visible: true },
     include: {
-      model: Genre,
-      where: {
-        visible: true
-      }
+      model: Genre
     }
   })
     .then(books => res.send(books))
     .catch(err => res.status(404).send(err));
 };
 
-};
-**/
 const fetchBook = function(req, res) {
   Book.findOne({
     where: {
@@ -37,10 +24,13 @@ const fetchBook = function(req, res) {
     .then(async book => {
       const author = await book.getAuthor();
       const genresObj = await book.getGenres();
+      const reviews = await book.getReviews();
       const genres = genresObj.map(obj => obj.nombre);
-      res.json({ ...book.dataValues, author: author.nombre, genres });
+      res.json({ ...book.dataValues, author: author.nombre, genres, reviews });
     })
-    .catch(err => res.status(404).send(err));
+    .catch(err => {
+      return res.status(404).send(err);
+    });
 };
 
 const fetchGenre = function(req, res) {
@@ -54,7 +44,6 @@ const fetchGenre = function(req, res) {
 }
 
 const filteredGenres = function(req, res) {
-  console.log(req);
   Book.findAll({
     include: [
       {
@@ -63,7 +52,10 @@ const filteredGenres = function(req, res) {
           id: req.params.id
         }
       }
-    ]
+    ],
+    where: {
+      visible: true
+    }
   })
     .then(data => res.send(data))
     .catch(err => res.status(404).send(err));
@@ -185,15 +177,64 @@ const deleteBook = function(req, res) {
     .catch(err => res.status(404).send(err));
 };
 
+const updateStock = async function(req, res) {
+  console.log(req.body);
+  const cart = req.body;
+  const bookIds = Object.keys(cart);
+  let puedoComprar = true;
+
+  //Chequeo para ver si puede comprar
+
+  const checkStock = await bookIds.reduce(async (bool, bookId) => {
+    book = await Book.findByPk(bookId);
+    return bool ? book.stock >= cart[bookId][0] : false;
+  }, true);
+
+  //Update del stock de los libros
+  if (checkStock) {
+    bookIds.map(async bookId => {
+      book = await Book.findByPk(bookId);
+      book.update({
+        stock: S.literal(`stock - ${cart[bookId][0]}`)
+      });
+    });
+    console.log("SIII");
+    res.send(true);
+  } else {
+    console.log("NOOO");
+    res.send(false);
+  }
+};
+
+const review = function(req, res) {
+  Review.create({
+    title: req.body.titulo,
+    content: req.body.content,
+    estrellas: 1,
+    autor: req.body.autor
+  })
+    .then(review => {
+      let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
+      review.setUser(userId);
+      review.setBook(req.body.id);
+    })
+    .then(() => res.sendStatus(201))
+    .catch(err => {
+      res.send(err);
+    });
+};
+
 module.exports = {
   fetchBooks,
   fetchBook,
   addBook,
   updateBook,
   deleteBook,
+  updateStock,
   fetchGenre,
   addGenre,
   filteredGenres,
   changeGenre,
-  deleteGenre
-}
+  deleteGenre,
+  review
+};

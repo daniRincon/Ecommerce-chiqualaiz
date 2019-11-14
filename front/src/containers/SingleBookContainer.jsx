@@ -1,15 +1,17 @@
 import React from "react";
 import axios from "axios";
 
+import store from '../store/index'
 import SingleBook from "../components/SingleBook";
 import { connect } from "react-redux";
-import { fetchBook, fetchBooks } from "../store/actions/books";
+import { fetchBook, fetchBooks, review } from "../store/actions/books";
 import { addCart } from "../store/actions/cart";
 
 class SingleBookContainer extends React.Component {
   constructor(props) {
     super(props);
     this.delBook = this.delBook.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   delBook(id) {
@@ -19,6 +21,12 @@ class SingleBookContainer extends React.Component {
         this.props.fetchBooks().then(() => this.props.history.push("/"))
       })
       .catch(err => console.error(err));
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    store.dispatch(review(e.target[0].value, e.target[1].value, e.target[2].value, this.props.book.id))
+    this.props.fetchBook(this.props.match.params.id);
   }
 
   componentDidMount() {
@@ -35,22 +43,36 @@ class SingleBookContainer extends React.Component {
         history={this.props.history}
         authorized={this.props.authorized}
         cart={this.props.cart}
+        reviews={this.props.reviews}
+        compras={this.props.userCompras}
+        handleSubmit={this.handleSubmit}
+        userReviews={this.props.userReviews}
+        reviewIds={this.props.reviewIds}
       />
     );
   }
 }
 
-const mapStateToProps = ({ books, user, cart }) => ({
+const mapStateToProps = ({ books, user, cart }) =>{ 
+  let reviews = books.selected.reviews || [];
+  let reviewIds = reviews.map((review) => review.id) 
+  reviewIds = reviewIds || [];
+  let userReviews = user.loggedName.reviews || [];
+return ({
   book: books.selected,
   authorized: user.loggedName.permisos,
   cart: cart,
-  userId: user.loggedName.id
-});
+  userId: user.loggedName.id,
+  reviews,
+  userCompras: user.loggedName.compras,
+  userReviews,
+  reviewIds
+})};
 
 const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
   fetchBook: book => dispatch(fetchBook(book)),
-  addBookCart: (book, userId) => dispatch(addCart(book, userId))
+  addBookCart: (book, userId) => dispatch(addCart(book, userId)),
 });
 
 export default connect(

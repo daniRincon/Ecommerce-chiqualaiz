@@ -9,7 +9,11 @@ Review.init(
       allowNull: false
     },
     content: S.TEXT,
-    estrellas: S.INTEGER
+    estrellas: S.INTEGER,
+    autor: {
+      type: S.TEXT,
+      defaultValue: "Anónimo"
+    }
   },
   { sequelize: db, modelName: "review" }
 );

@@ -40,12 +40,14 @@ export default props => {
         </button>
 
         <button className={"btn btn-info " + styles.btn}>Órdenes</button>
-        <button className={"btn btn-info " + styles.btn}>
-          Editar usuarios
-        </button>
+        <Link to="/dashboard/permisos">
+          <button className={"btn btn-info " + styles.btn}>
+            Editar usuarios
+          </button>
+        </Link>
       </div>
     );
   } else {
-    return <h3 className="text-danger"> ACCESS DENIED</h3>;
+    return <h3 className="text-danger"> ACCESO DENEGADO</h3>;
   }
 };

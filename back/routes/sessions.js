@@ -3,25 +3,9 @@ const router = express.Router();
 const passport = require("../config/passport");
 const { User } = require("../models/");
 
-function isLogedIn(req, res, next) {
-  if (req.isAuthenticated()) {
-    req.user
-      ? req.user[0]
-        ? res.send(req.user[0])
-        : res.send(req.user)
-      : res.send({});
-  } else {
-    res.send(false);
-  }
-}
+const { isLogedIn } = require("../resolvers/sessions");
 
-router.post("/", passport.authenticate("local"), (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json(req.user);
-  } else {
-    res.status(401).res.json({});
-  }
-});
+router.post("/", passport.authenticate("local"), isLogedIn);
 
 router.get("/auth/facebook", passport.authenticate("facebook"));
 
@@ -65,13 +49,17 @@ router.post("/", passport.authenticate("local"), (req, res) => {
 });
 
 router.post("/validation", (req, res) => {
-  console.log("BACK POST", "Id:", req.user.id, "pass", req.body.password);
-  User.findByPk(req.user.id).then(user =>
-    res.send(user.validPassword(req.body.password))
-  );
-});
+  
+  // Si el usuario es por Google o Facebook: req.user es un array.
+  let user = req.user.length? req.user[0] : req.user;
+  let userId = user.dataValues ? user.dataValues.id : user.id;
 
-router.get("/", isLogedIn);
+  User.findByPk(userId)
+    .then(user => {
+      return res.send(user.validPassword(req.body.password));
+    })
+    .catch(err => res.status(404).send(err));
+});
 
 module.exports = router;
 

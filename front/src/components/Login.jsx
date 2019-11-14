@@ -42,7 +42,7 @@ export default props => {
                 <input
                   onChange={event => props.handleUserInput(event.target.value)}
                   type="text"
-                  id="username"
+                  id="usernameLogin"
                   name="username"
                   className="form-control"
                   placeholder="Ingresar Usuario"
@@ -55,7 +55,7 @@ export default props => {
                     props.handlePasswordInput(event.target.value)
                   }
                   type="password"
-                  id="password"
+                  id="passwordLogin"
                   name="password"
                   className="form-control"
                   placeholder="Ingresar Contraseña"
@@ -63,19 +63,22 @@ export default props => {
                 />
               </div>
               <h5 className="text-danger">{props.warning}</h5>
-              <button type="submit" className="btn btn-primary btn-block">
+              <button
+                type="submit"
+                className={"btn btn-block " + styles.submit}
+              >
                 Login
               </button>
             </form>
             <p className="lead mt-4">
-              No Account?
+              No tienes cuenta?
               <button
                 onClick={props.handleRegister}
                 className="btn btn-link"
                 data-toggle="modal"
                 data-target="#register"
               >
-                Register
+                Crear cuenta
               </button>
             </p>
             <div className={styles.networks}>

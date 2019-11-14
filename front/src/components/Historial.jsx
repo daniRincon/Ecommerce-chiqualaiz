@@ -39,7 +39,7 @@ const Historial = props => {
                     </div>
                   );
                 })
-              : "No orders found..."}
+              : "No se han encontrado pedidos..."}
           </ul>
           <div className="cart-buttons"></div>
         </div>

@@ -7,6 +7,12 @@ body{
   background-color: #e8e8e8;
 }
 
+.dropdown-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
 .open{
   max-width: 200px !important;
 }

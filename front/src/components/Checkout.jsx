@@ -7,22 +7,20 @@ export default ({
   handleSubmit,
   user,
   warning,
-  handlePasswordInput
+  handlePasswordInput,
+  socialNetworkUser
 }) => {
-  console.log(user);
   const arrayBook = [];
   for (let book of Object.values(cart)) {
     arrayBook.push(book);
   }
 
-  var [state, setState] = React.useState("")
-
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
-      <form action="/confirm" method="POST" onSubmit={handleSubmit}>
+      <form onSubmit={e => handleSubmit(e)}>
         <h1>Checkout</h1>
         <div className="form-group">
-          {/^(f|g)\d\d\d\d\d\d+/.test(user.username) ? (
+          {socialNetworkUser? (
             false
           ) : (
             <div>
@@ -39,42 +37,41 @@ export default ({
                 />
               </div>
               <h5 className="text-danger">{warning}</h5>
-
             </div>
           )}
         </div>
         <div className="form-group">
-          <label>Email Address</label>
+          <label>Correo</label>
           <input
             type="email"
             id="email"
             name="email"
             defaultValue={user.email || ""}
             className="form-control"
-            placeholder="Billing Email Adress"
+            placeholder="Correo"
             required
             
           />
         </div>
         <div className="form-group">
-          <label>Billing Adress</label>
+          <label>Dirección de facturación</label>
           <input
             type="text"
             id="shipping"
             name="shipping"
             defaultValue={user.address || ""}
             className="form-control"
-            placeholder="Billing Address"
+            placeholder="dirección de facturación"
             required
             
           />
         </div>
         <div className="form-group">
-          <label>Shipping Address</label>
+          <label>Dirección de envío</label>
           <input
             type="text"
-            id="shipping"
-            name="shipping"
+            id="shippingEnvio"
+            name="shippingEnvio"
             defaultValue={user.address || ""}
             className="form-control"
             placeholder="Shipping Email Adress"

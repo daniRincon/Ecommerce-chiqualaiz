@@ -7,10 +7,12 @@ const {
   addBook,
   updateBook,
   deleteBook,
+  updateStock,
   fetchGenre,
   addGenre,
   changeGenre,
   deleteGenre,
+  review,
   filteredGenres
 } = require("../resolvers/books");
 
@@ -24,4 +26,6 @@ router.get("/:id", fetchBook);
 router.post("/", addBook);
 router.put("/:id", updateBook);
 router.delete("/:id", deleteBook);
+router.patch("/stock", updateStock);
+router.post("/review", review);
 module.exports = router;
