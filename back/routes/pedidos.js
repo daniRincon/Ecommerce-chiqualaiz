@@ -30,18 +30,11 @@ router.post("/", function(req, res) {
     subject: "GRACIAS POR TU COMPRA",
     html: req.body.messageHtml
   };
-
-  //[Op.or]: [{userId: req.user.id}, {userId: req.user[0].id}]
-  console.log(req.user + 'soy el user debajo de req.user')
   
   let userId = req.user.length ? req.user[0].id : req.user.id
- 
-  console.log(userId)
-
 
   Pedido.create({ userId: userId })
     .then(pedido => {
-      console.log('pedido')
       Cart.findAll({ where: { userId: userId} })
         .then(cartArray => {
           return Promise.all(
