@@ -4,6 +4,7 @@ const Pedido = require("../models/Pedido");
 const OrderItem = require("../models/OrderItem");
 const nodemailer = require('nodemailer');
 const Sequelize = require("sequelize");
+const Cart = require("../models/Cart")
 
 router.post("/", function(req, res) {
   let transporter = nodemailer.createTransport({
@@ -47,7 +48,8 @@ router.post("/", function(req, res) {
             })
           );
         })
-        .then(res => res.sendStatus(200),  transporter.sendMail(mailOptions, (err, data) => {
+        .then(res => {
+          transporter.sendMail(mailOptions, (err, data) => {
           if (err) {
             res.json({
               msg: 'fail'
@@ -57,11 +59,12 @@ router.post("/", function(req, res) {
               msg: 'success'
             })
           }
-        }))
+        })})
     })
+    .then(()=> res.status(200).send({}))
     .catch(err => {
       console.log(err);
-      return res.sendStatus(404);
+      return res.status(404).send(err);
     })
   })
 
