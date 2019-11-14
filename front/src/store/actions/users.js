@@ -8,7 +8,8 @@ import {
   LOG_USER,
   SET_HISTORIAL,
   GET_USERS,
-  SET_ADMINHISTORIAL
+  SET_ADMINHISTORIAL,
+  PEDIDO_SELECTED
 } from "../constants/index";
 
 import { getCart, emptyCart, syncCart } from "./cart";
@@ -17,7 +18,10 @@ const getUser = user => ({
   type: GET_USER,
   user
 });
-
+const pedidoSelected = pedido => ({
+  type: PEDIDO_SELECTED,
+  pedido
+});
 const getUsers = users => ({
   type: GET_USERS,
   users
@@ -127,3 +131,10 @@ export const fetchAdminOrders = () => dispatch =>
     .get("/api/pedidos/adminOrders")
     .then(res => res.data)
     .then(historial => dispatch(adminHistorial(historial)));
+
+export const fetchPedido = id => dispatch => {
+  axios.get(`/api/pedidos/${id}`).then(res => {
+    console.log(res.data);
+    dispatch(pedidoSelected(res.data));
+  });
+};
