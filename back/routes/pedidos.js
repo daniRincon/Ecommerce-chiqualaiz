@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Pedido = require("../models/Pedido");
+const Cart = require("../models/Cart")
 const OrderItem = require("../models/OrderItem");
 const nodemailer = require('nodemailer');
 const Sequelize = require("sequelize");

@@ -6,6 +6,7 @@ const isLogedIn = function (req, res, next) {
     if (req.isAuthenticated()) {
       let user = req.user.length? req.user[0] : req.user;
       user = user.dataValues? user.dataValues : user;
+
       Pedido.findAll({where:{userId : user.id}})
       .then(async (pedidos) => {
         const idsDePedidos = pedidos.map((pedido) => pedido.id)
@@ -18,7 +19,6 @@ const isLogedIn = function (req, res, next) {
           let userReviews = await userInstance.getReviews();
           let reviews = userReviews.map((review) => review.id)
 
-          console.log({...user, compras:[...comprasIdsUnicos], reviews })
           res.send({...user, compras: [...comprasIdsUnicos], reviews})
       })
       .catch((err) => {

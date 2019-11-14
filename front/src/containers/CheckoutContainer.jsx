@@ -37,16 +37,16 @@ class CheckoutContainer extends Component {
   handleSubmit(e) {
     e.preventDefault();
     let email = e.target[3].value? e.target[1].value : e.target[0].value;
-    if (this.props.user.loggedName.id) {
-      this.state.socialNetworkUser? this.props.placeOrder(this.props.user.loggedName, email)
+    let cart = this.props.cart
+      this.state.socialNetworkUser? this.props.placeOrder(this.props.user.loggedName, email, cart)
                                   && this.setState({ warning: "", orderPlaced: true })
-                                  : this.validPassword(this.state.password);
+                                  : this.validPassword(this.state.password, email, cart);
     } else {
       return alert("Login required to purchase");
-    }
+    } 
   }
 
-  validPassword(password) {
+  validPassword(password, email, cart) {
     axios
       .post("/api/sessions/validation", { password })
       .then(res => res.data)
@@ -58,7 +58,7 @@ class CheckoutContainer extends Component {
             .then(result => {
               if (result) {
                 this.setState({ warning: "", orderPlaced: true });
-                this.props.placeOrder(this.props.user.loggedName);
+                this.props.placeOrder(this.props.user.loggedName, email, cart);
               } else {
                 console.log("No hay suficiente stock para confirmar la compra");
               }
