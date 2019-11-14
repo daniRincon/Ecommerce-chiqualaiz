@@ -36,7 +36,6 @@ class CheckoutContainer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log(e.target)
     let email = e.target[3].value? e.target[1].value : e.target[0].value;
     if (this.props.user.loggedName.id) {
       this.state.socialNetworkUser? this.props.placeOrder(this.props.user.loggedName, email)
