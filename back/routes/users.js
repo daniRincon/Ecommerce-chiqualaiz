@@ -33,4 +33,7 @@ router.put("/permisos", function(req, res) {
     .catch(err => (res.send(400), console.log(err)));
 });
 
+
+
+
 module.exports = router;

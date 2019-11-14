@@ -72,10 +72,10 @@ const headCells = [
   { id: "apellido", numeric: true, disablePadding: false, label: "Apellido" },
   { id: "pedido", numeric: true, disablePadding: false, label: "Pedido" },
   {
-    id: "productId",
+    id: "titulo",
     numeric: true,
     disablePadding: false,
-    label: "Product Id"
+    label: "Titulo"
   },
   { id: "cantidad", numeric: true, disablePadding: false, label: "Cantidad" }
 ];
@@ -333,13 +333,13 @@ export default function AdminOrders({ adminOrders, books, authorized }) {
                         <TableCell align="right">{adminOrder.pedido}</TableCell>
                         <TableCell align="right">
                           {adminOrder.items.map(item => {
-                            return books.filter(book => {
+                            return <ul> {books.filter(book => {
                               return book.id === item.prodId;
-                            })[0].titulo;
+                            })[0].titulo}</ul>;
                           })}
                         </TableCell>
                         <TableCell align="right">
-                          {adminOrder.items.map(item => item.cantidad)}
+                          {adminOrder.items.map(item => <ul>{item.cantidad}</ul>)}
                         </TableCell>
                       </TableRow>
                     );
