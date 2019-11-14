@@ -2,7 +2,9 @@ const express = require("express");
 const router = express.Router();
 const Pedido = require("../models/Pedido");
 const OrderItem = require("../models/OrderItem");
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
+const Sequelize = require("sequelize");
+const Cart = require("../models/Cart")
 
 router.post("/", function(req, res) {
   let transporter = nodemailer.createTransport({
@@ -28,19 +30,12 @@ router.post("/", function(req, res) {
     subject: "GRACIAS POR TU COMPRA",
     html: req.body.messageHtml
   };
+  
+  let userId = req.user.length ? req.user[0].id : req.user.id
 
-  transporter.sendMail(mailOptions, (err, data) => {
-    if (err) {
-      console.log(err);
-      return res.sendStatus(404);
-    } else {
-      return res.sendStatus(200);
-    }
-  });
-
-  Pedido.create({ userId: req.user.id })
+  Pedido.create({ userId: userId })
     .then(pedido => {
-      Cart.findAll({ where: { userId: req.user.id } })
+      Cart.findAll({ where: { userId: userId} })
         .then(cartArray => {
           return Promise.all(
             cartArray.map(CartItem => {
@@ -53,17 +48,30 @@ router.post("/", function(req, res) {
             })
           );
         })
-        .then(pedido => res.sendStatus(201));
+        .then(res => {
+          transporter.sendMail(mailOptions, (err, data) => {
+          if (err) {
+            res.json({
+              msg: 'fail'
+            })
+          } else {
+            res.json({
+              msg: 'success'
+            })
+          }
+        })})
     })
+    .then(()=> res.status(200).send({}))
     .catch(err => {
       console.log(err);
-      return res.sendStatus(500);
-    });
-});
+      return res.status(404).send(err);
+    })
+  })
 
 router.get("/historial", function(req, res) {
+  let userId = req.user.length ? req.user[0].id : req.user.id
   Pedido.findAll({
-    where: { userId: req.user.id }
+    where: { userId: userId }
   })
     .then(arr => {
       return Promise.all(
@@ -79,31 +87,6 @@ router.get("/historial", function(req, res) {
       return res.status(200).send(realHistorial);
     })
     .catch(err => res.status(404).send(err));
-});
-
-router.get("/adminOrders", function(req, res) {
-  Pedido.findAll({
-    include: [
-      {
-        model: User
-      }
-    ]
-  }).then(arr => {
-    let historial = arr.map(async pedido => {
-      let items = await OrderItem.findAll({
-        where: { pedidoId: pedido.id }
-      });
-      return {
-        name: pedido.user.name,
-        lastname: pedido.user.lastname,
-        pedido: pedido.id,
-        items: items
-      };
-    });
-    Promise.all(historial).then(realHistorial => {
-      res.status(200).send(realHistorial);
-    });
-  });
 });
 
 module.exports = router;
