@@ -79,10 +79,11 @@ const fetchCart = function(req, res){
 }
 
 const emptyCart = function(req, res){
+    let userId = req.user.length ? req.user[0].id : req.user.id
     if(req.user){
         Cart.destroy({
             where: {
-                userId: req.user.id
+                userId: userId
             }
         })
         .then((data) => {
@@ -92,11 +93,11 @@ const emptyCart = function(req, res){
 }
 
 const syncCart = function(req, res){
-
+    let userId = req.user.length ? req.user[0].id : req.user.id
     const ids = Object.keys(req.body)
     const values = Object.values(req.body)
     Promise.all(ids.map(async(id, index) =>{
-        const instance = await Cart.findOne({ where: { userId : req.user.id, prodId: id}})
+        const instance = await Cart.findOne({ where: { userId : userId, prodId: id}})
         if(instance){
             let quantity = values[index][0]
             return await Cart.update({
@@ -107,7 +108,7 @@ const syncCart = function(req, res){
             }})
         }else{
             return await Cart.create({
-                    userId : req.user.id,
+                    userId : userId,
                     prodId : id,
                     cantidad: values[index][0]
             })
@@ -117,7 +118,7 @@ const syncCart = function(req, res){
         attributes: ['prodId', 'cantidad']
         },{
         where: {
-            userId: req.user.id
+            userId: userId
         }
     }))
     .then(async (data) =>{ 

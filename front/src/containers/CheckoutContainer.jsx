@@ -34,20 +34,23 @@ class CheckoutContainer extends Component {
   }
 
   handleSubmit(e) {
+    console.log(this.props)
     e.preventDefault();
-    console.log("PAAAAASSS", this.state.password);
-    this.validPassword(this.state.password);
-    this.props.placeOrder(this.props.user.loggedName);
+    if(/^(f|g)\d\d\d\d\d\d+/.test(this.props.user.loggedName.username)) {
+      this.props.placeOrder(this.props.user.loggedName)}
+      else {
+        this.validPassword(this.state.password, this.props.user.loggedName.name);
+      }
   }
 
-  validPassword(password) {
+  validPassword(password, username) {
     console.log("pass", password);
     axios
       .post("/api/sessions/validation", { password })
       .then(res => res.data)
       .then(result => {
         if (result) {
-          this.props.placeOrder();
+          this.props.placeOrder(this.props.user.loggedName);
           this.setState({ warning: "", orderPlaced: true });
         } else {
           this.setState({ warning: "La contraseña ingresada no es correcta" });

@@ -70,15 +70,16 @@ export default props => {
           open={open}
           onClose={handleClose}
           onOpen={handleOpen}
-          value={categories}
+          value="hola"
           onChange={e => {
+            console.log(e)
             props.filteredGenres(e.target.value.toString())
           }}
           input={<Input />}
           MenuProps={MenuProps}
         >
-          {props.genres.map((genre, i) => (
-            <MenuItem key={i} value={genre.id}>
+          {props.genres.map((genre, i) => ( 
+            <MenuItem key={i} value={genre.id}> 
               {genre.nombre}
             </MenuItem>
           ))}

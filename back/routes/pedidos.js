@@ -4,7 +4,8 @@ const Pedido = require("../models/Pedido");
 const Cart = require("../models/Cart");
 const OrderItem = require("../models/OrderItem");
 const nodemailer = require('nodemailer');
-const creds = require('../mail');
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 
 
@@ -33,11 +34,18 @@ router.post("/", function(req, res) {
     html: req.body.messageHtml 
   };
 
-  console.log(req.user)
+  //[Op.or]: [{userId: req.user.id}, {userId: req.user[0].id}]
+  console.log(req.user + 'soy el user debajo de req.user')
+  
+  let userId = req.user.length ? req.user[0].id : req.user.id
+ 
+  console.log(userId)
 
-  Pedido.create({ userId: req.user.id })
+
+  Pedido.create({ userId: userId })
     .then(pedido => {
-      Cart.findAll({ where: { userId: req.user.id } })
+      console.log('pedido')
+      Cart.findAll({ where: { userId: userId} })
         .then(cartArray => {
           return Promise.all(
             cartArray.map(CartItem => {
@@ -50,8 +58,7 @@ router.post("/", function(req, res) {
             })
           );
         })
-        .then(pedido => res.sendStatus(201))
-        .then(res => transporter.sendMail(mailOptions, (err, data) => {
+        .then(rest => transporter.sendMail(mailOptions, (err, data) => {
           if (err) {
             res.json({
               msg: 'fail'
@@ -72,8 +79,9 @@ router.post("/", function(req, res) {
 
 
 router.get("/historial", function(req, res) {
+  let userId = req.user.length ? req.user[0].id : req.user.id
   Pedido.findAll({
-    where: { userId: req.user.id }
+    where: { userId: userId }
   }).then(arr => {
     let historial = arr.map(async pedido => {
       let items = await OrderItem.findAll({

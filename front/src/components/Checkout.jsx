@@ -15,6 +15,8 @@ export default ({
     arrayBook.push(book);
   }
 
+  var [state, setState] = React.useState("")
+
   return (
     <div className="container text-center" id={styles.checkoutContainer}>
       <form action="/confirm" method="POST" onSubmit={handleSubmit}>
@@ -51,6 +53,7 @@ export default ({
             className="form-control"
             placeholder="Billing Email Adress"
             required
+            
           />
         </div>
         <div className="form-group">
@@ -63,6 +66,7 @@ export default ({
             className="form-control"
             placeholder="Billing Address"
             required
+            
           />
         </div>
         <div className="form-group">

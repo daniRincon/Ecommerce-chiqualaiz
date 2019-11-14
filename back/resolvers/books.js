@@ -12,6 +12,7 @@ const fetchBooks = function(req, res) {
     })
       .then(books => res.send(books))
       .catch(err => res.status(404).send(err));
+  }
 /**
   Book.findAll({
     include: {
@@ -50,7 +51,7 @@ const fetchGenre = function(req, res) {
       }
     ]
   }).then(book => res.send(book));
-};
+}
 
 const filteredGenres = function(req, res) {
   console.log(req);
@@ -195,4 +196,4 @@ module.exports = {
   filteredGenres,
   changeGenre,
   deleteGenre
-}}
+}

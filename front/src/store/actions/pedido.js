@@ -4,11 +4,12 @@ import { emptyCart } from "./cart";
 import { renderEmail } from "react-html-email";
 import React from "react";
 import MyEmail from "../../components/Mail";
-import { emptyCart } from "./cart";
+
 
 
 export const placeOrder = user => dispatch => {
-
+console.log(user.name + 'soy el user del axios')
+console.log(user.email)
   axios
     .post("/api/checkout", {
       messageHtml: renderEmail(<MyEmail name={user.name} />),

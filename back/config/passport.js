@@ -48,20 +48,27 @@ passport.use(new GoogleStrategy({
   callbackURL: "http://localhost:3000/api/sessions/auth/google/callback"
 },
 function(token, tokenSecret, profile, done) {
+  console.log('EMAIL', profile.emails[0].value)
     User.findOrCreate({ where: {
       username: 'g' + profile.id,
-      name: profile.displayName
+      name: profile.displayName,
+      email: profile.emails[0].value
     }})
     .then(user => {
+      console.log('FOUND/CREATE')
       done(null, user);
     })
-    .catch(err => done(err))
+    .catch(err => {
+      console.log('ERROR', err)
+      done(err)
+    })
   }
 ));
 
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
+
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
