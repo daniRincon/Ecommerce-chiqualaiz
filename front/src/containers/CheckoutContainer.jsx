@@ -4,7 +4,6 @@ import React, { Component } from "react";
 import * as actions from "../store/actions/users";
 import { bindActionCreators } from "redux";
 import OrderPlaced from "../components/OrderPlaced";
-import store from "../store/index";
 
 import axios from "axios";
 
@@ -23,7 +22,10 @@ class CheckoutContainer extends Component {
     this.state = {
       password: "",
       warning: "",
-      orderPlaced: false
+      orderPlaced: false,
+      socialNetworkUser: /^(f|g)\d\d\d\d\d\d+/.test(
+        this.props.user.loggedName.username
+      )
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
@@ -36,8 +38,12 @@ class CheckoutContainer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log(e.target);
+    let email = e.target[3].value ? e.target[1].value : e.target[0].value;
     if (this.props.user.loggedName.id) {
-      this.validPassword(this.state.password);
+      this.state.socialNetworkUser
+        ? this.props.placeOrder(this.props.user.loggedName, email)
+        : this.validPassword(this.state.password);
     } else {
       return alert("Login required to purchase");
     }
@@ -55,7 +61,7 @@ class CheckoutContainer extends Component {
             .then(result => {
               if (result) {
                 this.setState({ warning: "", orderPlaced: true });
-                //this.props.placeOrder(this.props.user.loggedName);
+                this.props.placeOrder(this.props.user.loggedName);
               } else {
                 console.log("No hay suficiente stock para confirmar la compra");
               }
@@ -86,6 +92,7 @@ class CheckoutContainer extends Component {
             calculateTotal={calculateTotal}
             handleSubmit={this.handleSubmit}
             handlePasswordInput={this.handlePasswordInput}
+            socialNetworkUser={this.state.socialNetworkUser}
           />
         )}
       </div>
