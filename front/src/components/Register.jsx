@@ -15,9 +15,9 @@ export default class Register extends React.Component {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h1 className="text-center" id="registerText">
+              <h3 className="text-center" id="registerText">
                 <i className="fas fa-sign-in-alt"></i> Register
-              </h1>
+              </h3>
               <button
                 type="button"
                 className="close"
@@ -37,7 +37,7 @@ export default class Register extends React.Component {
                   this.props.handleSubmit(event);
                 }}
               >
-                <div className="form-group">
+                <div className="form-group" >
                   <label>Nombre</label>
                   <input
                     type="name"
