@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const Pedido = require("../models/Pedido");
-const Cart = require("../models/Cart");
-const Book = require("../models/Book");
 const OrderItem = require("../models/OrderItem");
 const nodemailer = require("nodemailer");
 
@@ -36,7 +34,6 @@ router.post("/", function(req, res) {
       console.log(err);
       return res.sendStatus(404);
     } else {
-      console.log("success");
       return res.sendStatus(200);
     }
   });
