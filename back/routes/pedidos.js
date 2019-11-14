@@ -37,6 +37,28 @@ router.post("/", function(req, res) {
       return res.sendStatus(200);
     }
   });
+
+  Pedido.create({ userId: req.user.id })
+    .then(pedido => {
+      Cart.findAll({ where: { userId: req.user.id } })
+        .then(cartArray => {
+          return Promise.all(
+            cartArray.map(CartItem => {
+              return OrderItem.create({
+                prodId: CartItem.prodId,
+                userId: CartItem.userId,
+                pedidoId: pedido.id,
+                cantidad: CartItem.cantidad
+              });
+            })
+          );
+        })
+        .then(pedido => res.sendStatus(201));
+    })
+    .catch(err => {
+      console.log(err);
+      return res.sendStatus(500);
+    });
 });
 
 router.get("/historial", function(req, res) {
