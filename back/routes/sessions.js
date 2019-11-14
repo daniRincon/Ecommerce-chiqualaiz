@@ -45,10 +45,11 @@ router.post("/", passport.authenticate("local"), (req, res) => {
 });
 
 router.post("/validation", (req, res) => {
-  console.log("BACK POST", "Id:", req.user.id, "pass", req.body.password);
-  User.findByPk(req.user.id).then(user =>
-    res.send(user.validPassword(req.body.password))
-  );
+  User.findByPk(req.user.id)
+  .then(user =>{ 
+    return res.send(user.validPassword(req.body.password))}
+  )
+  .catch(err => res.status(404).send(err))
 });
 
 module.exports = router;

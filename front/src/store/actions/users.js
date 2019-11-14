@@ -1,4 +1,7 @@
 import axios from "axios";
+import MyEmail from "../../components/Mail";
+import { renderEmail } from "react-html-email";
+import React  from "react";
 
 import { GET_USER, LOG_USER, SET_HISTORIAL, GET_USERS } from "../constants/index";
 
@@ -80,9 +83,11 @@ export const loginUser = (username, password) => dispatch => {
 };
 
 export const userHistorial = () => dispatch => {
-  axios.get("/api/checkout/historial").then(res => {
-    dispatch(setHistorial(res.data));
-  });
+  axios.get("/api/pedidos/historial")
+  .then(res => {
+    return dispatch(setHistorial(res.data));
+  })
+  .catch(err => console.error(err));
 };
 
 export const userLogOut = () => dispatch => {
@@ -94,7 +99,21 @@ export const userLogOut = () => dispatch => {
     .then(() => {
       dispatch(setHistorial({}));
       dispatch(emptyCart(true));
-
     })
     .catch(error => console.error(error));
+};
+
+
+export const placeOrder = user => dispatch => {
+  return axios
+    .post("/api/pedidos", {
+      messageHtml: renderEmail(<MyEmail name={user.name} />),
+      name: user.name,
+      to: user.email
+    })
+    .then(() => {
+      dispatch(userHistorial())
+      dispatch(emptyCart());
+    })
+    .catch(err => console.error(err))
 };
