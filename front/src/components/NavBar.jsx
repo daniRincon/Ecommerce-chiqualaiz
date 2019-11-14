@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../back/public/images/logo_transparent.png";
 import styles from "../css-modules/navBar.module.css";
 import Genres from "./Genres";
+import Sort from "./Sort";
 
 export default props => {
   return (
@@ -29,8 +30,15 @@ export default props => {
           filteredGenres={props.filteredGenres}
         />
       </div>
+      <div className="bar col-lg-1">
+        <Sort
+          books={props.books}
+          filtered={props.filtered}
+          filteredGenres={props.filteredGenres}
+        />
+      </div>
       {props.loggedName.permisos ? (
-        <div className={"col-lg-4 " + styles.login}>
+        <div className={"col-lg-3 " + styles.login}>
           {props.loggedName.permisos > 1 ? (
             <button
               className="btn btn-info"
@@ -56,7 +64,7 @@ export default props => {
           </button>
         </div>
       ) : (
-        <div className={"col-lg-4 " + styles.login}>
+        <div className={"col-lg-3 " + styles.login}>
           <button
             data-toggle="modal"
             data-target="#exampleModal"

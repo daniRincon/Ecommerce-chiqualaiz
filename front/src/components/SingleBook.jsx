@@ -38,6 +38,10 @@ export default ({
     return descripcion.substr(0, length) + "...";
   };
 
+  const truncarReview = (review, length) => {
+    return review.substr(0, length) + "...";
+  };
+
   const useStyles = makeStyles(theme => ({
     button: {
       margin: theme.spacing(1)
@@ -120,12 +124,12 @@ export default ({
               >
                 <strong>Precio: $ </strong>
                 {book.precio}
-                <strong> Stock:  </strong>
+                <strong> Stock: </strong>
                 {book.stock}
               </div>
 
               <Button
-                disabled={disabled }
+                disabled={disabled}
                 id="addButton"
                 onClick={() => {
                   addBook(
@@ -139,7 +143,7 @@ export default ({
                   $("#slider").addClass("open");
                 }}
               >
-                {disabled || !book.stock? (
+                {disabled || !book.stock ? (
                   <FontAwesomeIcon
                     style={{
                       margin: "10%",
@@ -209,7 +213,16 @@ export default ({
         p={1}
         className={classes.reviews}
       >
-        <Reviews reviewIds={reviewIds} userReviews={userReviews} handleSubmit={handleSubmit} reviews ={reviews} user={userId} compras={compras} prodId={book.id} />
+        <Reviews
+          reviewIds={reviewIds}
+          userReviews={userReviews}
+          handleSubmit={handleSubmit}
+          reviews={reviews}
+          user={userId}
+          compras={compras}
+          prodId={book.id}
+          truncarReview={truncarReview}
+        />
       </Box>
     </div>
   );
