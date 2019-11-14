@@ -5,7 +5,8 @@ import ListItem from "@material-ui/core/ListItem";
 import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-import Rating from '@material-ui/lab/Rating';
+import Rating from "@material-ui/lab/Rating";
+import InfiniteScroll from "react-infinite-scroller";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,55 +37,80 @@ export default function Reviews(props) {
           Reseñas{" "}
         </Typography>
       </ListItem>
-      { props.user && props.compras.includes(props.prodId)
-      ? props.reviewIds.reduce((bool, review) => { return bool? true: props.userReviews.includes(review)}
-                              , false) 
-                  ?<strong>¡Muchas gracias por tu review!</strong>
-                  :<form onSubmit={(e) => props.handleSubmit(e)}>
-                    <strong>Dejar review:</strong>
-                    <div className="form-group">
-                      <label>Alias:</label>
-                      <input type='text' name='alias'></input>
-                    </div>
-                    <div className="form-group">
-                      <label>Titulo:</label>
-                      <input type='text' name='titulo'></input>
-                    </div>
-                    <div className="form-group">
-                      <label>Content:</label>
-                      <input type='text' name='content'></input>
-                    </div>
-                    <button className="btn btn-info" type="submit">Submit</button>
-                  </form>  
-      : <strong>Compra el producto para dejar una review!</strong>}
-
+      {props.user && props.compras.includes(props.prodId) ? (
+        props.reviewIds.reduce((bool, review) => {
+          return bool ? true : props.userReviews.includes(review);
+        }, false) ? (
+          <strong>¡Muchas gracias por tu review!</strong>
+        ) : (
+          <form onSubmit={e => props.handleSubmit(e)}>
+            <strong>Dejar review:</strong>
+            <div className="form-group">
+              <label>Alias:</label>
+              <input type="text" name="alias"></input>
+            </div>
+            <div className="form-group">
+              <label>Titulo:</label>
+              <input type="text" name="titulo"></input>
+            </div>
+            <div className="form-group">
+              <label>Content:</label>
+              <input type="text" name="content"></input>
+            </div>
+            <button className="btn btn-info" type="submit">
+              Submit
+            </button>
+          </form>
+        )
+      ) : (
+        <strong>Compra el producto para dejar una review!</strong>
+      )}
+      {/* <InfiniteScroll
+        pageStart={0}
+        loadMore={loadFunc}
+        hasMore={true || false}
+        loader={
+          <div className="loader" key={0}>
+            Loading ...
+          </div>
+        }
+      > */}
       {props.reviews.map((review, index) => {
-        return <ListItem key={index} alignItems="flex-start">
-        <ListItemText
-          primary={<React.Fragment> {review.title} <Rating name="size-small" value={review.estrellas} size="small" readOnly />
-          </React.Fragment> }
-          
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                {review.autor}
-              </Typography>
-              {review.content}
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+        return (
+          <ListItem key={index} alignItems="flex-start">
+            <ListItemText
+              primary={
+                <React.Fragment>
+                  {" "}
+                  {review.title}{" "}
+                  <Rating
+                    name="size-small"
+                    value={review.estrellas}
+                    size="small"
+                    readOnly
+                  />
+                </React.Fragment>
+              }
+              secondary={
+                <React.Fragment>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    className={classes.inline}
+                    color="textPrimary"
+                  >
+                    {review.autor}
+                  </Typography>
+                  {props.truncarReview(review.content, 200)}
+                </React.Fragment>
+              }
+            />
+          </ListItem>
+        );
       })}
-      <Divider />
+      {/* </InfiniteScroll> */}
 
+      <Divider />
     </List>
   );
 }
-
-
-

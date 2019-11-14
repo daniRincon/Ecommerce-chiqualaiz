@@ -31,7 +31,7 @@ const Historial = props => {
             <h4 className={styles.title}>Historial</h4>
           </div>
           <ul className="shopping-cart-list">
-            {props.historial.length 
+            {props.historial.length
               ? props.historial.map((pedido, index) => {
                   return (
                     <div key={index}>

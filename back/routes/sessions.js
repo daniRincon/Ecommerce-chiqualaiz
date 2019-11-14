@@ -4,8 +4,8 @@ const passport = require("../config/passport");
 const { User } = require("../models/");
 
 const { isLogedIn } = require("../resolvers/sessions");
-  
-router.post("/", passport.authenticate("local"), isLogedIn)
+
+router.post("/", passport.authenticate("local"), isLogedIn);
 
 router.get("/auth/facebook", passport.authenticate("facebook"));
 
@@ -45,11 +45,12 @@ router.post("/", passport.authenticate("local"), (req, res) => {
 });
 
 router.post("/validation", (req, res) => {
-  User.findByPk(req.user.id)
-  .then(user =>{ 
-    return res.send(user.validPassword(req.body.password))}
-  )
-  .catch(err => res.status(404).send(err))
+  let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
+  User.findByPk(userId)
+    .then(user => {
+      return res.send(user.validPassword(req.body.password));
+    })
+    .catch(err => res.status(404).send(err));
 });
 
 module.exports = router;
