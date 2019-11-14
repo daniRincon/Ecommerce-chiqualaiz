@@ -41,7 +41,7 @@ const fetchGenre = function(req, res) {
       }
     ]
   }).then(book => res.send(book));
-};
+}
 
 const filteredGenres = function(req, res) {
   Book.findAll({

@@ -50,6 +50,7 @@ export default ({
             className="form-control"
             placeholder="Correo"
             required
+            
           />
         </div>
         <div className="form-group">
@@ -62,6 +63,7 @@ export default ({
             className="form-control"
             placeholder="dirección de facturación"
             required
+            
           />
         </div>
         <div className="form-group">
