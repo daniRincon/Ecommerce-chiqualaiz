@@ -59,7 +59,7 @@ class CheckoutContainer extends Component {
               console.log("VUELVE", result);
               if (result) {
                 this.setState({ warning: "", orderPlaced: true });
-                //this.props.placeOrder(this.props.user.loggedName);
+                this.props.placeOrder(this.props.user.loggedName);
               } else {
                 console.log("No hay suficiente stock para confirmar la compra");
               }
