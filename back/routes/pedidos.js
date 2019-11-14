@@ -5,6 +5,8 @@ const Cart = require("../models/Cart")
 const OrderItem = require("../models/OrderItem");
 const nodemailer = require('nodemailer');
 const Sequelize = require("sequelize");
+const Cart = require("../models/Cart");
+const User = require('../models/User')
 
 router.post("/", function(req, res) {
   let transporter = nodemailer.createTransport({
@@ -48,7 +50,8 @@ router.post("/", function(req, res) {
             })
           );
         })
-        .then(res => res.sendStatus(200),  transporter.sendMail(mailOptions, (err, data) => {
+        .then(res => {
+          transporter.sendMail(mailOptions, (err, data) => {
           if (err) {
             res.json({
               msg: 'fail'
@@ -58,11 +61,12 @@ router.post("/", function(req, res) {
               msg: 'success'
             })
           }
-        }))
+        })})
     })
+    .then(()=> res.status(200).send({}))
     .catch(err => {
       console.log(err);
-      return res.sendStatus(404);
+      return res.status(404).send(err);
     })
   })
 
@@ -86,5 +90,32 @@ router.get("/historial", function(req, res) {
     })
     .catch(err => res.status(404).send(err));
 });
+
+router.get("/adminOrders", function(req, res) {
+  Pedido.findAll({
+    include: [
+      {
+        model: User
+      }
+    ]
+  }).then(arr => {
+    let historial = arr.map(async pedido => {
+      let items = await OrderItem.findAll({
+        where: { pedidoId: pedido.id }
+      });
+      return {
+        name: pedido.user.name,
+        lastname: pedido.user.lastname,
+        pedido: pedido.id,
+        items: items
+      };
+    });
+    Promise.all(historial).then(realHistorial => {
+      res.status(200).send(realHistorial);
+    });
+  });
+});
+
+
 
 module.exports = router;

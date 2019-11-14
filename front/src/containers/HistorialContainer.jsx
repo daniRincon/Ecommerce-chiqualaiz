@@ -6,10 +6,11 @@ import Historial from "../components/Historial"
 class HistorialContainer extends Component {
     render() {
 
-        let historial = this.props.user.loggedName? this.props.user.historial : []
+        
         return (
             <div>
-                <Historial historial={historial}/>
+                {this.props.user.loggedName?  <Historial historial={this.props.user.historial }/>:"" }
+               
                 
             </div>
         );
