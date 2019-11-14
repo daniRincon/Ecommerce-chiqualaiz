@@ -3,6 +3,7 @@ const router = express.Router();
 const Pedido = require("../models/Pedido");
 const Cart = require("../models/Cart");
 const Book = require("../models/Book");
+const User = require("../models/User");
 const OrderItem = require("../models/OrderItem");
 const nodemailer = require("nodemailer");
 
@@ -60,6 +61,31 @@ router.get("/historial", function(req, res) {
       return res.status(200).send(realHistorial);
     })
     .catch(err => res.status(404).send(err));
+});
+
+router.get("/adminOrders", function(req, res) {
+  Pedido.findAll({
+    include: [
+      {
+        model: User
+      }
+    ]
+  }).then(arr => {
+    let historial = arr.map(async pedido => {
+      let items = await OrderItem.findAll({
+        where: { pedidoId: pedido.id }
+      });
+      return {
+        name: pedido.user.name,
+        lastname: pedido.user.lastname,
+        pedido: pedido.id,
+        items: items
+      };
+    });
+    Promise.all(historial).then(realHistorial => {
+      res.status(200).send(realHistorial);
+    });
+  });
 });
 
 module.exports = router;

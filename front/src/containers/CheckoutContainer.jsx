@@ -36,9 +36,7 @@ class CheckoutContainer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    console.log("SUBMITTTT");
     if (this.props.user.loggedName.id) {
-      console.log("VALIDAR");
       this.validPassword(this.state.password);
     } else {
       return alert("Login required to purchase");
@@ -51,12 +49,10 @@ class CheckoutContainer extends Component {
       .then(res => res.data)
       .then(result => {
         if (result) {
-          console.log("OKKKKK", result);
           axios
             .patch("/api/books/stock", this.props.cart)
             .then(res => res.data)
             .then(result => {
-              console.log("VUELVE", result);
               if (result) {
                 this.setState({ warning: "", orderPlaced: true });
                 //this.props.placeOrder(this.props.user.loggedName);
