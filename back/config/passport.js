@@ -52,7 +52,7 @@ function(token, tokenSecret, profile, done) {
     User.findOrCreate({ where: {
       username: 'g' + profile.id,
       name: profile.displayName,
-      email: profile.emails[0].value
+      //email: profile.emails[0].value
     }})
     .then(user => {
       console.log('FOUND/CREATE')
