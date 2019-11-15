@@ -43,7 +43,7 @@ export default function Reviews(props) {
         }, false) ? (
           <strong>¡Muchas gracias por tu review!</strong>
         ) : (
-          <form onSubmit={e => props.handleSubmit(e)}>
+          <form id="reviewForm" onSubmit={e => props.handleSubmit(e)}>
             <strong>Dejar review:</strong>
             <div className="form-group">
               <label>Alias:</label>
@@ -55,7 +55,7 @@ export default function Reviews(props) {
             </div>
             <div className="form-group">
               <label>Content:</label>
-              <input type="text" name="content"></input>
+              <textarea maxLength="200" rows="4" cols="50" form="reviewForm" name="content"></textarea>
             </div>
             <button className="btn btn-info" type="submit">
               Submit
@@ -98,6 +98,9 @@ export default function Reviews(props) {
                     variant="body2"
                     className={classes.inline}
                     color="textPrimary"
+                    style={
+                      {marginRight: 10}
+                    }
                   >
                     {review.autor}
                   </Typography>

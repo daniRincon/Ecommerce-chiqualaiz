@@ -1,7 +1,8 @@
 import React from "react";
 import PersonIcon from "@material-ui/icons/Person";
 import styles from "../css-modules/historial.module.css";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
+
 const Historial = props => {
   return (
     <div>
@@ -36,7 +37,7 @@ const Historial = props => {
               ? props.historial.map((pedido, index) => {
                   return (
                     <div style={{display: "flex", justifyContent: "center"}} key={index}>
-                      <Link style={{color: "white"}} to={`/pedido/${pedido.pedido}`} >  <li>Pedido: {pedido.pedido} </li> </Link>
+                      <Link to={`/pedido/${pedido.pedido}`}onClick={() => props.click(pedido.pedido)} style={{color: "white", cursor: 'pointer'}} ><li>Pedido: {pedido.pedido} </li> </Link>
                     </div>
                   );
                 })

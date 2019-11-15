@@ -101,5 +101,8 @@ export const firstTime = () => dispatch => {
 };
 
 export const review = (alias, titulo, content, id) => dispatch => {
-  return axios.post("/api/books/review", { alias, titulo, content, id });
+  return axios.post("/api/books/review", { alias, titulo, content, id })
+  .then((res)=>{
+    dispatch(receiveBook(res.data))
+  })
 };

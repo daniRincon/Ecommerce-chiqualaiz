@@ -24,7 +24,7 @@ class LoginContainer extends Component {
       .then(user => {
         $("#exampleModal").modal("hide");
         $("#slider").removeClass("open");
-        $("#slide-button").toggleClass("moved");
+        $("#slide-button").removeClass("moved");
         localStorage.clear();
       })
       .catch(err => {
