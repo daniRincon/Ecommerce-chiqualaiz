@@ -217,8 +217,6 @@ const review = function(req, res) {
       const total = reviews.reduce((a, b) => a + b.estrellas, 0) || 0;
       const count = reviews.length || 1;
       const estrellas = Math.ceil(total / count);
-      console.log(total, count);
-      console.log(estrellas);
       book.update({
         estrellas: estrellas
       });
