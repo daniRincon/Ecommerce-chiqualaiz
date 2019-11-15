@@ -45,14 +45,12 @@ export default (state = initialState, action) => {
         AllGenres: action.genres,
         firstTime: false
       });
-    case SORT_BOOKS:
-      return action.filtered.length
-        ? Object.assign({}, state, {
-            filtered: action.sortedBooks
+
+   case SORT_BOOKS:
+      return  Object.assign({}, state, {
+            filtered:  action.sortedbooks
           })
-        : Object.assign({}, state, {
-            books: action.sortedBooks
-          });
+
     case FRESH_PAGE:
       return Object.assign({}, state, { firstTime: false });
     default:
