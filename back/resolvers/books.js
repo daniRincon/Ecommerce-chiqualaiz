@@ -204,10 +204,9 @@ const updateStock = async function(req, res) {
 
 const review = function(req, res) {
   Review.create({
-    title: req.body.titulo,
     content: req.body.content,
-    estrellas: 5,
-    autor: req.body.autor
+    estrellas: req.body.value,
+    autor: req.body.alias
   })
     .then(async review => {
       //Calculo de rating promedio
@@ -220,7 +219,8 @@ const review = function(req, res) {
       book.update({
         estrellas: estrellas
       });
-      let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
+      let user= req.user.length ? req.user[0]: req.user;
+      let userId = user.dataValues ? user.dataValues.id : user.id;
       review.setUser(userId);
       review.setBook(req.body.id);
     })

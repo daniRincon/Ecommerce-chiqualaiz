@@ -38,7 +38,7 @@ const MenuProps = {
   }
 };
 
-export default ({ books, filtered, filteredGenres }) => {
+export default ({ books, filtered, filteredGenres, history }) => {
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -75,7 +75,7 @@ export default ({ books, filtered, filteredGenres }) => {
           onChange={e => {
             const value = e.target.value;
             setOrderOption(value);
-            store.dispatch(sortBooks(filtered, books, value));
+            store.dispatch(sortBooks(filtered, books, value, history));
           }}
           input={<Input />}
           MenuProps={MenuProps}
