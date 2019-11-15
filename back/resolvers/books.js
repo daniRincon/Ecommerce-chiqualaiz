@@ -212,8 +212,9 @@ const review = function(req, res) {
       //Calculo de rating promedio
       const bookId = req.body.id;
       const book = await Book.findByPk(bookId);
-      reviews = await book.getReviews();
-      const total = reviews.reduce((a, b) => a + b.estrellas, 0) || 0;
+      let reviews = await book.getReviews();
+      const total = reviews.reduce((a, b) =>{
+        return a + b.estrellas}, 0) || 0;
       const count = reviews.length || 1;
       const estrellas = Math.ceil(total / count);
       book.update({

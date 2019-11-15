@@ -98,7 +98,7 @@ export default function Pedido({pedidoSelected, handleClick, total}) {
               <ListItem className={classes.total}>
              
 
-                <ListItemText primary= {`Total: $${total}`} />
+                <ListItemText primary= {`Total: $${total.toFixed(2)}`} />
             
               </ListItem>
             </List>
