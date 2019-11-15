@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 export default props => {
+
   return (
     <div
       className="modal fade"

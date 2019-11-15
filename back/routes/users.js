@@ -48,4 +48,5 @@ router.put("/editprofile", function(req, res) {
     .then(() => User.findByPk(req.body.data.id).then(users => res.send(users)))
     .catch(err => (res.send(400), console.log(err)));
 });
+
 module.exports = router;

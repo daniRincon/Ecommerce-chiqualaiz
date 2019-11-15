@@ -1,10 +1,20 @@
-
-import { LOG_USER, GET_USER, SET_HISTORIAL, GET_USERS } from "../constants/index";
+import {
+  LOG_USER,
+  GET_USER,
+  SET_HISTORIAL,
+  GET_USERS,
+  SET_ADMINHISTORIAL,
+  SET_STATUS,
+  PEDIDO_SELECTED
+} from "../constants/index";
 
 const initialState = {
   loggedName: "",
   historial: [],
-  list: []
+  list: [],
+  adminHistorial: [],
+  setStatus: '',
+  pedidoSelected: {}
 };
 
 export default function(state = initialState, action) {
@@ -25,6 +35,23 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {
         historial: action.historial
       });
+    case SET_ADMINHISTORIAL:
+      return {
+        ...state,
+        adminHistorial: action.adminHistorial
+      };
+
+    case SET_STATUS:
+    return Object.assign({}, state, {
+        setStatus: action.setStatus
+      });
+    ;
+
+    case PEDIDO_SELECTED:
+      return Object.assign({}, state, {
+        pedidoSelected: action.pedido
+      });
+
     default:
       return state;
   }

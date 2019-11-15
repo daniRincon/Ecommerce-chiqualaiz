@@ -17,8 +17,11 @@ import CheckoutContainer from "../containers/CheckoutContainer";
 import PermissionsContainer from "../containers/PermissionsContainer";
 import HistorialContainer from "../containers/HistorialContainer";
 import EditProfileContainer from "../containers/EditProfileContainer";
+import AdminOrdersContainer from "../containers/AdminOrdersContainer";
+
 
 import { fetchUser } from "../store/actions/users";
+import PedidoContainer from "../containers/PedidoContainer";
 
 export default () => {
   useEffect(() => {
@@ -39,6 +42,11 @@ export default () => {
       <Route exact path="/dashboard" component={AddGenreContainer} />
       <Route
         exact
+        path="/dashboard/adminOrders"
+        component={AdminOrdersContainer}
+      />
+      <Route
+        exact
         path="/dashboard/permisos"
         component={PermissionsContainer}
       />
@@ -46,6 +54,7 @@ export default () => {
       <Route exact path="/dashboard" component={EditGenreContainer} />
       <Route exact path="/books/:id/edit" component={AddBookContainer} />
       <Route exact path="/checkout" component={CheckoutContainer} />
+      <Route exact path="/pedido/:id" component={PedidoContainer} />
     </div>
   );
 };

@@ -26,7 +26,7 @@ const fetchBook = function(req, res) {
       const genresObj = await book.getGenres();
       const reviews = await book.getReviews();
       const genres = genresObj.map(obj => obj.nombre);
-      res.json({ ...book.dataValues, author: author.nombre, genres, reviews });
+      res.send({ ...book.dataValues, author: author.nombre, genres, reviews });
     })
     .catch(err => {
       return res.status(404).send(err);
@@ -178,10 +178,8 @@ const deleteBook = function(req, res) {
 };
 
 const updateStock = async function(req, res) {
-  console.log(req.body);
   const cart = req.body;
   const bookIds = Object.keys(cart);
-  let puedoComprar = true;
 
   //Chequeo para ver si puede comprar
 
@@ -198,30 +196,50 @@ const updateStock = async function(req, res) {
         stock: S.literal(`stock - ${cart[bookId][0]}`)
       });
     });
-    console.log("SIII");
     res.send(true);
   } else {
-    console.log("NOOO");
     res.send(false);
   }
 };
 
 const review = function(req, res) {
   Review.create({
-    title: req.body.titulo,
     content: req.body.content,
-    estrellas: 1,
-    autor: req.body.autor
+    estrellas: req.body.value,
+    autor: req.body.alias
   })
-    .then(review => {
-      let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
+    .then(async review => {
+      //Calculo de rating promedio
+      const bookId = req.body.id;
+      const book = await Book.findByPk(bookId);
+      let reviews = await book.getReviews();
+      const total = reviews.reduce((a, b) =>{
+        return a + b.estrellas}, 0) || 0;
+      const count = reviews.length || 1;
+      const estrellas = Math.ceil(total / count);
+      book.update({
+        estrellas: estrellas
+      });
+      let user= req.user.length ? req.user[0]: req.user;
+      let userId = user.dataValues ? user.dataValues.id : user.id;
       review.setUser(userId);
       review.setBook(req.body.id);
     })
-    .then(() => res.sendStatus(201))
-    .catch(err => {
-      res.send(err);
-    });
+    .then(() => {return Book.findOne({
+      where: {
+        id: req.body.id
+      }
+    })})
+    .then(async book => {
+        const author = await book.getAuthor();
+        const genresObj = await book.getGenres();
+        const reviews = await book.getReviews();
+        const genres = genresObj.map(obj => obj.nombre);
+        res.json({ ...book.dataValues, author: author.nombre, genres, reviews });
+      })
+      .catch(err => {
+        return res.status(404).send(err);
+      });
 };
 
 module.exports = {

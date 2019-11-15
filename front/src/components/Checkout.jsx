@@ -7,7 +7,8 @@ export default ({
   handleSubmit,
   user,
   warning,
-  handlePasswordInput
+  handlePasswordInput,
+  socialNetworkUser
 }) => {
   const arrayBook = [];
   for (let book of Object.values(cart)) {
@@ -19,7 +20,7 @@ export default ({
       <form onSubmit={e => handleSubmit(e)}>
         <h1>Checkout</h1>
         <div className="form-group">
-          {/^(f|g)\d\d\d\d\d\d+/.test(user.username) ? (
+          {socialNetworkUser? (
             false
           ) : (
             <div>
@@ -45,10 +46,12 @@ export default ({
             type="email"
             id="email"
             name="email"
+          
             defaultValue={user.email || ""}
             className="form-control"
             placeholder="Correo"
             required
+            
           />
         </div>
         <div className="form-group">
@@ -61,6 +64,7 @@ export default ({
             className="form-control"
             placeholder="dirección de facturación"
             required
+            
           />
         </div>
         <div className="form-group">

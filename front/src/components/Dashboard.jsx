@@ -39,7 +39,9 @@ export default props => {
           Editar género
         </button>
 
-        <button className={"btn btn-info " + styles.btn}>Órdenes</button>
+        <Link to="/dashboard/adminOrders">
+          <button className={"btn btn-info " + styles.btn}>Órdenes</button>
+        </Link>
         <Link to="/dashboard/permisos">
           <button className={"btn btn-info " + styles.btn}>
             Editar usuarios

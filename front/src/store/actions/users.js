@@ -7,7 +7,10 @@ import {
   GET_USER,
   LOG_USER,
   SET_HISTORIAL,
-  GET_USERS
+  GET_USERS,
+  SET_ADMINHISTORIAL,
+  SET_STATUS,
+  PEDIDO_SELECTED
 } from "../constants/index";
 
 import { getCart, emptyCart, syncCart } from "./cart";
@@ -15,6 +18,11 @@ import { getCart, emptyCart, syncCart } from "./cart";
 const getUser = user => ({
   type: GET_USER,
   user
+});
+
+const pedidoSelected = pedido => ({
+  type: PEDIDO_SELECTED,
+  pedido
 });
 
 const getUsers = users => ({
@@ -26,6 +34,11 @@ const logUser = logUser => ({
   type: LOG_USER,
   logUser
 });
+
+const setStatus = setStatus => ({
+  type: SET_STATUS,
+  setStatus
+})
 
 export const setHistorial = historial => ({
   type: SET_HISTORIAL,
@@ -45,7 +58,10 @@ export const signUpUser = user => dispatch => {
 export const fetchUser = () => dispatch =>
   axios.get("/api/sessions").then(user => {
     dispatch(getUser(user.data));
-    user.data.id && dispatch(getCart(user.data.id));
+    if(user.data.id){
+      dispatch(getCart(user.data.id));
+      dispatch(userHistorial());
+    }
   });
 
 export const fetchUsers = () => dispatch => {
@@ -62,11 +78,23 @@ export const changePermission = ([value, id]) => dispatch => {
     .then(users => dispatch(getUsers(users.data)));
 };
 
+export const setOrderStatus = ([status, orderId, userId]) => dispatch => {
+  axios
+    .put(`/api/pedidos/adminOrders`, [status, orderId, userId])
+    .then(info => dispatch(setStatus(info.data)))
+};
+
 export const delUsers = arrId => dispatch => {
   axios
     .delete(`/api/users/permisos`, { data: arrId })
     .then(users => dispatch(getUsers(users.data)));
 };
+
+
+export const adminHistorial = adminHistorial => ({
+  type: SET_ADMINHISTORIAL,
+  adminHistorial
+});
 
 export const loginUser = (username, password) => dispatch => {
   if (!password.length) throw Error("No password");
@@ -102,12 +130,13 @@ export const userLogOut = () => dispatch => {
     .catch(error => console.error(error));
 };
 
-export const placeOrder = user => dispatch => {
+
+export const placeOrder = (user, mail, cart) => dispatch => {
   return axios
     .post("/api/pedidos", {
-      messageHtml: renderEmail(<MyEmail name={user.name} />),
+      messageHtml: renderEmail(<MyEmail name={user.name} cart={cart} />),
       name: user.name,
-      to: user.email
+      to: mail
     })
     .then(() => {
       dispatch(userHistorial());
@@ -116,10 +145,22 @@ export const placeOrder = user => dispatch => {
     .catch(err => console.error(err));
 };
 
+
 export const updateUser = userForUpdate => dispatch => {
   console.log(userForUpdate);
   return axios
     .put("/api/users/editprofile", { data: userForUpdate })
     .then(userUpdated => dispatch(getUser(userUpdated.data)))
     .catch(err => console.log(err));
+
+export const fetchAdminOrders = () => dispatch =>
+  axios
+    .get("/api/pedidos/adminOrders")
+    .then(res => res.data)
+    .then(historial => dispatch(adminHistorial(historial)));
+
+export const fetchPedido = id => dispatch => {
+  axios.get(`/api/pedidos/${id}`).then(res => {
+    dispatch(pedidoSelected(res.data));
+  });
 };

@@ -3,6 +3,9 @@ export const LOG_USER = "LOG_USER";
 export const GET_USER = "GET_USER";
 export const GET_USERS = "GET_USERS";
 export const SET_HISTORIAL = "SET_HISTORIAL";
+export const SET_ADMINHISTORIAL = "SET_ADMINHISTORIAL";
+export const SET_STATUS = "SET_STATUS";
+export const PEDIDO_SELECTED = "PEDIDO_SELECTED";
 
 // Books
 export const GET_BOOKS = "GET_BOOKS";
