@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 
 export default ({
+  required,
   book,
   authorized,
   history,
@@ -107,7 +108,7 @@ export default ({
                     <strong>Rating:</strong>
                   </Typography>
                   <Rating
-                    name="half-rating"
+                    name="read-only"
                     value={book.estrellas / 2}
                     max={5}
                     precision={0.5}
@@ -214,6 +215,7 @@ export default ({
         className={classes.reviews}
       >
         <Reviews
+          required={required}
           reviewIds={reviewIds}
           userReviews={userReviews}
           handleSubmit={handleSubmit}
