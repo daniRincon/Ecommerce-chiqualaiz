@@ -4,7 +4,8 @@ import {
   GET_BOOK,
   FILTER_BOOKS,
   GET_GENRES,
-  FRESH_PAGE
+  FRESH_PAGE,
+  SORT_BOOKS
 } from "../constants";
 
 const receiveBooks = books => ({
@@ -21,6 +22,13 @@ const filteredBooks = (books, emptySearch) => ({
   type: FILTER_BOOKS,
   books,
   emptySearch
+});
+
+const sorteredBooks = (filtered, books, sortedbooks) => ({
+  type: SORT_BOOKS,
+  filtered,
+  books,
+  sortedbooks
 });
 
 const filterGenre = genres => ({
@@ -70,12 +78,12 @@ export const filterBooks = (searchValue, books) => dispatch => {
   dispatch(filteredBooks(filtBooks, emptySearch));
 };
 
-export const sortBooks = (order, filtered, books) => dispatch => {
-  /* const filtBooks = books.filter(book =>
-    book.titulo.toLowerCase().match(searchValue.toLowerCase())
-  );
-  const emptySearch = filtBooks.length ? false : true;
-  dispatch(filteredBooks(filtBooks, emptySearch));*/
+export const sortBooks = (filtered, books, order) => dispatch => {
+  console.log("ORDENAR");
+  const srtBooks = filtered.length
+    ? filtered.sort((a, b) => a[order] < b[order])
+    : books.sort((a, b) => a[order] < b[order]);
+  dispatch(sorteredBooks(filtered, books, srtBooks));
 };
 
 export const addBook = book => dispatch => {

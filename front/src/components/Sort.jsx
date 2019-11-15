@@ -6,6 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { filteredGenres } from "../store/actions/books";
+import { sortBooks } from "../store/actions/books";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -36,7 +37,7 @@ const MenuProps = {
   }
 };
 
-export default props => {
+export default ({ books, filtered, filteredGenres }) => {
   const classes = useStyles();
 
   React.useEffect(() => {
@@ -71,9 +72,11 @@ export default props => {
           onOpen={handleOpen}
           value={orderOption.length > 0 ? orderOption : ""}
           onChange={e => {
-            console.log(e.target.value);
-            setOrderOption(e.target.value);
-            //filtered.length ? sortBooks(filtered) : sortBooks(books);
+            const value = e.target.value;
+            console.log();
+            setOrderOption(value);
+            console.log("ANTES SORT");
+            sortBooks(filtered, books, value);
             /*  setCategories('')
               props.filteredGenres(0)
             }
