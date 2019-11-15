@@ -1,9 +1,14 @@
 import axios from "axios";
 import MyEmail from "../../components/Mail";
 import { renderEmail } from "react-html-email";
-import React  from "react";
+import React from "react";
 
-import { GET_USER, LOG_USER, SET_HISTORIAL, GET_USERS } from "../constants/index";
+import {
+  GET_USER,
+  LOG_USER,
+  SET_HISTORIAL,
+  GET_USERS
+} from "../constants/index";
 
 import { getCart, emptyCart, syncCart } from "./cart";
 
@@ -12,12 +17,10 @@ const getUser = user => ({
   user
 });
 
-
 const getUsers = users => ({
   type: GET_USERS,
   users
 });
-
 
 const logUser = logUser => ({
   type: LOG_USER,
@@ -28,7 +31,6 @@ export const setHistorial = historial => ({
   type: SET_HISTORIAL,
   historial
 });
-
 
 export const signUpUser = user => dispatch => {
   if (!user.password.length) throw Error("No password");
@@ -66,10 +68,6 @@ export const delUsers = arrId => dispatch => {
     .then(users => dispatch(getUsers(users.data)));
 };
 
-
-
-
-
 export const loginUser = (username, password) => dispatch => {
   if (!password.length) throw Error("No password");
   return axios
@@ -83,11 +81,12 @@ export const loginUser = (username, password) => dispatch => {
 };
 
 export const userHistorial = () => dispatch => {
-  axios.get("/api/pedidos/historial")
-  .then(res => {
-    return dispatch(setHistorial(res.data));
-  })
-  .catch(err => console.error(err));
+  axios
+    .get("/api/pedidos/historial")
+    .then(res => {
+      return dispatch(setHistorial(res.data));
+    })
+    .catch(err => console.error(err));
 };
 
 export const userLogOut = () => dispatch => {
@@ -103,7 +102,6 @@ export const userLogOut = () => dispatch => {
     .catch(error => console.error(error));
 };
 
-
 export const placeOrder = user => dispatch => {
   return axios
     .post("/api/pedidos", {
@@ -112,8 +110,16 @@ export const placeOrder = user => dispatch => {
       to: user.email
     })
     .then(() => {
-      dispatch(userHistorial())
+      dispatch(userHistorial());
       dispatch(emptyCart());
     })
-    .catch(err => console.error(err))
+    .catch(err => console.error(err));
+};
+
+export const updateUser = userForUpdate => dispatch => {
+  console.log(userForUpdate);
+  return axios
+    .put("/api/users/editprofile", { data: userForUpdate })
+    .then(userUpdated => dispatch(getUser(userUpdated.data)))
+    .catch(err => console.log(err));
 };

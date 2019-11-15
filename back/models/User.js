@@ -23,7 +23,7 @@ User.init(
     },
     salt: {
       type: Sequelize.STRING // a salt is random data that is used as an additional input to a one-way function that "hashes" data
-    }, 
+    },
     permisos: {
       type: Sequelize.INTEGER,
       defaultValue: 1
@@ -36,6 +36,12 @@ User.addHook("beforeCreate", user => {
   user.salt = crypto.randomBytes(20).toString("hex");
   user.password = user.hashPassword(user.password);
 });
+
+User.addHook("beforeUpdate", user => {
+  user.salt = crypto.randomBytes(20).toString("hex");
+  user.password = user.hashPassword(user.password);
+});
+
 User.prototype.hashPassword = function(password) {
   return crypto
     .createHmac("sha1", this.salt)

@@ -33,4 +33,19 @@ router.put("/permisos", function(req, res) {
     .catch(err => (res.send(400), console.log(err)));
 });
 
+router.put("/editprofile", function(req, res) {
+  User.findByPk(req.body.data.id)
+    .then(user =>
+      user.update({
+        name: req.body.data.name,
+        lastname: req.body.data.lastname,
+        username: req.body.data.username,
+        email: req.body.data.email,
+        address: req.body.data.address,
+        password: req.body.data.password
+      })
+    )
+    .then(() => User.findByPk(req.body.data.id).then(users => res.send(users)))
+    .catch(err => (res.send(400), console.log(err)));
+});
 module.exports = router;
