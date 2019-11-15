@@ -13,7 +13,7 @@ const initialState = {
   historial: [],
   list: [],
   adminHistorial: [],
-  setStatus: ''
+  setStatus: '',
   pedidoSelected: {}
 };
 
