@@ -49,7 +49,7 @@ export default function OrderPlaced(props) {
       <div className={classes.container}>
          <Paper className={classes.root}>
       <Typography variant="h3" component="h3"  >
-         {`Gracias por tu compra, ${props.name}!`}  <span><CheckCircleSharpIcon style={{ fontSize: "60px", marginBottom: "16px" , color: "#28a745"}} /></span>
+         {`Gracias por tu compra, ${props.name.name}!`}  <span><CheckCircleSharpIcon style={{ fontSize: "60px", marginBottom: "16px" , color: "#28a745"}} /></span>
       </Typography>
 
       <Typography component="p">

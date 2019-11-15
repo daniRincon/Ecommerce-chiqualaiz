@@ -81,7 +81,7 @@ class CheckoutContainer extends Component {
       <div>
         {this.state.orderPlaced ? (
           <OrderPlaced
-            name={this.props.user.loggedName.username}
+            name={this.props.user.loggedName}
             handleClickHome={this.handleClickHome}
           />
         ) : (
