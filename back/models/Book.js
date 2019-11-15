@@ -19,7 +19,8 @@ Book.init(
     },
     descripcion: S.TEXT,
     estrellas: {
-      type: S.INTEGER
+      type: S.INTEGER,
+      defaultValue: 5
     },
     visible: {
       type: S.BOOLEAN,
