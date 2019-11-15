@@ -134,7 +134,6 @@ export const fetchAdminOrders = () => dispatch =>
 
 export const fetchPedido = id => dispatch => {
   axios.get(`/api/pedidos/${id}`).then(res => {
-    console.log(res.data);
     dispatch(pedidoSelected(res.data));
   });
 };
