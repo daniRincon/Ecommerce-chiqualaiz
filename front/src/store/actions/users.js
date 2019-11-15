@@ -50,7 +50,10 @@ export const signUpUser = user => dispatch => {
 export const fetchUser = () => dispatch =>
   axios.get("/api/sessions").then(user => {
     dispatch(getUser(user.data));
-    user.data.id && dispatch(getCart(user.data.id));
+    if(user.data.id){
+      dispatch(getCart(user.data.id));
+      dispatch(userHistorial());
+    }
   });
 
 export const fetchUsers = () => dispatch => {
