@@ -77,7 +77,8 @@ export const changePermission = ([value, id]) => dispatch => {
 };
 
 export const setOrderStatus = ([status, orderId, userId]) => dispatch => {
-  axios
+  console.log('axiooooooooooooooooooosssssssssssssssss')
+  return axios
     .put(`/api/pedidos/adminOrders`, [status, orderId, userId])
     .then(info => dispatch(setStatus(info.data)))
 };
@@ -142,14 +143,15 @@ export const placeOrder = (user, mail, cart) => dispatch => {
     .catch(err => console.error(err));
 };
 
-export const fetchAdminOrders = () => dispatch =>
-  axios
-    .get("/api/pedidos/adminOrders")
+export const fetchAdminOrders = () => dispatch =>{
+  return axios
+    .get("/api/pedidos/dashboard/adminOrders")
     .then(res => res.data)
     .then(historial => dispatch(adminHistorial(historial)));
+  }
 
 export const fetchPedido = id => dispatch => {
   axios.get(`/api/pedidos/${id}`).then(res => {
     dispatch(pedidoSelected(res.data));
   });
-};
+};  

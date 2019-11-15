@@ -110,7 +110,7 @@ router.get("/:id", function(req, res) {
 });
 
 
-router.get("/adminOrders", function(req, res) {
+router.get("/dashboard/adminOrders", function(req, res) {
   Pedido.findAll({
     include: [
       {
