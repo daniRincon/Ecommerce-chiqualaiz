@@ -50,7 +50,7 @@ export default function Reviews(props) {
         ) : (
           <div>
               <strong>Dejar review:</strong>
-            <form onSubmit={e => props.handleSubmit(e, value, content, alias, props.prodId)}>
+            <form id="reviewForm" onSubmit={e => props.handleSubmit(e, value, content, alias, props.prodId)}>
                 <label>Alias:</label>
               <div className="form-group">
                 <input
@@ -65,7 +65,10 @@ export default function Reviews(props) {
                 <label>Content:</label>
               <div className="form-group">
                 <textarea
-                  type="text"
+                  maxLength="200" 
+                  rows="4" 
+                  cols="50" 
+                  form="reviewForm"
                   value={content}
                   onChange={e => setContent(e.target.value)}
                   name="content"
