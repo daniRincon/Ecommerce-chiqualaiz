@@ -5,7 +5,6 @@ const Cart = require("../models/Cart")
 const OrderItem = require("../models/OrderItem");
 const nodemailer = require('nodemailer');
 const Sequelize = require("sequelize");
-const Cart = require("../models/Cart");
 const User = require('../models/User')
 
 router.post("/", function(req, res) {

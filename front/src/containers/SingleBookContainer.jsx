@@ -23,9 +23,9 @@ class SingleBookContainer extends React.Component {
       .catch(err => console.error(err));
   }
 
-  handleSubmit(e){
+  handleSubmit(e, value, content, alias){
     e.preventDefault();
-    store.dispatch(review(e.target[0].value, e.target[1].value, e.target[2].value, this.props.book.id))
+    store.dispatch(review(value, content, alias, this.props.book.id))
     this.props.fetchBook(this.props.match.params.id);
   }
 

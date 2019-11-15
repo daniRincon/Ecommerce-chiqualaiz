@@ -204,10 +204,10 @@ const updateStock = async function(req, res) {
 
 const review = function(req, res) {
   Review.create({
-    title: req.body.titulo,
+    // title: req.body.titulo,
     content: req.body.content,
-    estrellas: 1,
-    autor: req.body.autor
+    estrellas: req.body.value,
+    autor: req.body.alias
   })
     .then(review => {
       let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;

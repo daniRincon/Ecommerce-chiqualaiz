@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import Rating from "@material-ui/lab/Rating";
 import InfiniteScroll from "react-infinite-scroller";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,7 +24,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Reviews(props) {
+  console.log(props);
   const classes = useStyles();
+
+  const [value, setValue] = React.useState(0);
+  const [alias, setAlias] = React.useState("");
+  const [content, setContent] = React.useState("");
 
   return (
     <List className={classes.root}>
@@ -43,24 +49,53 @@ export default function Reviews(props) {
         }, false) ? (
           <strong>¡Muchas gracias por tu review!</strong>
         ) : (
-          <form onSubmit={e => props.handleSubmit(e)}>
-            <strong>Dejar review:</strong>
-            <div className="form-group">
-              <label>Alias:</label>
-              <input type="text" name="alias"></input>
-            </div>
-            <div className="form-group">
-              <label>Titulo:</label>
-              <input type="text" name="titulo"></input>
-            </div>
-            <div className="form-group">
-              <label>Content:</label>
-              <input type="text" name="content"></input>
-            </div>
-            <button className="btn btn-info" type="submit">
-              Submit
-            </button>
-          </form>
+          <div>
+            <form onSubmit={e => props.handleSubmit(e, value, content, alias)}>
+              <strong>Dejar review:</strong>
+              <div className="form-group">
+                <label>Alias:</label>
+                <input
+                  type="text"
+                  value={alias}
+                  onChange={e => {
+                    setAlias(e.target.value);
+                  }}
+                  name="alias"
+                ></input>
+              </div>
+              {/* <div className="form-group">
+                <label>Titulo:</label>
+                <input type="text" name="titulo"></input>
+              </div> */}
+              <div className="form-group">
+                <label>Content:</label>
+                <input
+                  type="text"
+                  value={content}
+                  onChange={e => setContent(e.target.value)}
+                  name="content"
+                ></input>
+              </div>
+              <div>
+                <div>
+                  <Box component="fieldset" mb={3} borderColor="transparent">
+                    <Typography component="legend">Calificacion:</Typography>
+                    <Rating
+                      name="simple-controlled"
+                      value={value}
+                      precision={0.5}
+                      onChange={(event, newValue) => {
+                        setValue(newValue);
+                      }}
+                    />
+                  </Box>
+                  <button className="btn btn-info" type="submit">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         )
       ) : (
         <strong>Compra el producto para dejar una review!</strong>
@@ -101,7 +136,7 @@ export default function Reviews(props) {
                   >
                     {review.autor}
                   </Typography>
-                  {props.truncarReview(review.content, 200)}
+                  {props.truncarReview(console.log(review), review.content, 200)}
                 </React.Fragment>
               }
             />

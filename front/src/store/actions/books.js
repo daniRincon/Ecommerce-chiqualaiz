@@ -100,6 +100,6 @@ export const firstTime = () => dispatch => {
   return dispatch(firstTimes());
 };
 
-export const review = (alias, titulo, content, id) => dispatch => {
-  return axios.post("/api/books/review", { alias, titulo, content, id });
+export const review = (value, content, alias, id) => dispatch => {
+  return axios.post("/api/books/review", { value, content, alias, id });
 };

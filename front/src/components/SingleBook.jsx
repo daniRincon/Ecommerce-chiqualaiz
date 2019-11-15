@@ -39,7 +39,8 @@ export default ({
   };
 
   const truncarReview = (review, length) => {
-    return review.substr(0, length) + "...";
+    console.log(review.substr(0, 100))
+    //return review.substr(0, length) + "...";
   };
 
   const useStyles = makeStyles(theme => ({
