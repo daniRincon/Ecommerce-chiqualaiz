@@ -77,7 +77,8 @@ const headCells = [
     disablePadding: false,
     label: "Titulo"
   },
-  { id: "cantidad", numeric: true, disablePadding: false, label: "Cantidad" }
+  { id: "cantidad", numeric: true, disablePadding: false, label: "Cantidad" },
+  { id: "status", numeric: true, disablePadding: false, label: "Status" }
 ];
 
 function EnhancedTableHead(props) {
@@ -138,16 +139,6 @@ const useToolbarStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1)
   },
-  highlight:
-    theme.palette.type === "light"
-      ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85)
-        }
-      : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark
-        },
   title: {
     flex: "1 1 100%"
   }
@@ -226,8 +217,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function AdminOrders({ adminOrders, books, authorized }) {
-  console.log(adminOrders);
+export default function AdminOrders({ adminOrders, books, authorized, setOrderStatus, users }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
@@ -332,15 +322,52 @@ export default function AdminOrders({ adminOrders, books, authorized }) {
                         </TableCell>
                         <TableCell align="right">{adminOrder.pedido}</TableCell>
                         <TableCell align="right">
-                          {adminOrder.items.map(item => {
-                            return <ul> {books.filter(book => {
+                          {adminOrder.items.map((item, index) => {
+                            return <ul key={index}> {books.filter(book => {
                               return book.id === item.prodId;
                             })[0].titulo}</ul>;
                           })}
                         </TableCell>
                         <TableCell align="right">
-                          {adminOrder.items.map(item => <ul>{item.cantidad}</ul>)}
+                          {adminOrder.items.map((item, index) => <ul key={index}>{item.cantidad}</ul>)}
                         </TableCell>
+                        <TableCell align="right">
+                        <select
+                            defaultValue={
+                              adminOrder.orderStatus
+                            }
+                            
+                            onChange={e =>{
+
+                              setOrderStatus([e.target.value, adminOrder.pedido, adminOrder.id])
+                              alert(`Status de pedido ${adminOrder.pedido} modificado`)
+                            }
+                            }
+                          >
+                            <option
+                             value='created'
+                              
+                            >
+                              Created
+                            </option>
+                            <option
+                              value='In Transit'
+                            >
+                              In Transit
+                            </option>
+                            <option
+                              value='Delivered'
+                            >
+                              Delivered
+                            </option>
+                            <option
+                              value='Canceled'
+                            >
+                              Canceled
+                            </option>
+                          </select>
+                        </TableCell>
+
                       </TableRow>
                     );
                   })}

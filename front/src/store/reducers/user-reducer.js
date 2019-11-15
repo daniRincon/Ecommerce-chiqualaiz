@@ -3,14 +3,16 @@ import {
   GET_USER,
   SET_HISTORIAL,
   GET_USERS,
-  SET_ADMINHISTORIAL
+  SET_ADMINHISTORIAL,
+  SET_STATUS
 } from "../constants/index";
 
 const initialState = {
   loggedName: "",
   historial: [],
   list: [],
-  adminHistorial: []
+  adminHistorial: [],
+  setStatus: ''
 };
 
 export default function(state = initialState, action) {
@@ -36,6 +38,11 @@ export default function(state = initialState, action) {
         ...state,
         adminHistorial: action.adminHistorial
       };
+    case SET_STATUS:
+    return Object.assign({}, state, {
+        setStatus: action.setStatus
+      });
+    ;
     default:
       return state;
   }

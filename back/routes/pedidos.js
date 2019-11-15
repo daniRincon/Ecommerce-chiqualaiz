@@ -5,7 +5,6 @@ const Cart = require("../models/Cart")
 const OrderItem = require("../models/OrderItem");
 const nodemailer = require('nodemailer');
 const Sequelize = require("sequelize");
-const Cart = require("../models/Cart");
 const User = require('../models/User')
 
 router.post("/", function(req, res) {
@@ -104,10 +103,12 @@ router.get("/adminOrders", function(req, res) {
         where: { pedidoId: pedido.id }
       });
       return {
+        id: pedido.user.id,
         name: pedido.user.name,
         lastname: pedido.user.lastname,
         pedido: pedido.id,
-        items: items
+        items: items,
+        orderStatus: pedido.orderStatus
       };
     });
     Promise.all(historial).then(realHistorial => {
@@ -116,6 +117,16 @@ router.get("/adminOrders", function(req, res) {
   });
 });
 
+router.put("/adminOrders", function(req, res) {
+  Pedido.update({ orderStatus: req.body[0] },
+    {where: {
+      id: req.body[1],
+      userId: req.body[2]
+    }}
+    )
+    .then((data)=> res.send(req.body[0]))
+    .catch(err => (res.status(400), console.log(err)));
+});
 
 
 module.exports = router;
