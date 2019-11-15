@@ -10,6 +10,9 @@ class SingleBookContainer extends React.Component {
     super(props);
     this.delBook = this.delBook.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      required : false
+    }
   }
 
   delBook(id) {
@@ -23,8 +26,15 @@ class SingleBookContainer extends React.Component {
 
   handleSubmit(e, value, content, alias, id){
     e.preventDefault();
-    this.props.review(value, content, alias, id)
-    this.props.history.push('/')
+    if (value) {
+      this.props.review(value, content, alias, id)
+      this.props.history.push('/')
+    } else {
+      this.setState({
+        required: true
+      })
+    }
+   
   }
 
   componentDidMount() {
@@ -34,6 +44,7 @@ class SingleBookContainer extends React.Component {
   render() {
     return (
       <SingleBook
+        required={this.state.required}
         userId={this.props.userId}
         addBook={this.props.addBookCart}
         deleteBook={this.delBook}

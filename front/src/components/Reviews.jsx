@@ -79,17 +79,24 @@ export default function Reviews(props) {
                   <Box component="fieldset" mb={3} borderColor="transparent">
                     <Typography component="legend">Calificacion:</Typography>
                     <Rating
-                      name="simple-controlled"
+                      name="half-rating"
                       value={value}
                       precision={0.5}
                       onChange={(event, newValue) => {
-                        setValue(newValue);
+                      setValue(newValue);
                       }}
                     />
                   </Box>
                   <button className="btn btn-info" type="submit">
                     Submit
                   </button>
+                  {props.required ? (
+                    <div style={{
+                      color: 'red'
+                    }}>
+                      Por favor elegi una puntuacion
+                    </div>
+                  ) : null }
                 </div>
               </div>
             </form>
