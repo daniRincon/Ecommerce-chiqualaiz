@@ -16,7 +16,9 @@ import KartContainer from "../containers/KartContainer";
 import CheckoutContainer from "../containers/CheckoutContainer";
 import PermissionsContainer from "../containers/PermissionsContainer";
 import HistorialContainer from "../containers/HistorialContainer";
+import EditProfileContainer from "../containers/EditProfileContainer";
 import AdminOrdersContainer from "../containers/AdminOrdersContainer";
+
 
 import { fetchUser } from "../store/actions/users";
 import PedidoContainer from "../containers/PedidoContainer";
@@ -48,6 +50,7 @@ export default () => {
         path="/dashboard/permisos"
         component={PermissionsContainer}
       />
+      <Route exact path="/editprofile" component={EditProfileContainer} />
       <Route exact path="/dashboard" component={EditGenreContainer} />
       <Route exact path="/books/:id/edit" component={AddBookContainer} />
       <Route exact path="/checkout" component={CheckoutContainer} />

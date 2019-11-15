@@ -19,10 +19,12 @@ const getUser = user => ({
   type: GET_USER,
   user
 });
+
 const pedidoSelected = pedido => ({
   type: PEDIDO_SELECTED,
   pedido
 });
+
 const getUsers = users => ({
   type: GET_USERS,
   users
@@ -88,6 +90,7 @@ export const delUsers = arrId => dispatch => {
     .then(users => dispatch(getUsers(users.data)));
 };
 
+
 export const adminHistorial = adminHistorial => ({
   type: SET_ADMINHISTORIAL,
   adminHistorial
@@ -127,8 +130,8 @@ export const userLogOut = () => dispatch => {
     .catch(error => console.error(error));
 };
 
-export const placeOrder = (user, mail, cart) => dispatch => {
 
+export const placeOrder = (user, mail, cart) => dispatch => {
   return axios
     .post("/api/pedidos", {
       messageHtml: renderEmail(<MyEmail name={user.name} cart={cart} />),
@@ -142,9 +145,19 @@ export const placeOrder = (user, mail, cart) => dispatch => {
     .catch(err => console.error(err));
 };
 
+
 export const fetchAdminOrders = () => dispatch =>{
   return axios
     .get("/api/pedidos/dashboard/adminOrders")
+
+
+export const updateUser = userForUpdate => dispatch => {
+  console.log(userForUpdate);
+  return axios
+    .put("/api/users/editprofile", { data: userForUpdate })
+    .then(userUpdated => dispatch(getUser(userUpdated.data)))
+    .catch(err => console.log(err));
+
     .then(res => res.data)
     .then(historial => dispatch(adminHistorial(historial)));
   }

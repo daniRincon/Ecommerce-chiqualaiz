@@ -1,6 +1,13 @@
 import styles from "../css-modules/greeting.module.css";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default props => {
-  return <h6 className={styles.greeting}>Hola {props.name}!</h6>;
+  return (
+    <Link to="/editprofile">
+      <h6 className={styles.greeting}>
+        Hola <span id={styles.userprofile}>{props.name}!</span>
+      </h6>
+    </Link>
+  );
 };
