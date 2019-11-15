@@ -18,7 +18,10 @@ Book.init(
         "https://images.assetsdelivery.com/compings_v2/mousemd/mousemd1404/mousemd140400053.jpg"
     },
     descripcion: S.TEXT,
-    estrellas: S.INTEGER,
+    estrellas: {
+      type: S.INTEGER,
+      defaultValue: 5
+    },
     visible: {
       type: S.BOOLEAN,
       allowNull: false

@@ -4,7 +4,8 @@ import {
   FILTER_BOOKS,
   GET_GENRES,
   FILTER_GENRE,
-  FRESH_PAGE
+  FRESH_PAGE,
+  SORT_BOOKS
 } from "../constants";
 
 const initialState = {
@@ -33,7 +34,6 @@ export default (state = initialState, action) => {
       return Object.assign({}, state, {
         AllGenres: action.genres
       });
-
     case FILTER_BOOKS:
       return Object.assign({}, state, {
         filtered: action.books,
@@ -45,6 +45,14 @@ export default (state = initialState, action) => {
         AllGenres: action.genres,
         firstTime: false
       });
+    case SORT_BOOKS:
+      return action.filtered.length
+        ? Object.assign({}, state, {
+            filtered: action.sortedBooks
+          })
+        : Object.assign({}, state, {
+            books: action.sortedBooks
+          });
     case FRESH_PAGE:
       return Object.assign({}, state, { firstTime: false });
     default:
