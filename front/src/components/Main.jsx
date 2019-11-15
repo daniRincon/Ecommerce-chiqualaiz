@@ -19,6 +19,7 @@ import HistorialContainer from "../containers/HistorialContainer";
 import AdminOrdersContainer from "../containers/AdminOrdersContainer";
 
 import { fetchUser } from "../store/actions/users";
+import PedidoContainer from "../containers/PedidoContainer";
 
 export default () => {
   useEffect(() => {
@@ -50,6 +51,7 @@ export default () => {
       <Route exact path="/dashboard" component={EditGenreContainer} />
       <Route exact path="/books/:id/edit" component={AddBookContainer} />
       <Route exact path="/checkout" component={CheckoutContainer} />
+      <Route exact path="/pedido/:id" component={PedidoContainer} />
     </div>
   );
 };

@@ -8,7 +8,8 @@ import {
   LOG_USER,
   SET_HISTORIAL,
   GET_USERS,
-  SET_ADMINHISTORIAL
+  SET_ADMINHISTORIAL,
+  PEDIDO_SELECTED
 } from "../constants/index";
 
 import { getCart, emptyCart, syncCart } from "./cart";
@@ -17,7 +18,10 @@ const getUser = user => ({
   type: GET_USER,
   user
 });
-
+const pedidoSelected = pedido => ({
+  type: PEDIDO_SELECTED,
+  pedido
+});
 const getUsers = users => ({
   type: GET_USERS,
   users
@@ -46,7 +50,10 @@ export const signUpUser = user => dispatch => {
 export const fetchUser = () => dispatch =>
   axios.get("/api/sessions").then(user => {
     dispatch(getUser(user.data));
-    user.data.id && dispatch(getCart(user.data.id));
+    if(user.data.id){
+      dispatch(getCart(user.data.id));
+      dispatch(userHistorial());
+    }
   });
 
 export const fetchUsers = () => dispatch => {
@@ -108,10 +115,11 @@ export const userLogOut = () => dispatch => {
     .catch(error => console.error(error));
 };
 
-export const placeOrder = (user, mail) => dispatch => {
+export const placeOrder = (user, mail, cart) => dispatch => {
+
   return axios
     .post("/api/pedidos", {
-      messageHtml: renderEmail(<MyEmail name={user.name} />),
+      messageHtml: renderEmail(<MyEmail name={user.name} cart={cart} />),
       name: user.name,
       to: mail
     })
@@ -127,3 +135,9 @@ export const fetchAdminOrders = () => dispatch =>
     .get("/api/pedidos/adminOrders")
     .then(res => res.data)
     .then(historial => dispatch(adminHistorial(historial)));
+
+export const fetchPedido = id => dispatch => {
+  axios.get(`/api/pedidos/${id}`).then(res => {
+    dispatch(pedidoSelected(res.data));
+  });
+};

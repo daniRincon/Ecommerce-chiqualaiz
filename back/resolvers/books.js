@@ -217,20 +217,28 @@ const review = function(req, res) {
       const total = reviews.reduce((a, b) => a + b.estrellas, 0) || 0;
       const count = reviews.length || 1;
       const estrellas = Math.ceil(total / count);
-      console.log(total, count);
-      console.log(estrellas);
       book.update({
         estrellas: estrellas
       });
-
       let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
       review.setUser(userId);
       review.setBook(req.body.id);
     })
-    .then(() => res.sendStatus(201))
-    .catch(err => {
-      res.send(err);
-    });
+    .then(() => {return Book.findOne({
+      where: {
+        id: req.body.id
+      }
+    })})
+    .then(async book => {
+        const author = await book.getAuthor();
+        const genresObj = await book.getGenres();
+        const reviews = await book.getReviews();
+        const genres = genresObj.map(obj => obj.nombre);
+        res.json({ ...book.dataValues, author: author.nombre, genres, reviews });
+      })
+      .catch(err => {
+        return res.status(404).send(err);
+      });
 };
 
 module.exports = {
