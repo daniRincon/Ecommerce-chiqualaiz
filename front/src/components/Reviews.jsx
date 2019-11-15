@@ -81,11 +81,12 @@ export default function Reviews(props) {
             <ListItemText
               primary={
                 <React.Fragment>
-                  {" "}
                   {review.title}{" "}
                   <Rating
-                    name="size-small"
-                    value={review.estrellas}
+                    name="half-rating"
+                    value={review.estrellas / 2}
+                    max={5}
+                    precision={0.5}
                     size="small"
                     readOnly
                   />
