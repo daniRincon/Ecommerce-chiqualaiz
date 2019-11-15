@@ -95,12 +95,13 @@ function compare(a, b, order) {
   return comparison;
 }
 
-export const sortBooks = (filtered, books, order) => dispatch => {
+export const sortBooks = (filtered, books, order, history) => dispatch => {
   order = order === "rating" ? "estrellas" : order;
   const srtBooks = filtered.length
     ? filtered.sort((a, b) => compare(a, b, order))
     : books.sort((a, b) => compare(a, b, order));
   dispatch(sorteredBooks(filtered, books, srtBooks));
+  history.push("/");
 };
 
 export const addBook = book => dispatch => {
