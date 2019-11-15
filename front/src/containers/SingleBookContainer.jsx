@@ -1,7 +1,5 @@
 import React from "react";
 import axios from "axios";
-
-import store from '../store/index'
 import SingleBook from "../components/SingleBook";
 import { connect } from "react-redux";
 import { fetchBook, fetchBooks, review } from "../store/actions/books";
@@ -25,8 +23,8 @@ class SingleBookContainer extends React.Component {
 
   handleSubmit(e, value, content, alias){
     e.preventDefault();
-    store.dispatch(review(value, content, alias, this.props.book.id))
-    this.props.fetchBook(this.props.match.params.id);
+    this.props.review(e.target[0].value, e.target[1].value, e.target[2].value, this.props.book.id)
+    this.props.history.push('/')
   }
 
   componentDidMount() {
@@ -73,6 +71,7 @@ const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
   fetchBook: book => dispatch(fetchBook(book)),
   addBookCart: (book, userId) => dispatch(addCart(book, userId)),
+  review: (alias, titulo, content, id, book) => dispatch(review(alias, titulo, content, id, book))
 });
 
 export default connect(

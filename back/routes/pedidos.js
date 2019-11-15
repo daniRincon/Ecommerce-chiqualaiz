@@ -3,8 +3,9 @@ const router = express.Router();
 const Pedido = require("../models/Pedido");
 const Cart = require("../models/Cart")
 const OrderItem = require("../models/OrderItem");
-const nodemailer = require('nodemailer');
+const nodemailer = require("nodemailer");
 const Sequelize = require("sequelize");
+const Book = require("../models/Book");
 const User = require('../models/User')
 
 router.post("/", function(req, res) {
@@ -31,12 +32,12 @@ router.post("/", function(req, res) {
     subject: "GRACIAS POR TU COMPRA",
     html: req.body.messageHtml
   };
-  
-  let userId = req.user.length ? req.user[0].id : req.user.id
+
+  let userId = req.user.length ? req.user[0].id : req.user.id;
 
   Pedido.create({ userId: userId })
     .then(pedido => {
-      Cart.findAll({ where: { userId: userId} })
+      Cart.findAll({ where: { userId: userId } })
         .then(cartArray => {
           return Promise.all(
             cartArray.map(CartItem => {
@@ -51,26 +52,27 @@ router.post("/", function(req, res) {
         })
         .then(res => {
           transporter.sendMail(mailOptions, (err, data) => {
-          if (err) {
-            res.json({
-              msg: 'fail'
-            })
-          } else {
-            res.json({
-              msg: 'success'
-            })
-          }
-        })})
+            if (err) {
+              res.send({
+                msg: "fail"
+              });
+            } else {
+              res.send({
+                msg: "success"
+              });
+            }
+          });
+        });
     })
-    .then(()=> res.status(200).send({}))
+    .then(() => res.status(200).send({}))
     .catch(err => {
       console.log(err);
       return res.status(404).send(err);
-    })
-  })
+    });
+});
 
 router.get("/historial", function(req, res) {
-  let userId = req.user.length ? req.user[0].id : req.user.id
+  let userId = req.user.length ? req.user[0].id : req.user.id;
   Pedido.findAll({
     where: { userId: userId }
   })
@@ -89,6 +91,24 @@ router.get("/historial", function(req, res) {
     })
     .catch(err => res.status(404).send(err));
 });
+
+router.get("/:id", function(req, res) {
+  Pedido.findByPk(req.params.id).then(pedido => {
+    return OrderItem.findAll({ where: { pedidoId: pedido.id } })
+      .then(async items => {
+        return Promise.all(
+          items.map(async item => {
+            let book = await Book.findByPk(item.prodId);
+            return { book: book, cantidad: item.cantidad };
+          })
+        );
+      })
+      .then(books => {
+        res.status(200).send({ pedido: pedido, items: books });
+      });
+  });
+});
+
 
 router.get("/adminOrders", function(req, res) {
   Pedido.findAll({
@@ -114,7 +134,5 @@ router.get("/adminOrders", function(req, res) {
     });
   });
 });
-
-
 
 module.exports = router;

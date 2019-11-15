@@ -9,7 +9,9 @@ Review.init(
       allowNull: false
     },
     content: S.TEXT,
-    estrellas: S.INTEGER,
+    estrellas: {
+      type: S.INTEGER
+    },
     autor: {
       type: S.TEXT,
       defaultValue: "Anónimo"

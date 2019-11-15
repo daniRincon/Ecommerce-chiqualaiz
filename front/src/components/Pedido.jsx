@@ -7,6 +7,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
+import Box from "@material-ui/core/Box";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -14,13 +15,19 @@ import FolderIcon from "@material-ui/icons/Folder";
 
 import RateReviewIcon from "@material-ui/icons/RateReview";
 import Tooltip from "@material-ui/core/Tooltip";
+import { Link } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    width: 1700,
+    
+    alignSelf: "center",
+    width: 1000,
     paddingLeft: "80px",
-    paddingTop: "15px"
+    paddingRight: "80px",
+    paddingTop: "15px",
+    paddingBottom: "150px",
+    backgroundColor: theme.palette.background.paper
+   
   },
   demo: {
     backgroundColor: theme.palette.background.paper
@@ -29,7 +36,15 @@ const useStyles = makeStyles(theme => ({
     margin: theme.spacing(4, 0, 2)
   },
   total: {
-    paddingLeft: 75
+    alignContent: "flex-end",
+    paddingLeft: 75,
+    paddingBotton: "100px"
+
+  },
+  container:{
+    display: "flex",
+    justifyContent: "center",
+
   }
 }));
 
@@ -41,47 +56,56 @@ function generate(element) {
   );
 }
 
-export default function Pedido() {
+export default function Pedido({pedidoSelected, handleClick, total}) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.container}>
+    <div className={classes.root} >
+
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <Typography variant="h3" className={classes.title}>
-            Pedido # 345
+            {`Pedido # ${pedidoSelected.pedido.id}`}
           </Typography>
           <Typography variant="h6" className={classes.title}>
-            Status: Despachado Fecha: 12/12/12
+           {` Status: ${pedidoSelected.pedido.orderStatus} Fecha: ${pedidoSelected.pedido.orderDate.split("T")[0]}`}
           </Typography>
           <div className={classes.demo}>
-            <List>
-              {generate(
-                <ListItem button>
+            <List>{pedidoSelected.items.map((item)=>{
+              return (
+              
+                <ListItem button onClick={()=>{ handleClick(item.book.id)}} key={item.book.id}>
                   <ListItemAvatar>
-                    <Avatar>
+                    <Avatar  src={item.book.url}>
                       <FolderIcon />
                     </Avatar>
                   </ListItemAvatar>
-                  <ListItemText primary="Titulo" secondary="cantidad:" />
-                  <ListItemText primary="Precio: " />
+                  <ListItemText primary={item.book.titulo} secondary={`cantidad: ${item.cantidad} `}/>
+                  <ListItemText primary={`Precio: $ ${item.book.precio} `}/>
                   <ListItemSecondaryAction>
                     <Tooltip title="Deja una resena">
-                      <IconButton edge="end" aria-label="delete">
+                      <IconButton edge="end" aria-label="delete"onClick={()=>{ handleClick(item.book.id)}}>
                         <RateReviewIcon color="secondary" />
                       </IconButton>
                     </Tooltip>
                   </ListItemSecondaryAction>
                 </ListItem>
-              )}
+               
+              )
+            })}
+             
               <ListItem className={classes.total}>
-                <ListItemText primary="Total" />
-                <ListItemText primary="$$$$" />
+             
+
+                <ListItemText primary= {`Total: $${total}`} />
+            
               </ListItem>
             </List>
           </div>
         </Grid>
       </Grid>
+    </div>
     </div>
   );
 }
