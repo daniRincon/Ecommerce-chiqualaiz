@@ -35,6 +35,7 @@ export default props => {
           books={props.books}
           filtered={props.filtered}
           filteredGenres={props.filteredGenres}
+          history={props.history}
         />
       </div>
       {props.loggedName.permisos ? (
