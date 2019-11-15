@@ -78,11 +78,28 @@ export const filterBooks = (searchValue, books) => dispatch => {
   dispatch(filteredBooks(filtBooks, emptySearch));
 };
 
+function compare(a, b, order) {
+  let A, B;
+  if (order === "estrellas") {
+    return b[order] - a[order];
+  } else {
+    A = a[order].toUpperCase();
+    B = b[order].toUpperCase();
+  }
+  let comparison = 0;
+  if (A > B) {
+    comparison = 1;
+  } else if (A < B) {
+    comparison = -1;
+  }
+  return comparison;
+}
+
 export const sortBooks = (filtered, books, order) => dispatch => {
-  console.log("ORDENAR");
+  order = order === "rating" ? "estrellas" : order;
   const srtBooks = filtered.length
-    ? filtered.sort((a, b) => a[order] < b[order])
-    : books.sort((a, b) => a[order] < b[order]);
+    ? filtered.sort((a, b) => compare(a, b, order))
+    : books.sort((a, b) => compare(a, b, order));
   dispatch(sorteredBooks(filtered, books, srtBooks));
 };
 
@@ -109,8 +126,9 @@ export const firstTime = () => dispatch => {
 };
 
 export const review = (alias, titulo, content, id) => dispatch => {
-  return axios.post("/api/books/review", { alias, titulo, content, id })
-  .then((res)=>{
-    dispatch(receiveBook(res.data))
-  })
+  return axios
+    .post("/api/books/review", { alias, titulo, content, id })
+    .then(res => {
+      dispatch(receiveBook(res.data));
+    });
 };

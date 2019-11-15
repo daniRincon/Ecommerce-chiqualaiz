@@ -7,6 +7,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { filteredGenres } from "../store/actions/books";
 import { sortBooks } from "../store/actions/books";
+import store from "../store";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -73,17 +74,8 @@ export default ({ books, filtered, filteredGenres }) => {
           value={orderOption.length > 0 ? orderOption : ""}
           onChange={e => {
             const value = e.target.value;
-            console.log();
             setOrderOption(value);
-            console.log("ANTES SORT");
-            sortBooks(filtered, books, value);
-            /*  setCategories('')
-              props.filteredGenres(0)
-            }
-            else{ 
-              
-              props.filteredGenres(e.target.value.toString()) }
-           */
+            store.dispatch(sortBooks(filtered, books, value));
           }}
           input={<Input />}
           MenuProps={MenuProps}
