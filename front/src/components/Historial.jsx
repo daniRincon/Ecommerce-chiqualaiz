@@ -1,6 +1,8 @@
 import React from "react";
 import PersonIcon from "@material-ui/icons/Person";
 import styles from "../css-modules/historial.module.css";
+import { Link } from "react-router-dom";
+
 const Historial = props => {
   return (
     <div>
@@ -28,20 +30,20 @@ const Historial = props => {
       <div id="slider-history" className={"container " + styles.drawer}>
         <div className="shopping-cart">
           <div className="shopping-cart-head">
-            <h4 className={styles.title}>Historial</h4>
+            <h4 className={styles.title}> <strong>Historial</strong></h4>
           </div>
           <ul className="shopping-cart-list">
             {props.historial.length
               ? props.historial.map((pedido, index) => {
                   return (
-                    <div key={index}>
-                      <li>Pedido: {pedido.pedido} </li>
+                    <div style={{display: "flex", justifyContent: "center"}} key={index}>
+                      <Link to={`/pedido/${pedido.pedido}`}onClick={() => props.click(pedido.pedido)} style={{color: "white", cursor: 'pointer'}} ><li>Pedido: {pedido.pedido} </li> </Link>
                     </div>
                   );
                 })
-              : "No se han encontrado pedidos..."}
+              : <div  style={{display: "flex", justifyContent: "center" ,paddingLeft: "15px"}} >No se han encontrado pedidos...</div> }
           </ul>
-          <div className="cart-buttons"></div>
+          <div  className="cart-buttons"></div>
         </div>
       </div>
     </div>

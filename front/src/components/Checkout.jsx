@@ -46,6 +46,7 @@ export default ({
             type="email"
             id="email"
             name="email"
+          
             defaultValue={user.email || ""}
             className="form-control"
             placeholder="Correo"

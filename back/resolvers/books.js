@@ -220,15 +220,25 @@ const review = function(req, res) {
       book.update({
         estrellas: estrellas
       });
-
       let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
       review.setUser(userId);
       review.setBook(req.body.id);
     })
-    .then(() => res.sendStatus(201))
-    .catch(err => {
-      res.send(err);
-    });
+    .then(() => {return Book.findOne({
+      where: {
+        id: req.body.id
+      }
+    })})
+    .then(async book => {
+        const author = await book.getAuthor();
+        const genresObj = await book.getGenres();
+        const reviews = await book.getReviews();
+        const genres = genresObj.map(obj => obj.nombre);
+        res.json({ ...book.dataValues, author: author.nombre, genres, reviews });
+      })
+      .catch(err => {
+        return res.status(404).send(err);
+      });
 };
 
 module.exports = {

@@ -46,10 +46,10 @@ class CheckoutContainer extends Component {
         : this.validPassword(this.state.password);
     } else {
       return alert("Login required to purchase");
-    }
+    } 
   }
 
-  validPassword(password) {
+  validPassword(password, email, cart) {
     axios
       .post("/api/sessions/validation", { password })
       .then(res => res.data)
@@ -61,9 +61,9 @@ class CheckoutContainer extends Component {
             .then(result => {
               if (result) {
                 this.setState({ warning: "", orderPlaced: true });
-                this.props.placeOrder(this.props.user.loggedName);
+                this.props.placeOrder(this.props.user.loggedName, email, cart);
               } else {
-                console.log("No hay suficiente stock para confirmar la compra");
+                alert("No hay suficiente stock para confirmar la compra");
               }
             });
         } else {
