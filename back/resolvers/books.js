@@ -26,7 +26,7 @@ const fetchBook = function(req, res) {
       const genresObj = await book.getGenres();
       const reviews = await book.getReviews();
       const genres = genresObj.map(obj => obj.nombre);
-      res.json({ ...book.dataValues, author: author.nombre, genres, reviews });
+      res.send({ ...book.dataValues, author: author.nombre, genres, reviews });
     })
     .catch(err => {
       return res.status(404).send(err);
@@ -41,7 +41,7 @@ const fetchGenre = function(req, res) {
       }
     ]
   }).then(book => res.send(book));
-}
+};
 
 const filteredGenres = function(req, res) {
   Book.findAll({
@@ -206,12 +206,21 @@ const review = function(req, res) {
   Review.create({
     title: req.body.titulo,
     content: req.body.content,
-    estrellas: 1,
+    estrellas: 5,
     autor: req.body.autor
   })
-    .then(review => {
-      let user = req.user[0] || req.user
-      let userId = user.dataValues ? user.dataValues.id : user.id;
+    .then(async review => {
+      //Calculo de rating promedio
+      const bookId = req.body.id;
+      const book = await Book.findByPk(bookId);
+      reviews = await book.getReviews();
+      const total = reviews.reduce((a, b) => a + b.estrellas, 0) || 0;
+      const count = reviews.length || 1;
+      const estrellas = Math.ceil(total / count);
+      book.update({
+        estrellas: estrellas
+      });
+      let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
       review.setUser(userId);
       review.setBook(req.body.id);
     })

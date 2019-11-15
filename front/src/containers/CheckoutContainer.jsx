@@ -23,7 +23,9 @@ class CheckoutContainer extends Component {
       password: "",
       warning: "",
       orderPlaced: false,
-      socialNetworkUser: /^(f|g)\d\d\d\d\d\d+/.test(this.props.user.loggedName.username)
+      socialNetworkUser: /^(f|g)\d\d\d\d\d\d+/.test(
+        this.props.user.loggedName.username
+      )
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePasswordInput = this.handlePasswordInput.bind(this);
@@ -36,12 +38,12 @@ class CheckoutContainer extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if(this.props.user.loggedName){
-    let email = e.target[3].value? e.target[1].value : e.target[0].value;
-    let cart = this.props.cart
-      this.state.socialNetworkUser? this.props.placeOrder(this.props.user.loggedName, email, cart)
-                                  && this.setState({ warning: "", orderPlaced: true })
-                                  : this.validPassword(this.state.password, email, cart);
+    let email = e.target[3].value ? e.target[1].value : e.target[0].value;
+    if (this.props.user.loggedName.id) {
+      this.state.socialNetworkUser
+        ? this.props.placeOrder(this.props.user.loggedName, email) &&
+          this.setState({ warning: "", orderPlaced: true })
+        : this.validPassword(this.state.password);
     } else {
       return alert("Login required to purchase");
     } 

@@ -8,7 +8,6 @@ const Sequelize = require("sequelize");
 const Book = require("../models/Book");
 const User = require('../models/User')
 
-
 router.post("/", function(req, res) {
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -54,11 +53,11 @@ router.post("/", function(req, res) {
         .then(res => {
           transporter.sendMail(mailOptions, (err, data) => {
             if (err) {
-              res.json({
+              res.send({
                 msg: "fail"
               });
             } else {
-              res.json({
+              res.send({
                 msg: "success"
               });
             }
