@@ -219,7 +219,8 @@ const review = function(req, res) {
       book.update({
         estrellas: estrellas
       });
-      let userId = req.user.length ? req.user[0].id : req.user.id;
+      let user= req.user.length ? req.user[0]: req.user;
+      let userId = user.dataValues ? user.dataValues.id : user.id;
       review.setUser(userId);
       review.setBook(req.body.id);
     })
