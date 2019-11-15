@@ -145,21 +145,18 @@ export const placeOrder = (user, mail, cart) => dispatch => {
     .catch(err => console.error(err));
 };
 
-
 export const fetchAdminOrders = () => dispatch =>{
   return axios
     .get("/api/pedidos/dashboard/adminOrders")
-
+    .then(res => res.data)
+    .then(historial => dispatch(adminHistorial(historial)));
+  }
 
 export const updateUser = userForUpdate => dispatch => {
-  console.log(userForUpdate);
   return axios
     .put("/api/users/editprofile", { data: userForUpdate })
     .then(userUpdated => dispatch(getUser(userUpdated.data)))
     .catch(err => console.log(err));
-
-    .then(res => res.data)
-    .then(historial => dispatch(adminHistorial(historial)));
   }
 
 export const fetchPedido = id => dispatch => {
