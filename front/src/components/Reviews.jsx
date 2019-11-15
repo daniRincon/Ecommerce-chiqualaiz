@@ -24,7 +24,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Reviews(props) {
-  console.log(props)
   const classes = useStyles();
 
   const [value, setValue] = React.useState(0);
@@ -63,10 +62,6 @@ export default function Reviews(props) {
                   name="alias"
                 ></input>
               </div>
-              {/* <div className="form-group">
-                <label>Titulo:</label>
-                <input type="text" name="titulo"></input>
-              </div> */}
                 <label>Content:</label>
               <div className="form-group">
                 <textarea
