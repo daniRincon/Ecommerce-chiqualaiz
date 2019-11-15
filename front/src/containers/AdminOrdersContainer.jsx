@@ -5,12 +5,7 @@ import { connect } from "react-redux";
 import { userHistorial } from "../store/actions/users";
 
 class AdminOrdersContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      historialAdmin: []
-    };
-  }
+
 
   componentDidMount() {
     this.props.fetchAdminOrders();

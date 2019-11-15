@@ -112,10 +112,11 @@ export const userLogOut = () => dispatch => {
     .catch(error => console.error(error));
 };
 
-export const placeOrder = (user, mail) => dispatch => {
+export const placeOrder = (user, mail, cart) => dispatch => {
+
   return axios
     .post("/api/pedidos", {
-      messageHtml: renderEmail(<MyEmail name={user.name} />),
+      messageHtml: renderEmail(<MyEmail name={user.name} cart={cart} />),
       name: user.name,
       to: mail
     })
