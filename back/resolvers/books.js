@@ -204,23 +204,24 @@ const updateStock = async function(req, res) {
 
 const review = function(req, res) {
   Review.create({
-    // title: req.body.titulo,
     content: req.body.content,
-    estrellas: 5,
-    autor: req.body.autor
+    estrellas: req.body.value,
+    autor: req.body.alias
   })
     .then(async review => {
       //Calculo de rating promedio
       const bookId = req.body.id;
       const book = await Book.findByPk(bookId);
       reviews = await book.getReviews();
+      console.log(reviews)
       const total = reviews.reduce((a, b) => a + b.estrellas, 0) || 0;
       const count = reviews.length || 1;
       const estrellas = Math.ceil(total / count);
       book.update({
         estrellas: estrellas
       });
-      let userId = req.user.dataValues ? req.user.dataValues.id : req.user.id;
+      console.log(req.user)
+      let userId = req.user.length ? req.user[0].id : req.user.id;
       review.setUser(userId);
       review.setBook(req.body.id);
     })

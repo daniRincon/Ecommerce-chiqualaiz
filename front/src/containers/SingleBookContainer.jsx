@@ -21,9 +21,9 @@ class SingleBookContainer extends React.Component {
       .catch(err => console.error(err));
   }
 
-  handleSubmit(e, value, content, alias){
+  handleSubmit(e, value, content, alias, id){
     e.preventDefault();
-    this.props.review(e.target[0].value, e.target[1].value, e.target[2].value, this.props.book.id)
+    this.props.review(value, content, alias, id)
     this.props.history.push('/')
   }
 
@@ -71,7 +71,7 @@ const mapDispatchToProps = dispatch => ({
   fetchBooks: () => dispatch(fetchBooks()),
   fetchBook: book => dispatch(fetchBook(book)),
   addBookCart: (book, userId) => dispatch(addCart(book, userId)),
-  review: (alias, titulo, content, id, book) => dispatch(review(alias, titulo, content, id, book))
+  review: (value, content, alias, id) => dispatch(review(value, content, alias, id))
 });
 
 export default connect(

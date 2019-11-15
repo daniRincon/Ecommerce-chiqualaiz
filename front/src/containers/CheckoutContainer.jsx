@@ -49,6 +49,7 @@ class CheckoutContainer extends Component {
       return alert("Login required to purchase");
     }
   }
+}
     
 
   validPassword(password, email, cart) {
