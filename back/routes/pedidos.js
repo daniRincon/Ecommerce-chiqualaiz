@@ -123,16 +123,29 @@ router.get("/adminOrders", function(req, res) {
         where: { pedidoId: pedido.id }
       });
       return {
+        id: pedido.user.id,
         name: pedido.user.name,
         lastname: pedido.user.lastname,
         pedido: pedido.id,
-        items: items
+        items: items,
+        orderStatus: pedido.orderStatus
       };
     });
     Promise.all(historial).then(realHistorial => {
       res.status(200).send(realHistorial);
     });
   });
+});
+
+router.put("/adminOrders", function(req, res) {
+  Pedido.update({ orderStatus: req.body[0] },
+    {where: {
+      id: req.body[1],
+      userId: req.body[2]
+    }}
+    )
+    .then((data)=> res.send(req.body[0]))
+    .catch(err => (res.status(400), console.log(err)));
 });
 
 module.exports = router;

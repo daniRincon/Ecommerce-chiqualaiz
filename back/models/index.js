@@ -12,6 +12,7 @@ Book.belongsToMany(Genre, { through: "BookGenre" });
 Genre.belongsToMany(Book, { through: "BookGenre" })
 Pedido.belongsTo(User);
 OrderItem.belongsTo(Pedido);
+Pedido.hasMany(OrderItem);
 Review.belongsTo(Book);
 Book.hasMany(Review);
 Review.belongsTo(User);

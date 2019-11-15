@@ -9,6 +9,7 @@ import {
   SET_HISTORIAL,
   GET_USERS,
   SET_ADMINHISTORIAL,
+  SET_STATUS,
   PEDIDO_SELECTED
 } from "../constants/index";
 
@@ -31,6 +32,11 @@ const logUser = logUser => ({
   type: LOG_USER,
   logUser
 });
+
+const setStatus = setStatus => ({
+  type: SET_STATUS,
+  setStatus
+})
 
 export const setHistorial = historial => ({
   type: SET_HISTORIAL,
@@ -68,6 +74,12 @@ export const changePermission = ([value, id]) => dispatch => {
   axios
     .put(`/api/users/permisos`, { data: [value, id] })
     .then(users => dispatch(getUsers(users.data)));
+};
+
+export const setOrderStatus = ([status, orderId, userId]) => dispatch => {
+  axios
+    .put(`/api/pedidos/adminOrders`, [status, orderId, userId])
+    .then(info => dispatch(setStatus(info.data)))
 };
 
 export const delUsers = arrId => dispatch => {
