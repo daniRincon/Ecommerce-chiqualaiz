@@ -77,7 +77,6 @@ export const changePermission = ([value, id]) => dispatch => {
 };
 
 export const setOrderStatus = ([status, orderId, userId]) => dispatch => {
-  console.log('axiooooooooooooooooooosssssssssssssssss')
   return axios
     .put(`/api/pedidos/adminOrders`, [status, orderId, userId])
     .then(info => dispatch(setStatus(info.data)))
