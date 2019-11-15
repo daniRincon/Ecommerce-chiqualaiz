@@ -4,10 +4,6 @@ const db = require("../config/db");
 class Review extends S.Model {}
 Review.init(
   {
-    // title: {
-    //   type: S.STRING,
-    //   allowNull: false
-    // },
     content: S.TEXT,
     estrellas: {
       type: S.INTEGER
