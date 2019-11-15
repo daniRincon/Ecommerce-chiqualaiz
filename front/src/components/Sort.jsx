@@ -71,7 +71,6 @@ export default props => {
           onOpen={handleOpen}
           value={orderOption.length > 0 ? orderOption : ""}
           onChange={e => {
-            console.log(e.target.value);
             setOrderOption(e.target.value);
             //filtered.length ? sortBooks(filtered) : sortBooks(books);
             /*  setCategories('')
