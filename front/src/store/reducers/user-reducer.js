@@ -3,14 +3,16 @@ import {
   GET_USER,
   SET_HISTORIAL,
   GET_USERS,
-  SET_ADMINHISTORIAL
+  SET_ADMINHISTORIAL,
+  PEDIDO_SELECTED
 } from "../constants/index";
 
 const initialState = {
   loggedName: "",
   historial: [],
   list: [],
-  adminHistorial: []
+  adminHistorial: [],
+  pedidoSelected: {}
 };
 
 export default function(state = initialState, action) {
@@ -36,6 +38,10 @@ export default function(state = initialState, action) {
         ...state,
         adminHistorial: action.adminHistorial
       };
+    case PEDIDO_SELECTED:
+      return Object.assign({}, state, {
+        pedidoSelected: action.pedido
+      });
     default:
       return state;
   }
