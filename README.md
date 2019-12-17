@@ -1,5 +1,4 @@
 # Ecommerce-chiqualaiz
-Trabajo en grupo con El mejor equipo del mundo
 
 BACK-END
 Correr "npm start" para crear la base de datos
