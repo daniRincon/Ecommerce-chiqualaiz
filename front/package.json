@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack -w"
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development --watch",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
   },
   "author": "EQUIPO CHIQUALAIZ",
   "license": "ISC",
